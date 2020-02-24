@@ -21,4 +21,9 @@
 - ip2region 精度较高的IP转地址的工具
 - UserAgentUtils 根据请求request获取客户端浏览器 ip 等信息
 - antisamy 防止XSS工具的
-- 
+- p6spy 打印springboot执行的sql语句
+
+- javassist 动态修改字节码文件中的方法
+
+- JGroups 分布式通信框架
+
