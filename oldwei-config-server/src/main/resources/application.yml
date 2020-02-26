@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name:  oldwei-config-server
+    name:  @pom.config.server.name@
   cloud:
     config:
       server:
@@ -13,7 +13,7 @@ spring:
 #          password: xxxxxxx
 
 server:
-  port: 8002
+  port: @pom.config.server.port@
 
 
 eureka:

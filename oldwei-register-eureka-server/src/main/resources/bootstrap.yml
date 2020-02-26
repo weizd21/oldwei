@@ -1,8 +1,0 @@
-#spring:
-#  cloud:
-#    config:
-#      name: oldwei-register-eureka-server
-#      profile: dev
-#      discovery:
-#        service-id: oldwei-config-server
-#        enabled: true

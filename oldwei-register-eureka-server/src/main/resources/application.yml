@@ -1,8 +1,8 @@
 server:
-  port: 8001 #指定运行端口
+  port: @pom.register.eureka.server.port@ #指定运行端口
 spring:
   application:
-    name: oldwei-register-eureka-server #指定服务名称
+    name: @pom.register.eureka.server.name@ #指定服务名称
 
 
 

@@ -20,11 +20,15 @@
 
 
 
+
     <!-- env -->
     <profiles>
+
         <profile>
             <id>local</id>
-
+            <properties>
+                <pom.profile.name>local</pom.profile.name>
+            </properties>
         </profile>
 
         <profile>
@@ -33,16 +37,27 @@
                 <!-- default -->
                 <activeByDefault>true</activeByDefault>
             </activation>
-
+            <properties>
+                <pom.profile.name>dev</pom.profile.name>
+            </properties>
 
         </profile>
 
         <profile>
             <id>test</id>
+            <properties>
+                <pom.profile.name>test</pom.profile.name>
+            </properties>
+
         </profile>
 
         <profile>
             <id>release</id>
+
+            <properties>
+                <pom.profile.name>release</pom.profile.name>
+            </properties>
+
         </profile>
 
     </profiles>
@@ -50,6 +65,16 @@
 
 
     <properties>
+
+        <pom.register.eureka.server.port>8001</pom.register.eureka.server.port>
+        <pom.config.server.port>8002</pom.config.server.port>
+        <pom.product.port>8003</pom.product.port>
+
+        <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
+        <pom.config.server.name>oldwei-config-server</pom.config.server.name>
+        <pom.product.name>oldwei-product</pom.product.name>
+
+
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

@@ -1,8 +1,28 @@
+
+#spring:
+#  application:
+#    name: @pom.product.name@ #指定服务名称
+#  profiles:
+#    active: @pom.profile.name@
+#
+#server:
+#  port: @pom.product.port@ #指定运行端口
+
+
+
 spring:
+  application:
+    name: @pom.product.name@
   cloud:
     config:
-      name: oldwei-product
-      profile: dev
+      name: ${spring.application.name}
+      profile: @pom.profile.name@
       discovery:
-        service-id: oldwei-config-server
+        service-id: @pom.config.server.name@
         enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka
+

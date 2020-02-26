@@ -14,8 +14,8 @@ import java.net.UnknownHostException;
  * @Author:weizd
  * @Date:20-2-26
  */
-@SpringBootApplication
 @Slf4j
+@SpringBootApplication
 @EnableDiscoveryClient
 public class ProductApplication {
 

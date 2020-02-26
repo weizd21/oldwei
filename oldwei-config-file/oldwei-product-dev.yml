@@ -1,11 +1,15 @@
-server:
-  port: 8003 #指定运行端口
 spring:
   application:
-    name: oldwei-register-eureka-server #指定服务名称
+    name: @pom.product.name@ #指定服务名称
+  profiles:
+    active: @pom.profile.name@
+
+server:
+  port: @pom.product.port@ #指定运行端口
+
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8001/eureka
-
 
