@@ -6,22 +6,10 @@
 
     <parent>
         <groupId>top.oldwei</groupId>
-        <artifactId>oldwei-dependencies</artifactId>
+        <artifactId>oldwei-common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>oldwei-common</artifactId>
-
-    <!-- 设置打包方式为jar -->
-    <packaging>jar</packaging>
-
-
-    <properties>
-
-    </properties>
-
-
-
-
+    <artifactId>oldwei-user</artifactId>
 
 </project>
