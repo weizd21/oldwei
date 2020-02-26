@@ -9,8 +9,8 @@ spring:
           uri: https://github.com/weizd21/oldwei.git #GitHub上面的git仓库名字
           label: develop
           search-paths: oldwei-config-file
-#          username: weizd21
-#          password: xxxxxxx
+          username:
+          password:
 
 server:
   port: @pom.config.server.port@

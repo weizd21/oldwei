@@ -13,6 +13,8 @@
 spring:
   application:
     name: @pom.product.name@
+  profiles:
+    active: @pom.profile.name@
   cloud:
     config:
       name: ${spring.application.name}
@@ -21,8 +23,8 @@ spring:
         service-id: @pom.config.server.name@
         enabled: true
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8001/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8001/eureka
 
