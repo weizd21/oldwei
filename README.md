@@ -52,3 +52,10 @@
 
 - JGroups 分布式通信框架
 
+
+
+### 服务端口
+
+1. dev
+-  oldwei-register-eureka-server 8001
+-  oldwei-config-server 8001

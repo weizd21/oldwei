@@ -1,0 +1,16 @@
+
+spring:
+  application:
+    name:  oldwei-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/weizd21/oldwei.git #GitHub上面的git仓库名字
+          label: develop
+          search-paths: oldwei-config-file
+#          username: weizd21
+#          password: xxxxxxx
+
+server:
+  port: 8002
