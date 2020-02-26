@@ -1,7 +1,8 @@
-
 spring:
   application:
     name:  @pom.config.server.name@
+  profiles:
+    active: @pom.profile.name@
   cloud:
     config:
       server:
@@ -11,7 +12,6 @@ spring:
           search-paths: oldwei-config-file
           username:
           password:
-
 server:
   port: @pom.config.server.port@
 
@@ -19,4 +19,15 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8001/eureka
+      defaultZone: @pom.register.eureka.server.defaultZone@
+
+
+#关闭安全认证
+management:
+  security:
+    enabled: false
+  #refresh接入点显式暴露出来
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info,bus-refresh

@@ -28,6 +28,7 @@
             <id>local</id>
             <properties>
                 <pom.profile.name>local</pom.profile.name>
+                <pom.register.eureka.server.defaultZone>http://127.0.0.1:8001/eureka</pom.register.eureka.server.defaultZone>
             </properties>
         </profile>
 
@@ -39,6 +40,7 @@
             </activation>
             <properties>
                 <pom.profile.name>dev</pom.profile.name>
+                <pom.register.eureka.server.defaultZone>http://localhost:8001/eureka</pom.register.eureka.server.defaultZone>
             </properties>
 
         </profile>
@@ -47,6 +49,8 @@
             <id>test</id>
             <properties>
                 <pom.profile.name>test</pom.profile.name>
+                <pom.register.eureka.server.defaultZone>http://127.0.0.1:8001/eureka</pom.register.eureka.server.defaultZone>
+
             </properties>
 
         </profile>
@@ -56,6 +60,8 @@
 
             <properties>
                 <pom.profile.name>release</pom.profile.name>
+                <pom.register.eureka.server.defaultZone>http://localhost:8001/eureka</pom.register.eureka.server.defaultZone>
+
             </properties>
 
         </profile>

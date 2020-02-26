@@ -21,7 +21,10 @@
 - 订单模块调用商品模块实现用户下单操作
     - 分布式事务
     
-- 
+- spring-cloud-config配置中心
+    - 整合spring-cloud-bus 实现配置动态刷新
+    
+    
 
 
 

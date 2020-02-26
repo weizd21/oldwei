@@ -19,10 +19,11 @@ spring:
     config:
       name: ${spring.application.name}
       profile: @pom.profile.name@
-#      label: develop
-#      discovery:
-#        service-id: @pom.config.server.name@
-      enabled: true                        #开启Config服务发现支持
+      label: develop
+      #      uri: http://localhost:8002
+      discovery:
+        service-id: @pom.config.server.name@
+        enabled: true                        #开启Config服务发现支持
       #配置重试机制
       retry:
         initial-interval: 2000
@@ -30,11 +31,11 @@ spring:
         max-interval: 2000
         multiplier: 1.2
       fail-fast: true
-      uri: http://localhost:8002
 
 
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8001/eureka
+
+eureka:
+  client:
+    service-url:
+      defaultZone: @pom.register.eureka.server.defaultZone@
 
