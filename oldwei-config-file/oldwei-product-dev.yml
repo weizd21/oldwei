@@ -1,5 +1,5 @@
 
 server:
-  port: @pom.product.port@ #指定运行端口
+  port: 8003 #指定运行端口
 
 
