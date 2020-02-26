@@ -1,11 +1,9 @@
-package top.oldwei.config;
+package top.oldwei.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.config.server.EnableConfigServer;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -16,14 +14,13 @@ import java.net.UnknownHostException;
  * @Author:weizd
  * @Date:20-2-26
  */
-@Slf4j
 @SpringBootApplication
-@EnableConfigServer
+@Slf4j
 @EnableDiscoveryClient
-public class ConfigServerApplication {
+public class ProductApplication {
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ConfigServerApplication.class,args);
+        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ProductApplication.class,args);
 
         Environment environment = configurableApplicationContext.getEnvironment();
 

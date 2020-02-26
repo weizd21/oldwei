@@ -59,3 +59,4 @@
 1. dev
 -  oldwei-register-eureka-server 8001
 -  oldwei-config-server 8001
+-  oldwei-product  8002
