@@ -6,6 +6,7 @@
     <modules>
         <module>oldwei-mybatis-starter</module>
         <module>oldwei-cache-starter</module>
+        <module>oldwei-redis-starter</module>
     </modules>
 
     <parent>
