@@ -63,3 +63,27 @@
 -  oldwei-register-eureka-server 8001
 -  oldwei-config-server 8001
 -  oldwei-product  8002
+
+
+
+
+### 参考文档
+
+- github 项目参考详情
+
+  ├── dis-seckill
+  ├── distributed-redis-tool
+  ├── eladmin
+  ├── FEBS-Cloud
+  ├── mall-swarm
+  ├── netty
+  ├── redisson-spring-boot-starter
+  ├── redis-spring-boot-starter
+  ├── springboot-cloud
+  ├── spring-boot-demo
+  ├── spring-boot-klock-starter
+  ├── springcloud-learning
+  ├── viboot
+  └── zuihou-admin-cloud
+  
+
