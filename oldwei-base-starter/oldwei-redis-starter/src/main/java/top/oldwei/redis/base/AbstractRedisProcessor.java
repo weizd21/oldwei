@@ -17,33 +17,6 @@ import java.io.ObjectOutputStream;
 public abstract class AbstractRedisProcessor implements RedisCommand {
 
     /**
-     * 默认的线程标识
-     */
-    protected static ThreadLocal<String> threadFlag = new ThreadLocal<>();
-
-    /**
-     * 线程标识
-     */
-    protected static String THREAD_FLAG_NUM = "thread:flag:num";
-
-    /**
-     * 阻塞队列key前缀
-     */
-    protected static String BLOCKING_KEY_PREFIX = "blocking:";
-
-    /**
-     * 获取连接工厂
-     *
-     * @return
-     */
-    public abstract JedisConnectionFactory getConnectionFactory();
-
-    /**
-     * 关闭连接
-     */
-    public abstract void close();
-
-    /**
      * 序列化
      */
     protected static byte[] serialize(Object object) {
