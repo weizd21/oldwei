@@ -19,7 +19,6 @@ import java.net.UnknownHostException;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
-@Controller
 @EnableConfigurationProperties
 public class ProductApplication {
 

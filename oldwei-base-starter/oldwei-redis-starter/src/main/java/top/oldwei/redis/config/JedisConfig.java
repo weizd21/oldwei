@@ -23,6 +23,7 @@ import java.util.Set;
  * @Date:20-3-2
  */
 @Slf4j
+@ConditionalOnProperty(prefix = "oldwei.redis",name = "client-type",havingValue = RedisConstant.CLIENT_JEDIS)
 @Configuration
 public class JedisConfig {
 
@@ -74,11 +75,11 @@ public class JedisConfig {
         log.info("---注入jedisSentinelPool成功---");
         Set<String> nodeSet = new HashSet<>();
         if(StrUtil.isEmpty(redisProperties.getNodes())){
-            throw new RuntimeException("redisConfig initialize error: oldwei.redis.nodes is null");
+            throw new RuntimeException("jedisConfig initialize error: oldwei.redis.nodes is null");
         }
         String [] nodeArray = redisProperties.getNodes().split(",");
         if(nodeArray.length == 0){
-            throw new RuntimeException("redisConfig initialize error: oldwei.redis.nodes is null");
+            throw new RuntimeException("jedisConfig initialize error: oldwei.redis.nodes is null");
         }
         for(String nodeStr:nodeArray){
             nodeSet.add(nodeStr);

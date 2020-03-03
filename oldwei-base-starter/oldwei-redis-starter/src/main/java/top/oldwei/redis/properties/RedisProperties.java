@@ -8,7 +8,11 @@ import lombok.ToString;
 import org.apache.commons.pool2.impl.BaseObjectPoolConfig;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
+import top.oldwei.redis.config.JedisConfig;
+import top.oldwei.redis.config.RedissonConfig;
+import top.oldwei.redis.handler.JedisService;
 
 /**
  * redis配置信息
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
+@Import({JedisConfig.class, RedissonConfig.class,JedisService.class})
 @ConfigurationProperties(prefix = "oldwei.redis")
 public class RedisProperties {
 

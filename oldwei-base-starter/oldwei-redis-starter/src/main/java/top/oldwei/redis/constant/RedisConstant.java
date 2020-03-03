@@ -24,7 +24,15 @@ public interface RedisConstant {
     String REDIS_SINGLE = "single";
 
 
+    /**
+     * jedis实现
+     */
+    String CLIENT_JEDIS = "jedis";
 
+    /**
+     * redisson实现
+     */
+    String CLIENT_REDISSON = "redisson";
 
 
 }

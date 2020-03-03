@@ -78,10 +78,10 @@
   ├── mall-swarm
   ├── netty
   ├── redisson-spring-boot-starter
-  ├── redis-spring-boot-starter
+  ├── redis-spring-boot-starter    基于注解实现/实现 单机、哨兵、集群 自由配置切换
   ├── springboot-cloud
   ├── spring-boot-demo
-  ├── spring-boot-klock-starter
+  ├── spring-boot-klock-starter  限流注解/接口层
   ├── springcloud-learning
   ├── viboot
   └── zuihou-admin-cloud

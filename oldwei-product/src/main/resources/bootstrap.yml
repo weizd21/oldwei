@@ -4,9 +4,10 @@ oldwei:
     port: 6379
     host: 127.0.0.1
     password: 123456
-    mode: sentinel
+    client-type: jedis #jedis 实现客户端操作 jedis/redisson
+    mode: sentinel #单机 / 哨兵 / 集群 single sentinel cluster
     nodes: 127.0.0.1:16379,127.0.0.1:16380,127.0.0.1:16381
-    master: my-master
+    master: my-master # 哨兵模式下 哨兵监控的主节点的名称
 
 
 spring:
