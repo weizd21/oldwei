@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.oldwei.redis.handler.JedisService;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 
 /**
  * @Author:weizd
@@ -55,6 +56,9 @@ public class ProductController {
     public String testRedis3(){
 
         RBucket<String> result = redissonClient.getBucket("hello");
+
+        result.set("current:"+ LocalDate.now().toString());
+
         log.info("redissonClient.getList:【{}】",result.get());
 
         return "success";
