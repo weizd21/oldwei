@@ -256,14 +256,6 @@
                 <version>${qiniu-java-sdk}</version>
             </dependency>
 
-            <!-- 对象转换 -->
-            <dependency>
-                <groupId>com.github.dozermapper</groupId>
-                <artifactId>dozer-spring-boot-starter</artifactId>
-                <version>${dozer.version}</version>
-            </dependency>
-
-
             <!-- swagger2 -->
             <dependency>
                 <groupId>io.springfox</groupId>

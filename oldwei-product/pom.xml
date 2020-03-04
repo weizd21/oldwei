@@ -13,6 +13,12 @@
 
     <dependencies>
 
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>top.oldwei</groupId>
             <artifactId>oldwei-redis-starter</artifactId>

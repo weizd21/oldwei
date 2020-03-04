@@ -1,5 +1,3 @@
-
-
 spring:
   application:
     name: @pom.product.name@
@@ -7,7 +5,7 @@ spring:
     active: @pom.profile.name@
   cloud:
     config:
-      name: ${spring.application.name},oldwei-redis
+      name: ${spring.application.name},oldwei-redis,oldwei-db
       profile: @pom.profile.name@
       label: develop
       #      uri: http://localhost:8002
