@@ -29,7 +29,7 @@ import java.util.Set;
  * @Date:20-3-3
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "oldwei.redis",name = "client-type",havingValue = RedisConstant.CLIENT_JEDIS)
+@ConditionalOnProperty(prefix = "oldwei.redis",name = "client-type",havingValue = RedisConstant.CLIENT_REDISSON)
 @Configuration
 public class RedissonConfig {
 
@@ -106,6 +106,8 @@ public class RedissonConfig {
         if(nodeArray.length == 0){
             throw new RuntimeException("RedissonConfig initialize error: oldwei.redis.nodes is null");
         }
+
+        nodeArray = new String[]{"127.0.0.1:5379","127.0.0.1:5380","127.0.0.1:5381","127.0.0.1:5382","127.0.0.1:5383","127.0.0.1:5384"};
 
         Set<String> nodeSet = new HashSet<>();
         Arrays.stream(nodeArray).forEach(node->{

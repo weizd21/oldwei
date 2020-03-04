@@ -1,12 +1,16 @@
 package top.oldwei.redis.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolAbstract;
 import redis.clients.jedis.ScanParams;
 import redis.clients.jedis.ScanResult;
 import top.oldwei.redis.base.AbstractRedisProcessor;
+import top.oldwei.redis.config.JedisConfig;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +26,8 @@ import java.util.Map;
 @Component
 public class JedisService extends AbstractRedisProcessor {
 
-    @Resource
+
+    @Autowired(required = false)
     private JedisPoolAbstract redisPool;
 
 

@@ -51,4 +51,15 @@ public class ProductController {
     }
 
 
+    @RequestMapping("/test3")
+    public String testRedis3(){
+
+        RBucket<String> result = redissonClient.getBucket("hello");
+        log.info("redissonClient.getList:【{}】",result.get());
+
+        return "success";
+    }
+
+
+
 }
