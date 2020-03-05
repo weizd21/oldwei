@@ -19,12 +19,16 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
+        log.info("insertFill.....");
+        this.strictInsertFill(metaObject, "createBy", String.class, LocalDateTime.now().toString());
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, LocalDateTime.now());
     }
 
 
     @Override
     public void updateFill(MetaObject metaObject) {
+        log.info("updateFile.....");
+        this.strictUpdateFill(metaObject, "updateBy", String.class, LocalDateTime.now().toString());
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
     }
 }

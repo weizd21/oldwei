@@ -19,7 +19,7 @@ public class Product extends BaseEntity {
     /**
      * 产品描述
      */
-    private String desc;
+    private String description;
 
     /**
      * 剩余数量

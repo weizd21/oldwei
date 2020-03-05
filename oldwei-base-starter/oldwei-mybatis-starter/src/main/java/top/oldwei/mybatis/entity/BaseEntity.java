@@ -23,7 +23,7 @@ public class BaseEntity implements Serializable {
      * 表主键
      */
     @TableId(type = IdType.UUID)
-    private String id;
+    protected String id;
 
 
     /**
@@ -32,36 +32,36 @@ public class BaseEntity implements Serializable {
      * 1-已删除
      */
     @TableLogic
-    private Integer deleted;
+    protected Integer deleted;
 
     /**
      * 乐观锁
      */
     @Version
-    private Integer version;
+    protected Integer version;
 
     /**
      * 记录生成人
      */
     @TableField(fill = FieldFill.INSERT)
-    private String createBy;
+    protected String createBy;
 
     /**
      * 生成时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    protected LocalDateTime createTime;
 
     /**
      * 更新人
      */
     @TableField(fill = FieldFill.UPDATE)
-    private String updateBy;
+    protected String updateBy;
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.UPDATE)
-    private LocalDateTime updateTime;
+    protected LocalDateTime updateTime;
 
 
 

@@ -77,7 +77,7 @@ public class ProductController {
         Product product = new Product();
 
         product.setName("test1");
-        product.setDesc("desc1");
+        product.setDescription("desc1");
 
         product.setLeaveNum(9999L);
 
