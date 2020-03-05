@@ -2,6 +2,7 @@ package top.oldwei.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.ToString;
 import top.oldwei.mybatis.entity.BaseEntity;
 
 /**
@@ -9,6 +10,7 @@ import top.oldwei.mybatis.entity.BaseEntity;
  * @Date:20-3-5
  */
 @Data
+@ToString(callSuper = true)
 @TableName(value = "d_product")
 public class Product extends BaseEntity {
 

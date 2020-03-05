@@ -90,6 +90,13 @@ public class ProductController {
         log.info("product:[{}]",product);
 
 
+        log.info("product:[{}]",productService.getById("b5192ceac7a861374158986a7ef83096"));
+
+
+        productService.removeById("b5192ceac7a861374158986a7ef83096");
+
+
+
         return R.success();
     }
 
