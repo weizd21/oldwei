@@ -76,11 +76,13 @@
         <pom.config.server.port>8002</pom.config.server.port>
         <pom.product.port>8003</pom.product.port>
         <pom.user.port>8004</pom.user.port>
+        <pom.order.port>8005</pom.order.port>
 
         <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
         <pom.config.server.name>oldwei-config-server</pom.config.server.name>
         <pom.product.name>oldwei-product</pom.product.name>
         <pom.user.name>oldwei-user</pom.user.name>
+        <pom.order.name>oldwei-order</pom.order.name>
 
 
 
