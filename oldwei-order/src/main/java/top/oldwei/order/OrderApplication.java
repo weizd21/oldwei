@@ -1,4 +1,4 @@
-package top.oldwei.product;
+package top.oldwei.order;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
@@ -9,26 +9,25 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
  * @Author:weizd
- * @Date:20-2-26
+ * @Date:20-3-7
  */
-@Slf4j
-@EnableTransactionManagement
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableConfigurationProperties
-@MapperScan("top.oldwei.product.mapper")
+@EnableDiscoveryClient
+@Slf4j
+@MapperScan("top.oldwei.**.mapper")
 @EnableDubbo
-public class ProductApplication {
+public class OrderApplication {
+
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(ProductApplication.class,args);
+        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(OrderApplication.class,args);
 
         Environment environment = configurableApplicationContext.getEnvironment();
 
@@ -44,9 +43,5 @@ public class ProductApplication {
         );
 
     }
-
-
-
-
 
 }

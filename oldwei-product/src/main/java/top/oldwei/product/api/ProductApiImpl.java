@@ -17,7 +17,6 @@ public class ProductApiImpl implements ProductApi {
     private ProductMapper productMapper;
 
 
-
     @Override
     public R getProductById(String id) {
         return R.success(productMapper.selectById(id));
