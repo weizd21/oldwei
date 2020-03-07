@@ -29,11 +29,11 @@ public class OrderController {
         if(StrUtil.isEmpty(id)){
             id = "xx";
         }
-        R<ProductVO> productVOR = productApi.getProductById(id);
+        ProductVO productVO = productApi.getProductById(id);
 
-        log.info("productVO:[{}]",productVOR.getData());
+        log.info("productVO:[{}]",productVO);
 
-        return productVOR;
+        return R.success(productVO);
     }
 
 }

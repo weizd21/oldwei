@@ -21,6 +21,25 @@ spring:
       fail-fast: true
 
 
+#embedded:
+#  zookeeper:
+#    port: 2181
+#
+#dubbo:
+#  application:
+#    name: ${spring.application.name}
+#  registry:
+#    address: zookeeper://127.0.0.1:${embedded.zookeeper.port}
+#  scan:
+#    base-packages: top.oldwei
+#  protocol:
+#    name: dubbo
+#    port: -1
+#  consumer:
+#    timeout: 5000
+#  provider:
+#    timeout: 5000
+#
 
 eureka:
   client:

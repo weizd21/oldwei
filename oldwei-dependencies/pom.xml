@@ -140,7 +140,7 @@
         <dubbo.version>2.7.5</dubbo.version>
         <zk.client.version>0.1</zk.client.version>
         <zk.version>3.4.9</zk.version>
-
+        <curator.version>4.2.0</curator.version>
 
         <!--实用工具-->
         <ip2region.version>1.7.2</ip2region.version>
@@ -179,6 +179,14 @@
                 <scope>import</scope>
             </dependency>
 
+
+            <!--<dependency>-->
+                <!--<groupId>org.apache.dubbo</groupId>-->
+                <!--<artifactId>dubbo-dependencies-bom</artifactId>-->
+                <!--<version>${dubbo.version}</version>-->
+                <!--<type>pom</type>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
 
             <!--<dependency>-->
                 <!--<groupId>org.springframework</groupId>-->
@@ -272,6 +280,20 @@
                 <artifactId>zookeeper</artifactId>
                 <version>${zk.version}</version>
             </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
 
 
             <!-- FastDFS文件 -->

@@ -1,5 +1,6 @@
 package top.oldwei.api.product;
 
+import top.oldwei.api.product.vo.ProductVO;
 import top.oldwei.common.base.R;
 
 /**
@@ -14,7 +15,7 @@ public interface ProductApi {
      * @param id
      * @return
      */
-    R getProductById(String id);
+    ProductVO getProductById(String id);
 
 
 }
