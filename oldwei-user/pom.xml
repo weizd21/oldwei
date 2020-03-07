@@ -12,4 +12,12 @@
 
     <artifactId>oldwei-user</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>top.oldwei</groupId>
+            <artifactId>oldwei-mybatis-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>

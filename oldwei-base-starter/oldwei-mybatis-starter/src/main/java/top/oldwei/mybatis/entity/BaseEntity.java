@@ -22,7 +22,7 @@ public class BaseEntity implements Serializable {
     /**
      * 表主键
      */
-    @TableId(type = IdType.UUID)
+    @TableId(type = IdType.ASSIGN_ID)
     protected String id;
 
 

@@ -75,10 +75,13 @@
         <pom.register.eureka.server.port>8001</pom.register.eureka.server.port>
         <pom.config.server.port>8002</pom.config.server.port>
         <pom.product.port>8003</pom.product.port>
+        <pom.user.port>8004</pom.user.port>
 
         <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
         <pom.config.server.name>oldwei-config-server</pom.config.server.name>
         <pom.product.name>oldwei-product</pom.product.name>
+        <pom.user.name>oldwei-user</pom.user.name>
+
 
 
         <java.version>1.8</java.version>
