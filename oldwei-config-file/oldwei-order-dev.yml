@@ -1,13 +1,21 @@
-spring:
-  dubbo:
-    application:
-      name: ${spring.application.name}   #别名，提供方应用信息，用于计算依赖关系
-    registry:
-      address: zookeeper://127.0.0.1:2181 #使用zookeeper注册中心暴露服务地址
-    protocol:
-      name: dubbo
-      port: -1         #配置暴露服务端口
-    scan: top.oldwei   #扫描需要暴露的服务
+embedded:
+  zookeeper:
+    port: 2181
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+    address: zookeeper://127.0.0.1:${embedded.zookeeper.port}
+  scan:
+    base-packages: top.oldwei
+  protocol:
+    name: dubbo
+    port: -1
+  consumer:
+    timeout: 5000
+  provider:
+    timeout: 5000
 
 server:
   port: 8005 #指定运行端口
