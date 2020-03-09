@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: @pom.gateway.name@
+  profiles:
+    active: @pom.profile.name@
   cloud:
     config:
       name: ${spring.application.name},oldwei-redis
@@ -25,7 +27,6 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-
       routes:
         - id: @pom.product.name@
           uri: lb://@pom.product.name@
@@ -43,15 +44,17 @@ eureka:
 
 
 
-# 暴露监控端点
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
+## 暴露监控端点
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+#  security:
+#    enabled: false
+#  endpoint:
+#    health:
+#      show-details: always
 
 
 

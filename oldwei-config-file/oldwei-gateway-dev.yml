@@ -15,6 +15,7 @@ dubbo:
   consumer:
     timeout: 5000
     retries: 0 #重试次数
+    check: false
   provider:
     timeout: 5000
 

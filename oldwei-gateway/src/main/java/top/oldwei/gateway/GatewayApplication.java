@@ -13,13 +13,13 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * @Author:weizd
+ * @Author:weizdsha
  * @Date:20-3-9
  */
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableConfigurationProperties
-@EnableDubbo
+//@EnableDubbo
 @Slf4j
 public class GatewayApplication {
 
