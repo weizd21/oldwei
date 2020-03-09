@@ -8,8 +8,8 @@ spring:
       server:
         git:
           uri: https://github.com/weizd21/oldwei.git #GitHub上面的git仓库名字
-          label: develop
-          search-paths: oldwei-config-file
+          label: develop # 分支
+          search-paths: oldwei-config-file # 搜索的目录
           username:
           password:
 server:

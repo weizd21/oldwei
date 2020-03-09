@@ -20,6 +20,7 @@ spring:
         multiplier: 1.2
       fail-fast: true
 
+
 embedded:
   zookeeper:
     port: 2181

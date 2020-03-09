@@ -9,10 +9,11 @@
         <artifactId>oldwei-dependencies</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>oldwei-order</artifactId>
+    <artifactId>oldwei-gateway</artifactId>
 
     <dependencies>
 
+        <!--dubbo begin-->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -38,32 +39,30 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
         </dependency>
+        <!--dubbo end-->
 
 
 
+        <!--springcloud gateway网关-->
         <dependency>
-            <groupId>top.oldwei</groupId>
-            <artifactId>oldwei-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
+        <!-- 配置文件异常报错问题 例如不解析 @pom.server.name@ 这种正确语法-->
         <dependency>
-            <groupId>top.oldwei</groupId>
-            <artifactId>oldwei-mybatis-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>top.oldwei</groupId>
-            <artifactId>oldwei-redis-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
+        <!-- springboot web启动 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--配置中心 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
@@ -75,18 +74,18 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-
+        <!--服务注册-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <!-- 使bootstrap.yml生效-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-context</artifactId>
         </dependency>
 
+
     </dependencies>
-
-
 </project>
