@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableConfigurationProperties
-//@EnableDubbo
+@EnableDubbo
 @Slf4j
 public class GatewayApplication {
 

@@ -27,13 +27,29 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+#      enabled: true
       routes:
         - id: @pom.product.name@
           uri: lb://@pom.product.name@
           predicates:
             - Path=/product/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=0 #需要去掉的Path前缀的层级
+
+        - id: @pom.user.name@
+          uri: lb://@pom.user.name@
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=0
+
+        - id: @pom.order.name@
+          uri: lb://@pom.order.name@
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=0
+
 
 
 eureka:
@@ -44,17 +60,15 @@ eureka:
 
 
 
-## 暴露监控端点
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
-#  security:
-#    enabled: false
-#  endpoint:
-#    health:
-#      show-details: always
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
 
 
 
