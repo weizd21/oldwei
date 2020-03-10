@@ -5,13 +5,13 @@ spring:
     active: @pom.profile.name@
   cloud:
     config:
-      name: ${spring.application.name},oldwei-redis,oldwei-db
+      name: ${spring.application.name},oldwei-common,oldwei-eureka,oldwei-redis,oldwei-db
       profile: @pom.profile.name@
-      label: develop
-      #      uri: http://localhost:8002
-      discovery:
-        service-id: @pom.config.server.name@
-        enabled: true                        #开启Config服务发现支持
+      label: @pom.config.label@
+      uri: @pomm.config.uri@
+#      discovery:
+#        service-id: @pom.config.server.name@
+#        enabled: true                        #开启Config服务发现支持
       #配置重试机制
       retry:
         initial-interval: 2000
@@ -22,8 +22,8 @@ spring:
 
 
 
-eureka:
-  client:
-    service-url:
-      defaultZone: @pom.register.eureka.server.defaultZone@
-
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: @pom.register.eureka.server.defaultZone@
+#

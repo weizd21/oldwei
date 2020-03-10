@@ -8,24 +8,23 @@ spring:
       server:
         git:
           uri: https://github.com/weizd21/oldwei.git #GitHub上面的git仓库名字
-          label: develop # 分支
-          search-paths: oldwei-config-file # 搜索的目录
+          label: @pom.config.label@ # 分支
+          search-paths: @pom.config.search-paths@ # 搜索的目录
           username:
           password:
 server:
   port: @pom.config.server.port@
 
 
-eureka:
-  client:
-    service-url:
-      defaultZone: @pom.register.eureka.server.defaultZone@
+## 不使用注册中心,让注册中心独立出来
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: @pom.register.eureka.server.defaultZone@
 
 
 #关闭安全认证
 management:
-  security:
-    enabled: false
   #refresh接入点显式暴露出来
   endpoints:
     web:
