@@ -100,6 +100,7 @@
         <pom.user.port>8004</pom.user.port>
         <pom.order.port>8005</pom.order.port>
         <pom.gateway.port>8006</pom.gateway.port>
+        <pom.gpu.monitor.port>8007</pom.gpu.monitor.port>
 
         <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
         <pom.config.server.name>oldwei-config-server</pom.config.server.name>
@@ -107,7 +108,7 @@
         <pom.user.name>oldwei-user</pom.user.name>
         <pom.order.name>oldwei-order</pom.order.name>
         <pom.gateway.name>oldwei-gateway</pom.gateway.name>
-
+        <pom.gpu.monitor.name>oldwei-gpu-monitor</pom.gpu.monitor.name>
 
 
         <java.version>1.8</java.version>
@@ -182,7 +183,7 @@
         <qcloudsms.version>1.0.6</qcloudsms.version>
         <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
 
-
+        <jsch.version>0.1.55</jsch.version>
 
 
 
@@ -443,6 +444,14 @@
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${bitwalker.version}</version>
+            </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${jsch.version}</version>
             </dependency>
 
 

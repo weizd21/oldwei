@@ -61,8 +61,12 @@
 
 1. dev
 -  oldwei-register-eureka-server 8001
--  oldwei-config-server 8001
--  oldwei-product  8002
+-  oldwei-config-server 8002
+-  oldwei-product  8003
+-  oldwei-user 8004
+-  oldwei-order 8005
+-  oldwei-gateway 8006
+-  oldwei-gpu-monitor 8007
 
 
 

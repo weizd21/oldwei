@@ -1,0 +1,6 @@
+server:
+  port: @pom.gpu.monitor.port@
+
+spring:
+  application:
+    name: @pom.gpu.monitor.name@
