@@ -1,11 +1,14 @@
 package top.oldwei.websocket.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
+import top.oldwei.websocket.service.WebSSHService;
 
 /**
  * @Author:weizd
@@ -15,14 +18,19 @@ import org.springframework.web.socket.WebSocketSession;
 @Component
 public class WebSSHWebSocketHandler implements WebSocketHandler {
 
+    @Autowired
+    private WebSSHService webSSHService;
+
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
         log.info("连接webSocket成功的回调");
+        webSSHService.initConnection(webSocketSession);
     }
 
     @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
-        log.info("收到客户端的信息");
+        log.info("收到客户端的信息[{}]", JSONObject.toJSONString(webSocketMessage));
+
     }
 
     @Override
