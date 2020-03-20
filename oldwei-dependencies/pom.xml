@@ -101,6 +101,7 @@
         <pom.order.port>8005</pom.order.port>
         <pom.gateway.port>8006</pom.gateway.port>
         <pom.gpu.monitor.port>8007</pom.gpu.monitor.port>
+        <pom.websocket.port>8008</pom.websocket.port>
 
         <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
         <pom.config.server.name>oldwei-config-server</pom.config.server.name>
@@ -109,6 +110,7 @@
         <pom.order.name>oldwei-order</pom.order.name>
         <pom.gateway.name>oldwei-gateway</pom.gateway.name>
         <pom.gpu.monitor.name>oldwei-gpu-monitor</pom.gpu.monitor.name>
+        <pom.websocket.name>oldwei-websocket</pom.websocket.name>
 
 
         <java.version>1.8</java.version>

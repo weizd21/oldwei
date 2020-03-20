@@ -1,0 +1,21 @@
+server:
+  port: @pom.websocket.port@
+
+spring:
+  application:
+    name: @pom.websocket.name@
+  mvc:
+    view:
+      prefix: classpath:/static
+      suffix: .html
+
+
+
+oldwei:
+  lists:
+    - old111
+    - old222
+    - old333
+  hosts:
+    host1: 122.12.1
+    host2: 122.12.2
