@@ -2,6 +2,8 @@ package top.oldwei.websocket.service;
 
 import org.springframework.web.socket.WebSocketSession;
 
+import java.io.IOException;
+
 /**
  * @Author:weizd
  * @Date:20-3-20
@@ -16,17 +18,17 @@ public interface WebSSHService {
 
     /**
      * 处理接收到的消息
-     * @param buffer
+     * @param message
      * @param webSocketSession
      */
-    void dealMessage(String buffer,WebSocketSession webSocketSession);
+    void dealMessage(WebSocketSession webSocketSession,String message);
 
     /**
      * 发送消息到客户端
      * @param webSocketSession
      * @param bytes
      */
-    void sendMessage(WebSocketSession webSocketSession,byte[] bytes);
+    void sendMessage(WebSocketSession webSocketSession,byte[] bytes)throws IOException;
 
 
     /**

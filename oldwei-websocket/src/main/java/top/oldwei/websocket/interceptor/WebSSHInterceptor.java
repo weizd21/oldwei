@@ -16,10 +16,10 @@ import java.util.Map;
  * @Date:20-3-20
  */
 @Slf4j
-public class WebSocketInterceptor implements HandshakeInterceptor {
+public class WebSSHInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
-        log.info("WebSocketInterceptor beforeHandshake...");
+        log.info("WebSSHInterceptor beforeHandshake...");
         if(serverHttpRequest instanceof ServletServerHttpRequest){
             ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
             //将uuid放到websocketsession中
@@ -32,6 +32,6 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
 
     @Override
     public void afterHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Exception e) {
-        log.info("WebSocketInterceptor afterHandshake...");
+        log.info("WebSSHInterceptor afterHandshake...");
     }
 }

@@ -9,6 +9,10 @@ public interface WebSocketConstant {
     String USER_UUID_KEY = "user_uuid_key";
 
 
+    String WEBSSH_OPERATE_CONNECT = "connect";
+
+    String WEBSSH_OPERATE_COMMAND = "command";
+
 
 
 

@@ -31,6 +31,7 @@
         });
 
         term.on('data', function (data) {
+            console.log(data);
             //键盘输入时的回调函数
             client.sendClientData(data);
         });

@@ -4,10 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.PongMessage;
+import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
+import top.oldwei.websocket.constant.WebSocketConstant;
 import top.oldwei.websocket.service.WebSSHService;
 
 /**
@@ -29,7 +33,16 @@ public class WebSSHWebSocketHandler implements WebSocketHandler {
 
     @Override
     public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
-        log.info("收到客户端的信息[{}]", JSONObject.toJSONString(webSocketMessage));
+        log.info("收到客户端[{}]的信息[{}]", String.valueOf(webSocketSession.getAttributes().get(WebSocketConstant.USER_UUID_KEY)),JSONObject.toJSONString(webSocketMessage));
+        if(webSocketMessage instanceof TextMessage){
+            webSSHService.dealMessage(webSocketSession,((TextMessage) webSocketMessage).getPayload());
+        }else if(webSocketMessage instanceof BinaryMessage){
+
+        }else if(webSocketMessage instanceof PongMessage){
+
+        }else {
+            log.info("暂不支持的消息格式");
+        }
 
     }
 
