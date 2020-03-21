@@ -35,15 +35,7 @@
     </style>
 
     <script src="../js/jquery-3.4.1.min.js" type="text/javascript"></script>
-
-    <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/index.js"></script>
-    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
-
     <script type="text/javascript">
-
-
-
         var ws;
         var SocketCreated = false;
         var isUserloggedout = false;
@@ -69,7 +61,7 @@
                 lockOn("离开聊天室...");
                 SocketCreated = false;
                 isUserloggedout = true;
-                var msg = JSON.stringify({'operate':'leave_group', 'roomId':groom , 'name': gname,
+                var msg = JSON.stringify({'command':'leave', 'roomId':groom , 'name': gname,
                     'info':'离开房间'});
                 ws.send(msg);
                 ws.close();
@@ -83,7 +75,7 @@
                 try {
                     if ("WebSocket" in window) {
                         ws = new WebSocket(
-                            'ws://localhost:8080/webSocket/INFO={"command":"enter_group","fromeName":"'+ gname + '","roomId":"' + groom + '"}');
+                            'ws://localhost:8080/webSocket/INFO={"command":"enter","name":"'+ gname + '","roomId":"' + groom + '"}');
                     }
                     else if("MozWebSocket" in window) {
                         ws = new MozWebSocket(
@@ -187,41 +179,25 @@
     </script>
 </head>
 <body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div id="skm_LockPane" class="LockOff"></div>-->
-<!--<form id="form1" runat="server">-->
-    <!--<h1>小小网页聊天室</h1>-->
-    <!--<br />-->
-    <!--<div>-->
-        <!---->
-    <!--</div>-->
-    <!--群号: <input type="text" id="groupId" /> 用户名： <input type="text" id="fromName" value="小铭"/>-->
-    <!--<button id='ToggleConnection' type="button" onclick='ToggleConnectionClicked();'>登录</button>-->
-    <!--<br />-->
-    <!--<br />-->
-    <!--<div id='LogContainer' class='container'></div>-->
-    <!--<br />-->
-    <!--<div id='SendDataContainer'>-->
-        <!--消息内容：<input type="text" id="DataToSend" size="40" />-->
-        <!--发送给（all为发送给房间内所有人）：<input type="text" id="DataToSendWho" size="20" />-->
-        <!--<button id='SendData' type="button" onclick='SendDataClicked();'>发送</button>-->
-    <!--</div>-->
-    <!--<br />-->
-<!--</form>-->
+<div id="skm_LockPane" class="LockOff"></div>
+<form id="form1" runat="server">
+    <h1>小小网页聊天室</h1>
+    <br />
+    <div>
+        按下进入按钮，会通过WebSocket发起一个到聊天浏览器的连接。
+    </div>
+    房间号: <input type="text" id="roomId" /> 用户名： <input type="text" id="txtName" value="小铭"/>
+    <button id='ToggleConnection' type="button" onclick='ToggleConnectionClicked();'>进入房间</button>
+    <br />
+    <br />
+    <div id='LogContainer' class='container'></div>
+    <br />
+    <div id='SendDataContainer'>
+        消息内容：<input type="text" id="DataToSend" size="40" />
+        发送给（all为发送给房间内所有人）：<input type="text" id="DataToSendWho" size="20" />
+        <button id='SendData' type="button" onclick='SendDataClicked();'>发送</button>
+    </div>
+    <br />
+</form>
 </body>
 </html>

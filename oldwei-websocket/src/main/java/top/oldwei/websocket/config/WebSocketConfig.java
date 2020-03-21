@@ -8,6 +8,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import top.oldwei.websocket.handler.WebSSHWebSocketHandler;
+import top.oldwei.websocket.interceptor.ChatInterceptor;
 import top.oldwei.websocket.interceptor.DeviceMonitorInterceptor;
 import top.oldwei.websocket.interceptor.WebSSHInterceptor;
 import top.oldwei.websocket.properties.Properties;
@@ -47,6 +48,15 @@ public class WebSocketConfig implements WebSocketConfigurer {
         webSocketHandlerRegistry.addHandler(webSSHWebSocketHandler, "/device")
                 .addInterceptors(new DeviceMonitorInterceptor())
                 .setAllowedOrigins("*");
+
+
+        //socket通道
+        //指定处理器和路径
+        webSocketHandlerRegistry.addHandler(webSSHWebSocketHandler, "/chat")
+                .addInterceptors(new ChatInterceptor())
+                .setAllowedOrigins("*");
+
+
 
     }
 }
