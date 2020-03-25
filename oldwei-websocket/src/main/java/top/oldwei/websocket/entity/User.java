@@ -1,4 +1,4 @@
-package top.oldwei.user.entity;
+package top.oldwei.websocket.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -9,13 +9,12 @@ import java.math.BigDecimal;
 
 /**
  * @Author:weizd
- * @Date:20-3-7
+ * @Date:20-3-25
  */
 @Data
 @ToString(callSuper = true)
 @TableName(value = "d_user")
 public class User extends BaseEntity {
-
 
     private String userCode;
 

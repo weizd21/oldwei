@@ -1,227 +1,432 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <title>Web sockets test</title>
-    <style type="text/css">
-        .container
-        {
-            font-family: "Courier New";
-            width: 680px;
-            height: 300px;
-            overflow: auto;
-            border: 1px solid black;
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .text {
+            font-size: 14px;
+            /*border-bottom: solid 1px red;*/
         }
 
-        .LockOff {
-            display: none;
-            visibility: hidden;
+        .item {
+            margin-bottom: 18px;
         }
 
-        .LockOn {
-            display: block;
-            visibility: visible;
-            position: absolute;
-            z-index: 999;
-            top: 0px;
-            left: 0px;
-            width: 1024%;
-            height: 768%;
-            background-color: #ccc;
-            text-align: center;
-            padding-top: 20%;
-            filter: alpha(opacity=75);
-            opacity: 0.75;
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both
+        }
+
+        .box-card {
+            width: 480px;
         }
     </style>
-
-    <script src="../js/jquery-3.4.1.min.js" type="text/javascript"></script>
-
-    <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/index.js"></script>
-    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
-
-    <script type="text/javascript">
-
-
-
-        var ws;
-        var SocketCreated = false;
-        var isUserloggedout = false;
-        var groom;
-        var gname;
-
-        function lockOn(str)
-        {
-            var lock = document.getElementById('skm_LockPane');
-            if (lock)
-                lock.className = 'LockOn';
-            lock.innerHTML = str;
-        }
-
-        function lockOff()
-        {
-            var lock = document.getElementById('skm_LockPane');
-            lock.className = 'LockOff';
-        }
-
-        function ToggleConnectionClicked() {
-            if (SocketCreated && (ws.readyState == 0 || ws.readyState == 1)) {
-                lockOn("离开聊天室...");
-                SocketCreated = false;
-                isUserloggedout = true;
-                var msg = JSON.stringify({'operate':'leave_group', 'roomId':groom , 'name': gname,
-                    'info':'离开房间'});
-                ws.send(msg);
-                ws.close();
-            } else if(document.getElementById("roomId").value == "请输入房间号!") {
-                Log("请输入房间号！");
-            } else {
-                lockOn("进入聊天室...");
-                Log("准备连接到聊天服务器 ...");
-                groom = document.getElementById("roomId").value;
-                gname = document.getElementById("txtName").value;
-                try {
-                    if ("WebSocket" in window) {
-                        ws = new WebSocket(
-                            'ws://localhost:8080/webSocket/INFO={"command":"enter_group","fromeName":"'+ gname + '","roomId":"' + groom + '"}');
-                    }
-                    else if("MozWebSocket" in window) {
-                        ws = new MozWebSocket(
-                            'ws://localhost:8080/webSocket/INFO={"command":"enter","name":"'+ gname + '","roomId":"' + groom + '"}');
-                    }
-                    SocketCreated = true;
-                    isUserloggedout = false;
-                } catch (ex) {
-                    Log(ex, "ERROR");
-                    return;
-                }
-                document.getElementById("ToggleConnection").innerHTML = "退出房间";
-                ws.onopen = WSonOpen;
-                ws.onmessage = WSonMessage;
-                ws.onclose = WSonClose;
-                ws.onerror = WSonError;
-            }
-        };
-
-
-        function WSonOpen() {
-            lockOff();
-            Log("连接已经建立。", "OK");
-            $("#SendDataContainer").show();
-            var msg = JSON.stringify({'command':'enter', 'roomId':groom , 'name': "all",
-                'info': gname + "加入聊天室"})
-            ws.send(msg);
-        };
-
-        function WSonMessage(event) {
-            Log(event.data, "INFO");
-        };
-
-        function WSonClose() {
-            lockOff();
-            if (isUserloggedout)
-                Log("您已离开了房间！", "INFO");
-            document.getElementById("ToggleConnection").innerHTML = "连接";
-            $("#SendDataContainer").hide();
-        };
-
-        function WSonError() {
-            lockOff();
-            Log("远程连接中断。", "ERROR");
-        };
-
-        function SendDataClicked() {
-            if (document.getElementById("DataToSend").value.trim() != "") {
-                var msg = JSON.stringify({'command':'message', 'roomId':groom , 'name': document.getElementById("DataToSendWho").value,
-                    'info':document.getElementById("DataToSend").value})
-                ws.send(msg);
-                document.getElementById("DataToSend").value = "";
-            }
-        };
-
-
-        function Log(Text, MessageType) {
-            if (MessageType == "OK") Text = "<span style='color: green;'>" + Text + "</span>";
-            if (MessageType == "ERROR") Text = "<span style='color: red;'>" + Text + "</span>";
-            if (MessageType == "INFO") Text = "<span style='color: tomato;'>" + Text + "</span>";
-            document.getElementById("LogContainer").innerHTML = document.getElementById("LogContainer").innerHTML + Text + "<br />";
-            var LogContainer = document.getElementById("LogContainer");
-            LogContainer.scrollTop = LogContainer.scrollHeight;
-        };
-
-
-        $(document).ready(function () {
-            $("#SendDataContainer").hide();
-            var WebSocketsExist = true;
-            try {
-                var dummy = new WebSocket("ws://localhost:8989/test");
-            } catch (ex) {
-                try
-                {
-                    webSocket = new MozWebSocket("ws://localhost:8989/test");
-                }
-                catch(ex)
-                {
-                    WebSocketsExist = false;
-                }
-            }
-
-            if (WebSocketsExist) {
-                Log("您的浏览器支持WebSocket. 您可以尝试连接到聊天服务器!", "OK");
-                document.getElementById("roomId").value = "请输入房间号!";
-            } else {
-                Log("您的浏览器不支持WebSocket。请选择其他的浏览器再尝试连接服务器。", "ERROR");
-                document.getElementById("ToggleConnection").disabled = true;
-            }
-
-            $("#DataToSend").keypress(function(evt)
-            {
-                if (evt.keyCode == 13)
-                {
-                    $("#SendData").click();
-                    evt.preventDefault();
-                }
-            })
-        });
-
-    </script>
 </head>
 <body>
+<div id="app">
+        <el-row>
+            <el-col>
+                <el-form :inline="true" :label-position="labelPosition" label-width="80px">
+                    <el-form-item label="用户账号">
+                        <el-input v-model="user.userCode"></el-input>
+                    </el-form-item>
+                    <el-form-item label="用户名称">
+                        <el-input v-model="user.username"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="register">注册</el-button>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button v-if="loginStatus==false" type="primary" @click="login">登录</el-button>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button v-if="loginStatus==true" type="danger" @click="logout">登出</el-button>
+                    </el-form-item>
+
+                    <el-form-item label="群组编号">
+                        <el-input v-model="groupId"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button v-bind:disabled="loginStatus==false" type="primary" @click="joinGroup">加入群组</el-button>
+                    </el-form-item>
+
+                </el-form>
+            </el-col>
+        </el-row>
+
+        <el-row :gutter="24">
+            <el-col :span="4">
+                <el-card class="box-card">
+                    <div v-for="friend in friendList" :key="friend" class="text item" @click="chooseFriend(friend.id,friend.type)" :data-id="friend.id" :data-type="friend.type">
+                        {{ friend.name }}
+                    </div>
+                </el-card>
+            </el-col>
+            <el-col :span="20">
+                <el-row>
+                    <el-input
+                            disabled
+                            type="textarea"
+                            :rows="12"
+                            placeholder="最新消息"
+                            v-model="msgContainer">
+                    </el-input>
+                </el-row>
+                <el-row>
+                    <el-input
+                            type="textarea"
+                            :rows="4"
+                            placeholder="请输入文字消息"
+                            v-model="msg">
+                    </el-input>
+                </el-row>
+                <el-row>
+                    <el-button type="primary" @click="sendMsg">发送</el-button>
+                    <el-button type="warning" @click="cancelSend">取消</el-button>
+                </el-row>
+            </el-col>
+        </el-row>
+
+
+</div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div id="skm_LockPane" class="LockOff"></div>-->
-<!--<form id="form1" runat="server">-->
-    <!--<h1>小小网页聊天室</h1>-->
-    <!--<br />-->
-    <!--<div>-->
-        <!---->
-    <!--</div>-->
-    <!--群号: <input type="text" id="groupId" /> 用户名： <input type="text" id="fromName" value="小铭"/>-->
-    <!--<button id='ToggleConnection' type="button" onclick='ToggleConnectionClicked();'>登录</button>-->
-    <!--<br />-->
-    <!--<br />-->
-    <!--<div id='LogContainer' class='container'></div>-->
-    <!--<br />-->
-    <!--<div id='SendDataContainer'>-->
-        <!--消息内容：<input type="text" id="DataToSend" size="40" />-->
-        <!--发送给（all为发送给房间内所有人）：<input type="text" id="DataToSendWho" size="20" />-->
-        <!--<button id='SendData' type="button" onclick='SendDataClicked();'>发送</button>-->
-    <!--</div>-->
-    <!--<br />-->
-<!--</form>-->
 </body>
+
+<!--<script src="../js/jquery-3.4.1.min.js" type="text/javascript"></script>-->
+<!--<script src="../js/sockjs.min.js"></script>-->
+
+<!--<script src="/static/js/vue.min.js"></script>-->
+<!--&lt;!&ndash; 引入样式 &ndash;&gt;-->
+<!--<link rel="stylesheet" href="/static/css/index.css">-->
+<!--&lt;!&ndash; 引入组件库 &ndash;&gt;-->
+<!--<script src="/js/index.js"></script>-->
+<!--<script src="/js/axios.min.js"></script>-->
+
+
+<script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+
+<script type="text/javascript">
+
+    const JOIN_GROUP = "enter_group";
+
+    const LEAVE_GROUP = "leave_group";
+
+    const GROUP_MESSAGE = "group_message";
+
+    const SINGLE_MESSAGE = "single_message";
+
+     new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                user:{
+                    id:'',
+                    username:'',
+                    userCode:''
+                },
+                loginStatus:false,
+                labelPosition:'right',
+                chatData:{
+                    fromName:'',
+                    toName:'',
+                    operate:'',
+                    groupId:'',
+                    msg:''
+                },
+                socket:{},
+                websocket: null,
+
+                friendList:[
+                    {id:"1",name:"张三1","latestMsg":"您好",type:'single_message'},
+                    {id:"2",name:"群组1","latestMsg":"您好",type:'group_message'},
+                    {id:"7",name:"张三3","latestMsg":"您好",type:'single_message'},
+                    {id:"3",name:"群组3","latestMsg":"您好",type:'group_message'},
+                    {id:"4",name:"张三5","latestMsg":"您好",type:'single_message'},
+                    {id:"5",name:"张三6","latestMsg":"您好",type:'single_message'},
+                    {id:"6",name:"张三7","latestMsg":"您好",type:'single_message'}
+                ],
+                msg:'',
+                msgContainer:'',
+
+
+                token: '',
+
+                groupId:'',
+                operate:SINGLE_MESSAGE,
+
+            }
+        },
+        methods: {
+            register(){
+                let user = this.user;
+                axios.post('/user/add',user)
+                    .then((response) => {
+                        console.log(response);
+                        let data = response.data;
+                        if(data.code == 200){
+                            this.user = data.data;
+                        }else{
+                            this.notify(data.msg);
+                        }
+                });
+            },
+            login(){
+                let userCode = this.user.userCode;
+                axios.get('/user/get?userCode='+userCode)
+                    .then((response) =>{
+                        let data = response.data;
+
+                        if(data.code == 200){
+                            if(data.data != null){
+                                this.user = data.data;
+                                this.initWebSocket();
+                                this.loginStatus = true;
+                                return;
+                            }
+                        }
+                        this.notify("账号["+userCode+"]不存在")
+                    });
+
+
+            },
+            logout(){
+                this.websock.close();
+                this.loginStatus = false;
+            },
+            joinGroup(){
+                if(this.groupId == '' || this.groupId == null){
+                    this.$message("请填写群组编号");
+                    return;
+                }
+                this.chatData.groupId = this.groupId;
+                this.chatData.operate = JOIN_GROUP;
+                this.websocketsend(JSON.stringify(this.chatData));
+            },
+            chooseFriend(id,type){
+                this.notify(id+":"+type);
+                this.operate = type;
+            },
+            sendMsg(){
+                let _that = this;
+                let msgData = {};
+                msgData.fromName = _that.token;
+                msgData.msg = _that.msg;
+                msgData.operate = _that.operate;
+                msgData.groupId = _that.groupId;
+                console.log(msgData);
+                this.websocketsend(JSON.stringify(msgData));
+            },
+            cancelSend(){
+                this.msg = '';
+            },
+            initWebSocket(){//初始化weosocket
+                let userId  = this.user.id;
+                if(userId == '' || userId == null){
+                    this.notify("用户信息不存在");
+                    return;
+                }
+                const wsuri = "ws://127.0.0.1:8008/chat?token="+this.user.id ;
+                this.websock = new WebSocket(wsuri);
+                this.websock.onmessage = this.websocketonmessage;
+                this.websock.onopen = this.websocketonopen;
+                this.websock.onerror = this.websocketonerror;
+                this.websock.onclose = this.websocketclose;
+            },
+            websocketonopen(){ //连接建立之后执行send方法发送数据
+                this.notify("登录成功");
+            },
+            websocketonerror(){//连接建立失败重连
+                this.initWebSocket();
+            },
+            websocketonmessage(e){ //数据接收
+                console.log(e);
+                let resJson = JSON.parse(e.data);
+                // let old = this.msgContainer;
+                // this.msgContainer = "来自【"+resJson.fromName+"】的消息:"+ resJson.msg +"\n" + old;
+
+
+
+
+            },
+            websocketsend(data){//数据发送
+                this.websock.send(data);
+            },
+            websocketclose(e){  //关闭
+                console.log('断开连接',e);
+            },
+            notify(message){
+                this.$notify({
+                    title: '新消息',
+                    message: message,
+                    type: 'success'
+                });
+            }
+        },
+        mounted() {
+
+        },
+        beforeDestroy() {
+            this.websock.close();
+        }
+    });
+
+
+    // var ws;
+    // var SocketCreated = false;
+    // var isUserloggedout = false;
+    // var groom;
+    // var gname;
+    //
+    // function lockOn(str)
+    // {
+    //     var lock = document.getElementById('skm_LockPane');
+    //     if (lock)
+    //         lock.className = 'LockOn';
+    //     lock.innerHTML = str;
+    // }
+    //
+    // function lockOff()
+    // {
+    //     var lock = document.getElementById('skm_LockPane');
+    //     lock.className = 'LockOff';
+    // }
+    //
+    // function ToggleConnectionClicked() {
+    //     if (SocketCreated && (ws.readyState == 0 || ws.readyState == 1)) {
+    //         lockOn("离开聊天室...");
+    //         SocketCreated = false;
+    //         isUserloggedout = true;
+    //         var msg = JSON.stringify({'operate':'leave_group', 'roomId':groom , 'name': gname,
+    //             'info':'离开房间'});
+    //         ws.send(msg);
+    //         ws.close();
+    //     } else if(document.getElementById("roomId").value == "请输入房间号!") {
+    //         Log("请输入房间号！");
+    //     } else {
+    //         lockOn("进入聊天室...");
+    //         Log("准备连接到聊天服务器 ...");
+    //         groom = document.getElementById("roomId").value;
+    //         gname = document.getElementById("txtName").value;
+    //         try {
+    //             if ("WebSocket" in window) {
+    //                 ws = new WebSocket(
+    //                     'ws://localhost:8080/webSocket/INFO={"command":"enter_group","fromeName":"'+ gname + '","roomId":"' + groom + '"}');
+    //             }
+    //             else if("MozWebSocket" in window) {
+    //                 ws = new MozWebSocket(
+    //                     'ws://localhost:8080/webSocket/INFO={"command":"enter","name":"'+ gname + '","roomId":"' + groom + '"}');
+    //             }
+    //             SocketCreated = true;
+    //             isUserloggedout = false;
+    //         } catch (ex) {
+    //             Log(ex, "ERROR");
+    //             return;
+    //         }
+    //         document.getElementById("ToggleConnection").innerHTML = "退出房间";
+    //         ws.onopen = WSonOpen;
+    //         ws.onmessage = WSonMessage;
+    //         ws.onclose = WSonClose;
+    //         ws.onerror = WSonError;
+    //     }
+    // };
+    //
+    //
+    // function WSonOpen() {
+    //     lockOff();
+    //     Log("连接已经建立。", "OK");
+    //     $("#SendDataContainer").show();
+    //     var msg = JSON.stringify({'command':'enter', 'roomId':groom , 'name': "all",
+    //         'info': gname + "加入聊天室"})
+    //     ws.send(msg);
+    // };
+    //
+    // function WSonMessage(event) {
+    //     Log(event.data, "INFO");
+    // };
+    //
+    // function WSonClose() {
+    //     lockOff();
+    //     if (isUserloggedout)
+    //         Log("您已离开了房间！", "INFO");
+    //     document.getElementById("ToggleConnection").innerHTML = "连接";
+    //     $("#SendDataContainer").hide();
+    // };
+    //
+    // function WSonError() {
+    //     lockOff();
+    //     Log("远程连接中断。", "ERROR");
+    // };
+    //
+    // function SendDataClicked() {
+    //     if (document.getElementById("DataToSend").value.trim() != "") {
+    //         var msg = JSON.stringify({'command':'message', 'roomId':groom , 'name': document.getElementById("DataToSendWho").value,
+    //             'info':document.getElementById("DataToSend").value})
+    //         ws.send(msg);
+    //         document.getElementById("DataToSend").value = "";
+    //     }
+    // };
+    //
+    //
+    // function Log(Text, MessageType) {
+    //     if (MessageType == "OK") Text = "<span style='color: green;'>" + Text + "</span>";
+    //     if (MessageType == "ERROR") Text = "<span style='color: red;'>" + Text + "</span>";
+    //     if (MessageType == "INFO") Text = "<span style='color: tomato;'>" + Text + "</span>";
+    //     document.getElementById("LogContainer").innerHTML = document.getElementById("LogContainer").innerHTML + Text + "<br />";
+    //     var LogContainer = document.getElementById("LogContainer");
+    //     LogContainer.scrollTop = LogContainer.scrollHeight;
+    // };
+    //
+    //
+    // $(document).ready(function () {
+    //     $("#SendDataContainer").hide();
+    //     var WebSocketsExist = true;
+    //     try {
+    //         var dummy = new WebSocket("ws://localhost:8989/test");
+    //     } catch (ex) {
+    //         try
+    //         {
+    //             webSocket = new MozWebSocket("ws://localhost:8989/test");
+    //         }
+    //         catch(ex)
+    //         {
+    //             WebSocketsExist = false;
+    //         }
+    //     }
+    //
+    //     if (WebSocketsExist) {
+    //         Log("您的浏览器支持WebSocket. 您可以尝试连接到聊天服务器!", "OK");
+    //         document.getElementById("roomId").value = "请输入房间号!";
+    //     } else {
+    //         Log("您的浏览器不支持WebSocket。请选择其他的浏览器再尝试连接服务器。", "ERROR");
+    //         document.getElementById("ToggleConnection").disabled = true;
+    //     }
+    //
+    //     $("#DataToSend").keypress(function(evt)
+    //     {
+    //         if (evt.keyCode == 13)
+    //         {
+    //             $("#SendData").click();
+    //             evt.preventDefault();
+    //         }
+    //     })
+    // });
+
+</script>
+
 </html>

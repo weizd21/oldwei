@@ -15,5 +15,8 @@ public interface WebSocketConstant {
 
 
 
+    String USER_ID = "user_id";
+
+    String USER_CODE = "user_code";
 
 }

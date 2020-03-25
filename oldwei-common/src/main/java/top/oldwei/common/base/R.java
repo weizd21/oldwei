@@ -45,8 +45,8 @@ public class R<T> implements Serializable {
         return getR(ResponseCode.FAIL,null,null);
     }
 
-    public static <T> R<T> fail(T data){
-        return getR(ResponseCode.FAIL,data,null);
+    public static <T> R<T> fail(String msg){
+        return getR(ResponseCode.FAIL,null,msg);
     }
 
     public static <T> R<T> fail(T data, String msg){

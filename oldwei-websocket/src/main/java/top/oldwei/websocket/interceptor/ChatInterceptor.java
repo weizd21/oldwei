@@ -22,7 +22,9 @@ public class ChatInterceptor implements HandshakeInterceptor {
         log.info("ChatInterceptor beforeHandshake...");
         if(serverHttpRequest instanceof ServletServerHttpRequest){
             ServletServerHttpRequest request = (ServletServerHttpRequest) serverHttpRequest;
-
+            String token = request.getURI().toString().split("token=")[1];
+            log.info("token:[{}]",token);
+            map.put(WebSocketConstant.USER_ID, token);
             return true;
         }
         return false;

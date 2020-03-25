@@ -23,6 +23,7 @@ CREATE TABLE `d_product` (
 ```
 CREATE TABLE `d_user` (
   `id` varchar(32) NOT NULL COMMENT '主键',
+  `user_code` varchar(100) NOT NULL COMMENT '用户编码',
   `username` varchar(100) NOT NULL COMMENT '用户名称',
   `password` varchar(100) DEFAULT '' COMMENT '密码',
   `phone` varchar(11) DEFAULT '' COMMENT '用户手机号',
