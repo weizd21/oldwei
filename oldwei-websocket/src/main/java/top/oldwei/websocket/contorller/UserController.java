@@ -48,7 +48,7 @@ public class UserController {
     @GetMapping("/get")
     public R get(String userCode){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.ge("user_code",userCode);
+        queryWrapper.eq("user_code",userCode);
         User user = userService.getOne(queryWrapper);
         if(user != null){
             UserDTO userDTO = new UserDTO();

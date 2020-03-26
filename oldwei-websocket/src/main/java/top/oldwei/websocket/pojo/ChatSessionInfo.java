@@ -5,6 +5,8 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @Author:weizd
@@ -17,5 +19,5 @@ public class ChatSessionInfo implements Serializable {
 
     private LocalDateTime loginTime;
 
-
+    private Set<String> groupIds = new HashSet<>();
 }

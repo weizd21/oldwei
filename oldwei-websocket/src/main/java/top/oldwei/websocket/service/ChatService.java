@@ -10,6 +10,7 @@ import java.io.IOException;
  */
 public interface ChatService {
 
+    void initConnection(WebSocketSession socketSession);
 
     /**
      * 处理接收到的消息

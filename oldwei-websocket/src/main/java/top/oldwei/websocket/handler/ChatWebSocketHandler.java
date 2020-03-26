@@ -15,7 +15,6 @@ import top.oldwei.websocket.cache.SessionInfo;
 import top.oldwei.websocket.constant.WebSocketConstant;
 import top.oldwei.websocket.pojo.ChatSessionInfo;
 import top.oldwei.websocket.service.ChatService;
-import top.oldwei.websocket.service.WebSSHService;
 
 import java.time.LocalDateTime;
 
@@ -33,11 +32,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
         log.info("ChatWebSocketHandler --> 连接webSocket成功的回调");
-        String username = webSocketSession.getAttributes().get(WebSocketConstant.USER_ID).toString();
-        ChatSessionInfo chatSessionInfo = new ChatSessionInfo();
-        chatSessionInfo.setWebSocketSession(webSocketSession);
-        chatSessionInfo.setLoginTime(LocalDateTime.now());
-        SessionInfo.setChatSessionInfo(username,chatSessionInfo);
+        chatService.initConnection(webSocketSession);
     }
 
     @Override
@@ -66,8 +61,7 @@ public class ChatWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
         log.info("断开webSocket连接");
-        webSocketSession.close();
-        SessionInfo.getSessionInfoMap().remove(webSocketSession.getAttributes().get(WebSocketConstant.USER_ID));
+        chatService.close(webSocketSession);
     }
 
     @Override

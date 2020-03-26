@@ -67,7 +67,7 @@
             <el-col :span="4">
                 <el-card class="box-card">
                     <div v-for="friend in friendList" :key="friend" class="text item" @click="chooseFriend(friend.id,friend.type)" :data-id="friend.id" :data-type="friend.type">
-                        {{ friend.name }}
+                        {{ friend.username }}
                     </div>
                 </el-card>
             </el-col>
@@ -123,6 +123,20 @@
 
 <script type="text/javascript">
 
+    // 接收数据的类型 resType
+    const MSG_ALL = "msg_all";
+
+    const MSG_SINGLE = "msg_single";
+
+    const MSG_GROUP = "msg_group";
+
+    const INFO_USER = "info_user";
+
+    const INFO_GROUP = "info_group";
+
+
+
+    // 发送数据的类型
     const JOIN_GROUP = "enter_group";
 
     const LEAVE_GROUP = "leave_group";
@@ -130,6 +144,9 @@
     const GROUP_MESSAGE = "group_message";
 
     const SINGLE_MESSAGE = "single_message";
+
+
+
 
      new Vue({
         el: '#app',
@@ -153,13 +170,13 @@
                 websocket: null,
 
                 friendList:[
-                    {id:"1",name:"张三1","latestMsg":"您好",type:'single_message'},
-                    {id:"2",name:"群组1","latestMsg":"您好",type:'group_message'},
-                    {id:"7",name:"张三3","latestMsg":"您好",type:'single_message'},
-                    {id:"3",name:"群组3","latestMsg":"您好",type:'group_message'},
-                    {id:"4",name:"张三5","latestMsg":"您好",type:'single_message'},
-                    {id:"5",name:"张三6","latestMsg":"您好",type:'single_message'},
-                    {id:"6",name:"张三7","latestMsg":"您好",type:'single_message'}
+                    // {id:"1",name:"张三1","latestMsg":"您好",type:'single_message'},
+                    // {id:"2",name:"群组1","latestMsg":"您好",type:'group_message'},
+                    // {id:"7",name:"张三3","latestMsg":"您好",type:'single_message'},
+                    // {id:"3",name:"群组3","latestMsg":"您好",type:'group_message'},
+                    // {id:"4",name:"张三5","latestMsg":"您好",type:'single_message'},
+                    // {id:"5",name:"张三6","latestMsg":"您好",type:'single_message'},
+                    // {id:"6",name:"张三7","latestMsg":"您好",type:'single_message'}
                 ],
                 msg:'',
                 msgContainer:'',
@@ -181,6 +198,7 @@
                         let data = response.data;
                         if(data.code == 200){
                             this.user = data.data;
+                            this.notify("【"+this.user.username+"】注册成功");
                         }else{
                             this.notify(data.msg);
                         }
@@ -257,11 +275,13 @@
             websocketonmessage(e){ //数据接收
                 console.log(e);
                 let resJson = JSON.parse(e.data);
-                // let old = this.msgContainer;
-                // this.msgContainer = "来自【"+resJson.fromName+"】的消息:"+ resJson.msg +"\n" + old;
 
+                if(resJson.resType == MSG_ALL ){
+                    let old = this.msgContainer;
+                    this.msgContainer = "广播:"+ resJson.data +"\n" + old;
+                }else if(resJson.resType == INFO_USER){
 
-
+                }
 
             },
             websocketsend(data){//数据发送
