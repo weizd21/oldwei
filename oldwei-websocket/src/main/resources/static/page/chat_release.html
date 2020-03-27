@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <style>
         .text {
-            font-size: 16px;
+            font-size: 14px;
             /*border-bottom: solid 1px red;*/
         }
 
         .item {
-            /*margin-bottom: 18px;*/
+            margin-bottom: 18px;
         }
 
         .clearfix:before,
@@ -24,25 +24,13 @@
         }
 
         .box-card {
-            /*width: 480px;*/
+            width: 480px;
         }
-
-
-        .border-1{
-            border:1px solid red;
-        }
-
-        .border-2{
-            height: 100%;
-            border:1px solid black;
-        }
-
-
     </style>
 </head>
 <body>
 <div id="app">
-        <el-row class="border-1">
+        <el-row>
             <el-col>
                 <el-form :inline="true" :label-position="labelPosition" label-width="80px">
                     <el-form-item label="用户账号">
@@ -75,10 +63,10 @@
             </el-col>
         </el-row>
 
-        <el-row class="border-1">
-            <el-col :span="4" class="border-2">
+        <el-row :gutter="24">
+            <el-col :span="4">
                 <el-card class="box-card">
-                    <div v-for="info in userGroupInfo" :key="info" class="text item border-1" @click="chooseFriend(info.id,info.type)" :data-id="info.id" :data-type="info.type">
+                    <div v-for="info in userGroupInfo" :key="info" class="text item" @click="chooseFriend(info.id,info.type)" :data-id="info.id" :data-type="info.type">
                         {{ info.name }}
                     </div>
                 </el-card>
