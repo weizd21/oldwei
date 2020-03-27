@@ -81,7 +81,6 @@ public class ChatServiceImpl implements ChatService {
         String data = "【"+user.getUsername()+"】 上线了！";
         this.broadcastMsgAll(data);
 
-
         // 更新用户、群组列表
         this.updateOnlineUserGroupInfo();
 
@@ -114,28 +113,39 @@ public class ChatServiceImpl implements ChatService {
         broadcast(JSONObject.toJSON(chatDataResDTO).toString().getBytes());
     }
 
+    // 更新在线用户群组 信息
+    private void updateOnlineUserGroupInfo(){
+        List<User> users = userService.listByIds(userInfoMap.keySet());
+        // 更新用户、群组列表
+        for (Map.Entry<String,ChatSessionInfo> entry:userInfoMap.entrySet()){
+            this.sendOnlineUserGroupInfo(entry.getValue().getWebSocketSession(),users,entry.getKey());
+        }
+
+    }
+
+
     /**
      * 更新在线的用户 和 群组列表
      */
-    private void updateOnlineUserGroupInfo(){
+    private void sendOnlineUserGroupInfo(WebSocketSession webSocketSession,List<User> users,String userId){
         // 更新在线用户信息
-        List<User> users = userService.listByIds(userInfoMap.keySet());
         List<UserGroupDTO> userGroupDTOS = Lists.newArrayList();
         UserGroupDTO userGroupDTO = null;
         for(User u : users){
+            if(u.getId().equals(userId)){
+                continue;
+            }
             userGroupDTO = new UserGroupDTO();
             userGroupDTO.setName(u.getUsername());
             userGroupDTO.setId(u.getId());
             userGroupDTO.setType(OperateConstant.SINGLE_MESSAGE);
             userGroupDTOS.add(userGroupDTO);
-
         }
-        log.info("在线用户信息：{}",users);
         ChatDataResDTO infoUser = new ChatDataResDTO();
         infoUser.setResType(ResTypeConstant.INFO_USER);
         infoUser.setData(userGroupDTOS);
-        log.info("广播信息:{}",infoUser);
-        broadcast(JSONObject.toJSON(infoUser).toString().getBytes());
+        log.info("发送用户-群组信息:{}",infoUser);
+        sendMessage(webSocketSession,JSONObject.toJSON(infoUser).toString().getBytes());
     }
 
 
@@ -241,7 +251,8 @@ public class ChatServiceImpl implements ChatService {
         this.broadcastMsgAll(data);
 
 
-        // 更新用户列表
+        // 更新用户、群组列表
         this.updateOnlineUserGroupInfo();
+
     }
 }

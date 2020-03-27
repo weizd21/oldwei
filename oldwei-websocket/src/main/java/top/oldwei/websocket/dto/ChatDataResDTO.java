@@ -16,10 +16,6 @@ public class ChatDataResDTO implements Serializable {
      */
     private String resType;
 
-    private String fromName;
-
-    private String fromGroupName;
-
     private Object data;
 
 }
