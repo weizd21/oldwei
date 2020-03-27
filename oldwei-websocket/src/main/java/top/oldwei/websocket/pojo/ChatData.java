@@ -12,22 +12,23 @@ import java.io.Serializable;
 public class ChatData implements Serializable {
 
     /**
-     * 发送人
+     * 发送人id
+     */
+    private String fromId;
+    /**
+     * 发送人名称
      */
     private String fromName;
     /**
-     * 接收人
+     * 接收人 或者 群组
      */
-    private String toName;
+    private String toId;
 
     /**
      * 操作命令
      */
     private String operate;
-    /**
-     * 分组id
-     */
-    private String groupId;
+
 
     /**
      * 消息

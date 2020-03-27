@@ -76,35 +76,15 @@ public class ChatServiceImpl implements ChatService {
         userInfoMap.put(userId,chatSessionInfo);
 
 
-        // 查询用户详细信息
+        // 广播用户上线信息
         User user = userService.getById(userId);
+        String data = "【"+user.getUsername()+"】 上线了！";
+        this.broadcastMsgAll(data);
 
 
-        // 广播信息
-        ChatDataResDTO chatDataResDTO = new ChatDataResDTO();
-        chatDataResDTO.setData("【"+user.getUsername()+ "】 上线了");
-        chatDataResDTO.setResType(ResTypeConstant.MSG_ALL);
-        log.info("广播消息：{}",chatDataResDTO);
-        broadcast(JSONObject.toJSON(chatDataResDTO).toString().getBytes());
+        // 更新用户、群组列表
+        this.updateOnlineUserGroupInfo();
 
-
-        // 更新在线用户信息
-        List<User> users = userService.listByIds(userInfoMap.keySet());
-        List<UserGroupDTO> userGroupDTOS = Lists.newArrayList();
-        UserGroupDTO userGroupDTO = null;
-        for(User u : users){
-            userGroupDTO = new UserGroupDTO();
-            userGroupDTO.setName(u.getUsername());
-            userGroupDTO.setId(u.getId());
-            userGroupDTOS.add(userGroupDTO);
-        }
-
-        log.info("在线用户信息：{}",users);
-        ChatDataResDTO infoUser = new ChatDataResDTO();
-        infoUser.setResType(ResTypeConstant.INFO_USER);
-        infoUser.setData(userGroupDTOS);
-        log.info("广播信息:{}",infoUser);
-        broadcast(JSONObject.toJSON(infoUser).toString().getBytes());
     }
 
 
@@ -117,14 +97,46 @@ public class ChatServiceImpl implements ChatService {
         for(Map.Entry<String,ChatSessionInfo> entry:userInfoMap.entrySet()){
             try {
                 sendMessage(entry.getValue().getWebSocketSession(),bytes);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
     }
 
+    // 广播上线、下线消息
+    private void broadcastMsgAll(String data){
+        // 广播信息
+        ChatDataResDTO chatDataResDTO = new ChatDataResDTO();
+        chatDataResDTO.setData(data);
+        chatDataResDTO.setResType(ResTypeConstant.MSG_ALL);
+        log.info("广播消息：{}",chatDataResDTO);
+        broadcast(JSONObject.toJSON(chatDataResDTO).toString().getBytes());
+    }
 
+    /**
+     * 更新在线的用户 和 群组列表
+     */
+    private void updateOnlineUserGroupInfo(){
+        // 更新在线用户信息
+        List<User> users = userService.listByIds(userInfoMap.keySet());
+        List<UserGroupDTO> userGroupDTOS = Lists.newArrayList();
+        UserGroupDTO userGroupDTO = null;
+        for(User u : users){
+            userGroupDTO = new UserGroupDTO();
+            userGroupDTO.setName(u.getUsername());
+            userGroupDTO.setId(u.getId());
+            userGroupDTO.setType(OperateConstant.SINGLE_MESSAGE);
+            userGroupDTOS.add(userGroupDTO);
+
+        }
+        log.info("在线用户信息：{}",users);
+        ChatDataResDTO infoUser = new ChatDataResDTO();
+        infoUser.setResType(ResTypeConstant.INFO_USER);
+        infoUser.setData(userGroupDTOS);
+        log.info("广播信息:{}",infoUser);
+        broadcast(JSONObject.toJSON(infoUser).toString().getBytes());
+    }
 
 
     @Override
@@ -135,16 +147,22 @@ public class ChatServiceImpl implements ChatService {
             if(OperateConstant.JOIN_GROUP.equals(chatData.getOperate())){
 
                 // 加入群组
-                SessionInfo.joinGroup(chatData.getGroupId(),chatData.getFromName());
-
+                SessionInfo.joinGroup(chatData.getToId(),chatData.getFromName());
 
                 ChatData chatData1 = new ChatData();
                 chatData1.setMsg("["+webSocketSession.getAttributes().get(WebSocketConstant.USER_ID)+"]");
-                sendGroupMessage(chatData.getGroupId(),JSONObject.toJSON(chatData1).toString().getBytes());
+                sendGroupMessage(chatData.getToId(),JSONObject.toJSON(chatData1).toString().getBytes());
 
 
             }else if(OperateConstant.SINGLE_MESSAGE.equals(chatData.getOperate())){
                 // 私聊
+
+                ChatDataResDTO chatDataResDTO = new ChatDataResDTO();
+                chatDataResDTO.setResType(ResTypeConstant.MSG_SINGLE);
+                String data = "【"+chatData.getFromName()+"】私信您： "+chatData.getMsg();
+                chatDataResDTO.setData(data);
+
+                sendMessage(userInfoMap.get(chatData.getToId()).getWebSocketSession(),JSONObject.toJSON(chatDataResDTO).toString().getBytes());
 
 
             }else if(OperateConstant.GROUP_MESSAGE.equals(chatData.getOperate())){
@@ -152,7 +170,7 @@ public class ChatServiceImpl implements ChatService {
                 for(Map.Entry<String,ChatSessionInfo> entry:SessionInfo.getSessionInfoMap().entrySet()){
                     try {
                         sendMessage(entry.getValue().getWebSocketSession(),JSONObject.toJSON(chatData).toString().getBytes());
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -185,7 +203,7 @@ public class ChatServiceImpl implements ChatService {
                     if(webSocketSession != null){
                         try {
                             sendMessage(webSocketSession,bytes);
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -199,17 +217,31 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public void sendMessage(WebSocketSession webSocketSession, byte[] bytes) throws IOException {
-        webSocketSession.sendMessage(new TextMessage(bytes));
+    public void sendMessage(WebSocketSession webSocketSession, byte[] bytes) {
+        try {
+            webSocketSession.sendMessage(new TextMessage(bytes));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void close(WebSocketSession webSocketSession) {
-        userInfoMap.remove(webSocketSession.getAttributes().get(WebSocketConstant.USER_ID));
+        String userId = webSocketSession.getAttributes().get(WebSocketConstant.USER_ID).toString();
+        userInfoMap.remove(userId);
         try {
             webSocketSession.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // 广播用户下线信息
+        User user = userService.getById(userId);
+        String data = "【"+user.getUsername()+"】 下线了！";
+        this.broadcastMsgAll(data);
+
+
+        // 更新用户列表
+        this.updateOnlineUserGroupInfo();
     }
 }
