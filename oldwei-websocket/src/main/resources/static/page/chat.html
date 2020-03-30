@@ -3,110 +3,148 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <title>Web sockets test</title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+
+
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
+
     <style>
-        .text {
-            font-size: 16px;
-            /*border-bottom: solid 1px red;*/
-        }
 
-        .item {
-            /*margin-bottom: 18px;*/
-        }
-
-        .clearfix:before,
-        .clearfix:after {
-            display: table;
-            content: "";
-        }
-        .clearfix:after {
-            clear: both
-        }
-
-        .box-card {
-            /*width: 480px;*/
-        }
-
-
-        .border-1{
+        .sidebar{
             border:1px solid red;
+            height:800px;
+
+
         }
 
-        .border-2{
-            height: 100%;
-            border:1px solid black;
-        }
+
 
 
     </style>
+
 </head>
 <body>
 <div id="app">
-        <el-row class="border-1">
-            <el-col>
-                <el-form :inline="true" :label-position="labelPosition" label-width="80px">
-                    <el-form-item label="用户账号">
-                        <el-input v-model="user.userCode"></el-input>
-                    </el-form-item>
-                    <el-form-item label="用户名称">
-                        <el-input v-model="user.username"></el-input>
-                    </el-form-item>
+        <!--<el-row class="border-1">-->
+            <!--<el-col>-->
+                <!--<el-form :inline="true" :label-position="labelPosition" label-width="80px">-->
+                    <!--<el-form-item label="用户账号">-->
+                        <!--<el-input v-model="user.userCode"></el-input>-->
+                    <!--</el-form-item>-->
+                    <!--<el-form-item label="用户名称">-->
+                        <!--<el-input v-model="user.username"></el-input>-->
+                    <!--</el-form-item>-->
 
-                    <el-form-item>
-                        <el-button type="primary" @click="register">注册</el-button>
-                    </el-form-item>
+                    <!--<el-form-item>-->
+                        <!--<el-button type="primary" @click="register">注册</el-button>-->
+                    <!--</el-form-item>-->
 
-                    <el-form-item>
-                        <el-button v-if="loginStatus==false" type="primary" @click="login">登录</el-button>
-                    </el-form-item>
+                    <!--<el-form-item>-->
+                        <!--<el-button v-if="loginStatus==false" type="primary" @click="login">登录</el-button>-->
+                    <!--</el-form-item>-->
 
-                    <el-form-item>
-                        <el-button v-if="loginStatus==true" type="danger" @click="logout">登出</el-button>
-                    </el-form-item>
+                    <!--<el-form-item>-->
+                        <!--<el-button v-if="loginStatus==true" type="danger" @click="logout">登出</el-button>-->
+                    <!--</el-form-item>-->
 
-                    <el-form-item label="群组编号">
-                        <el-input v-model="groupId"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button v-bind:disabled="loginStatus==false" type="primary" @click="joinGroup">加入群组</el-button>
-                    </el-form-item>
+                    <!--<el-form-item label="群组编号">-->
+                        <!--<el-input v-model="groupId"></el-input>-->
+                    <!--</el-form-item>-->
+                    <!--<el-form-item>-->
+                        <!--<el-button v-bind:disabled="loginStatus==false" type="primary" @click="joinGroup">加入群组</el-button>-->
+                    <!--</el-form-item>-->
 
-                </el-form>
-            </el-col>
-        </el-row>
+                <!--</el-form>-->
+            <!--</el-col>-->
+        <!--</el-row>-->
 
-        <el-row class="border-1">
-            <el-col :span="4" class="border-2">
-                <el-card class="box-card">
-                    <div v-for="info in userGroupInfo" :key="info" class="text item border-1" @click="chooseFriend(info.id,info.type)" :data-id="info.id" :data-type="info.type">
-                        {{ info.name }}
-                    </div>
-                </el-card>
-            </el-col>
-            <el-col :span="20">
-                <el-row>
-                    <el-input
-                            disabled
-                            type="textarea"
-                            :rows="12"
-                            placeholder="最新消息"
-                            v-model="msgContainer">
-                    </el-input>
-                </el-row>
-                <el-row>
-                    <el-input
-                            type="textarea"
-                            :rows="4"
-                            placeholder="请输入文字消息"
-                            v-model="chatData.msg">
-                    </el-input>
-                </el-row>
-                <el-row>
-                    <el-button type="primary" @click="sendMsg">发送</el-button>
-                    <el-button type="warning" @click="cancelSend">取消</el-button>
-                </el-row>
-            </el-col>
-        </el-row>
+
+
+    <Row>
+        <i-col span="5">
+            <List>
+                <ListItem>
+                    <ListItemMeta avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar" title="This is title" description="This is description, this is description." />
+                </ListItem>
+                <ListItem>
+                    <ListItemMeta avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar" title="This is title" description="This is description, this is description." />
+                </ListItem>
+                <ListItem>
+                    <ListItemMeta avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar" title="This is title" description="This is description, this is description." />
+                    <template slot="action">
+                        <li>
+                            <a href="">Edit</a>
+                        </li>
+                        <li>
+                            <a href="">More</a>
+                        </li>
+                    </template>
+                </ListItem>
+                <ListItem>
+                    <ListItemMeta avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar" title="This is title" description="This is description, this is description." />
+                    <template slot="action">
+                        <li>
+                            <a href="">Edit</a>
+                        </li>
+                        <li>
+                            <a href="">More</a>
+                        </li>
+                    </template>
+                </ListItem>
+            </List>
+        </i-col>
+        <i-col span="19">
+            <div class="main">
+
+            </div>
+        </i-col>
+    </Row>
+
+
+    <Row>
+        <i-col span="5">col-8</i-col>
+        <i-col span="19">col-8</i-col>
+    </Row>
+
+
+    <!--<div class="chat-box border-2">-->
+        <!--<el-row>-->
+            <!--<el-col :span="5" class="sidebar">-->
+                <!--&lt;!&ndash;<el-card class="box-card">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div v-for="info in userGroupInfo" :key="info" class="text item border-1" @click="chooseFriend(info.id,info.type)" :data-id="info.id" :data-type="info.type">&ndash;&gt;-->
+                <!--&lt;!&ndash;{{ info.name }}&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</el-card>&ndash;&gt;-->
+
+            <!--</el-col>-->
+            <!--<el-col :span="19">-->
+                <!--<el-row>-->
+                    <!--<el-input-->
+                            <!--disabled-->
+                            <!--type="textarea"-->
+                            <!--:rows="12"-->
+                            <!--placeholder="最新消息"-->
+                            <!--v-model="msgContainer">-->
+                    <!--</el-input>-->
+                <!--</el-row>-->
+                <!--<el-row>-->
+                    <!--<el-input-->
+                            <!--type="textarea"-->
+                            <!--:rows="4"-->
+                            <!--placeholder="请输入文字消息"-->
+                            <!--v-model="chatData.msg">-->
+                    <!--</el-input>-->
+                <!--</el-row>-->
+                <!--<el-row>-->
+                    <!--<el-button type="primary" @click="sendMsg">发送</el-button>-->
+                    <!--<el-button type="warning" @click="cancelSend">取消</el-button>-->
+                <!--</el-row>-->
+            <!--</el-col>-->
+        <!--</el-row>-->
+    <!--</div>-->
+
 
 
 </div>
@@ -126,10 +164,12 @@
 <!--<script src="/js/axios.min.js"></script>-->
 
 
-<script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+<!--<script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>-->
 
-<!-- 引入组件库 -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--&lt;!&ndash; 引入组件库 &ndash;&gt;-->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+
+
 <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
 
 
