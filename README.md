@@ -61,8 +61,12 @@
 
 1. dev
 -  oldwei-register-eureka-server 8001
--  oldwei-config-server 8001
--  oldwei-product  8002
+-  oldwei-config-server 8002
+-  oldwei-product  8003
+-  oldwei-user 8004
+-  oldwei-order 8005
+-  oldwei-gateway 8006
+-  oldwei-gpu-monitor 8007
 
 
 
@@ -78,10 +82,10 @@
   ├── mall-swarm
   ├── netty
   ├── redisson-spring-boot-starter
-  ├── redis-spring-boot-starter
+  ├── redis-spring-boot-starter    基于注解实现/实现 单机、哨兵、集群 自由配置切换
   ├── springboot-cloud
   ├── spring-boot-demo
-  ├── spring-boot-klock-starter
+  ├── spring-boot-klock-starter  限流注解/接口层
   ├── springcloud-learning
   ├── viboot
   └── zuihou-admin-cloud

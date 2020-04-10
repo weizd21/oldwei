@@ -1,0 +1,13 @@
+oldwei:
+  netty:
+    port: 8010
+
+
+server:
+  port: @pom.netty.chat.port@
+
+spring:
+  application:
+    name: @pom.netty.chat.name@
+
+

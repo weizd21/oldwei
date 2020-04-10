@@ -1,11 +1,15 @@
 package top.oldwei.product;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -15,8 +19,12 @@ import java.net.UnknownHostException;
  * @Date:20-2-26
  */
 @Slf4j
+@EnableTransactionManagement
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableConfigurationProperties
+@MapperScan("top.oldwei.product.mapper")
+@EnableDubbo
 public class ProductApplication {
 
     public static void main(String[] args) throws UnknownHostException {
@@ -36,4 +44,9 @@ public class ProductApplication {
         );
 
     }
+
+
+
+
+
 }

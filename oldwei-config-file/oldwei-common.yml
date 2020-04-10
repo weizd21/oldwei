@@ -1,0 +1,30 @@
+
+spring:
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+    multipart:
+      location: /home/ap/aipf/app_temp/
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+      location: /home/ap/aipf/app_temp/
+
+server:
+  tomcat:
+    basedir: /home/ap/aipf/app_temp/
+
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

@@ -29,6 +29,12 @@
             <properties>
                 <pom.profile.name>local</pom.profile.name>
                 <pom.register.eureka.server.defaultZone>http://127.0.0.1:8001/eureka</pom.register.eureka.server.defaultZone>
+                <!--配置server端的url数组逗号分割-->
+                <pom.config.uri>http://localhost:8002</pom.config.uri>
+                <!-- 从配置中心配置的git中那个分支获取-->
+                <pom.config.label>develop</pom.config.label>
+                <!--配置中心下的那个目录下查找内容-->
+                <pom.config.search-paths>oldwei-config-file</pom.config.search-paths>
             </properties>
         </profile>
 
@@ -41,6 +47,12 @@
             <properties>
                 <pom.profile.name>dev</pom.profile.name>
                 <pom.register.eureka.server.defaultZone>http://localhost:8001/eureka</pom.register.eureka.server.defaultZone>
+                <!--配置server端的url数组逗号分割-->
+                <pom.config.uri>http://localhost:8002</pom.config.uri>
+                <!-- 从配置中心配置的git中那个分支获取-->
+                <pom.config.label>develop</pom.config.label>
+                <!--配置中心下的那个目录下查找内容-->
+                <pom.config.search-paths>oldwei-config-file</pom.config.search-paths>
             </properties>
 
         </profile>
@@ -50,7 +62,12 @@
             <properties>
                 <pom.profile.name>test</pom.profile.name>
                 <pom.register.eureka.server.defaultZone>http://127.0.0.1:8001/eureka</pom.register.eureka.server.defaultZone>
-
+                <!--配置server端的url数组逗号分割-->
+                <pom.config.uri>http://localhost:8002</pom.config.uri>
+                <!-- 从配置中心配置的git中那个分支获取-->
+                <pom.config.label>develop</pom.config.label>
+                <!--配置中心下的那个目录下查找内容-->
+                <pom.config.search-paths>oldwei-config-file</pom.config.search-paths>
             </properties>
 
         </profile>
@@ -61,7 +78,12 @@
             <properties>
                 <pom.profile.name>release</pom.profile.name>
                 <pom.register.eureka.server.defaultZone>http://localhost:8001/eureka</pom.register.eureka.server.defaultZone>
-
+                <!--配置server端的url数组逗号分割-->
+                <pom.config.uri>http://localhost:8002</pom.config.uri>
+                <!-- 从配置中心配置的git中那个分支获取-->
+                <pom.config.label>develop</pom.config.label>
+                <!--配置中心下的那个目录下查找内容-->
+                <pom.config.search-paths>oldwei-config-file</pom.config.search-paths>
             </properties>
 
         </profile>
@@ -75,10 +97,22 @@
         <pom.register.eureka.server.port>8001</pom.register.eureka.server.port>
         <pom.config.server.port>8002</pom.config.server.port>
         <pom.product.port>8003</pom.product.port>
+        <pom.user.port>8004</pom.user.port>
+        <pom.order.port>8005</pom.order.port>
+        <pom.gateway.port>8006</pom.gateway.port>
+        <pom.gpu.monitor.port>8007</pom.gpu.monitor.port>
+        <pom.websocket.port>8008</pom.websocket.port>
+        <pom.netty.chat.port>8009</pom.netty.chat.port>
 
         <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
         <pom.config.server.name>oldwei-config-server</pom.config.server.name>
         <pom.product.name>oldwei-product</pom.product.name>
+        <pom.user.name>oldwei-user</pom.user.name>
+        <pom.order.name>oldwei-order</pom.order.name>
+        <pom.gateway.name>oldwei-gateway</pom.gateway.name>
+        <pom.gpu.monitor.name>oldwei-gpu-monitor</pom.gpu.monitor.name>
+        <pom.websocket.name>oldwei-websocket</pom.websocket.name>
+        <pom.netty.chat.name>oldwei-netty-chat</pom.netty.chat.name>
 
 
         <java.version>1.8</java.version>
@@ -98,7 +132,9 @@
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis.typehandlers.version>1.0.2</mybatis.typehandlers.version>
-        <mybatisplus.version>3.2.0</mybatisplus.version>
+
+        <mybatisplus.version>3.3.1</mybatisplus.version>
+
         <p6spy.version>3.8.7</p6spy.version>
         <!--        <mybatis.dynamic.version>2.5.4</mybatis.dynamic.version>-->
         <!--        <mybatis.spring.version>2.0.3</mybatis.spring.version>-->
@@ -130,6 +166,10 @@
         <spark.version>2.4.4</spark.version>
 
 
+        <dubbo.version>2.7.5</dubbo.version>
+        <zk.client.version>0.1</zk.client.version>
+        <zk.version>3.4.9</zk.version>
+        <curator.version>4.2.0</curator.version>
 
         <!--实用工具-->
         <ip2region.version>1.7.2</ip2region.version>
@@ -147,7 +187,7 @@
         <qcloudsms.version>1.0.6</qcloudsms.version>
         <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
 
-
+        <jsch.version>0.1.55</jsch.version>
 
 
 
@@ -168,6 +208,14 @@
                 <scope>import</scope>
             </dependency>
 
+
+            <!--<dependency>-->
+                <!--<groupId>org.apache.dubbo</groupId>-->
+                <!--<artifactId>dubbo-dependencies-bom</artifactId>-->
+                <!--<version>${dubbo.version}</version>-->
+                <!--<type>pom</type>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
 
             <!--<dependency>-->
                 <!--<groupId>org.springframework</groupId>-->
@@ -241,6 +289,42 @@
             </dependency>
 
 
+
+            <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.github.sgroschupf</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zk.client.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zk.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
+
+
             <!-- FastDFS文件 -->
             <dependency>
                 <groupId>com.github.tobato</groupId>
@@ -253,14 +337,6 @@
                 <artifactId>qiniu-java-sdk</artifactId>
                 <version>${qiniu-java-sdk}</version>
             </dependency>
-
-            <!-- 对象转换 -->
-            <dependency>
-                <groupId>com.github.dozermapper</groupId>
-                <artifactId>dozer-spring-boot-starter</artifactId>
-                <version>${dozer.version}</version>
-            </dependency>
-
 
             <!-- swagger2 -->
             <dependency>
@@ -373,6 +449,23 @@
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${bitwalker.version}</version>
             </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${jsch.version}</version>
+            </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
 
 
         </dependencies>

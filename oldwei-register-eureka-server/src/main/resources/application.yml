@@ -1,11 +1,11 @@
-server:
-  port: @pom.register.eureka.server.port@ #指定运行端口
 spring:
   application:
     name: @pom.register.eureka.server.name@ #指定服务名称
   profiles:
     active: @pom.profile.name@
 
+server:
+  port: @pom.register.eureka.server.port@ #指定运行端口
 
 
 eureka:
