@@ -1,5 +1,6 @@
 package top.oldwei.netty.chat.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -11,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @Date:20-4-9
  */
 @Slf4j
-public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
 
     @Override
@@ -22,6 +23,9 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
 
         log.info("ChannelId : 【{}】",channelId);
 
+        log.info(textWebSocketFrame.text());
+
+        log.info(JSONObject.toJSON(textWebSocketFrame).toString());
     }
 
 
