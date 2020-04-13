@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import top.oldwei.netty.chat.code.MessageDecoder;
 import top.oldwei.netty.chat.handler.FullHttpRequestHandler;
 import top.oldwei.netty.chat.handler.ObjectHandler;
 import top.oldwei.netty.chat.handler.TextWebSocketFrameHandler;
@@ -61,6 +62,11 @@ public class NettyServerInit implements CommandLineRunner {
                         ch.pipeline().addLast(new GroupMessageRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     */
+
+
+                        ch.pipeline().addLast(new MessageDecoder());
+
+
                         // http请求解码器 将请求和应答消息编码或者解码为HTTP消息
                         ch.pipeline().addLast(new HttpServerCodec());
 
@@ -68,16 +74,12 @@ public class NettyServerInit implements CommandLineRunner {
                         ch.pipeline().addLast(new ChunkedWriteHandler());
                         // 将HTTP消息的多个部分组合成一条完整的HTTP消息;
                         ch.pipeline().addLast(new HttpObjectAggregator(8192));
-                        log.info("1");
                         ch.pipeline().addLast(new FullHttpRequestHandler());
 
 
                         // 自定义的处理器
                         ch.pipeline().addLast(new TextWebSocketFrameHandler());
 
-
-                        ch.pipeline().addLast(new ObjectHandler());
-                        log.info("2");
                         ch.pipeline().addLast(new WebSocketServerProtocolHandler("/chat", null, true, 65536 * 10));
                     }
                 });
