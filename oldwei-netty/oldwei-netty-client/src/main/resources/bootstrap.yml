@@ -1,0 +1,11 @@
+oldwei:
+  netty:
+    port: 8011
+
+
+server:
+  port: @pom.netty.client.port@
+
+spring:
+  application:
+    name: @pom.netty.client.name@
