@@ -35,4 +35,11 @@ public class NettyChatApplication {
     }
 
 
+
+
+    private static void testIndex(){
+
+    }
+
+
 }
