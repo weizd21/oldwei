@@ -1,6 +1,10 @@
 package top.oldwei.netty.client.task;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -11,6 +15,7 @@ import java.nio.channels.FileChannel;
  *
  *
  */
+@Slf4j
 public class ReadFileTaskV2 implements Runnable {
 
     private RandomAccessFile rAccessFile;
@@ -27,6 +32,19 @@ public class ReadFileTaskV2 implements Runnable {
         this.start = start;
         this.sliceSize = sliceSize;
         this.readBuffer = new byte[bufferSize];
+        this.rAccessFile = rAccessFile;
+    }
+
+    public ReadFileTaskV2(String filePath, long start, long sliceSize){
+        this.start = start;
+        this.sliceSize = sliceSize;
+        this.readBuffer = new byte[bufferSize];
+
+        try {
+            this.rAccessFile = new RandomAccessFile(filePath,"r");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -36,6 +54,7 @@ public class ReadFileTaskV2 implements Runnable {
     @Override
     public void run() {
         try {
+
             MappedByteBuffer mapBuffer = rAccessFile.getChannel().map(FileChannel.MapMode.READ_ONLY,start, this.sliceSize);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             for(int offset=0;offset<sliceSize;offset+=bufferSize){
@@ -50,6 +69,9 @@ public class ReadFileTaskV2 implements Runnable {
                     byte tmp = readBuffer[i];
                     if(tmp=='\n' || tmp=='\r'){
 //                        handle(bos.toByteArray());
+
+                        log.info(bos.toString());
+
                         bos.reset();
                     }else{
                         bos.write(tmp);
@@ -58,6 +80,7 @@ public class ReadFileTaskV2 implements Runnable {
             }
             if(bos.size()>0){
 //                handle(bos.toByteArray());
+                log.info(bos.toString());
             }
 //            cyclicBarrier.await();//测试性能用
         }catch (Exception e) {
