@@ -262,18 +262,23 @@
                     this.notify("用户信息不存在");
                     return;
                 }
-                const wsuri = "ws://127.0.0.1:8008/chat?token="+this.user.id ;
+                const wsuri = "ws://127.0.0.1:8010/chat?token="+this.user.id ;
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketonmessage;
                 this.websock.onopen = this.websocketonopen;
                 this.websock.onerror = this.websocketonerror;
                 this.websock.onclose = this.websocketclose;
+
+                console.log(this.websock);
             },
             websocketonopen(){ //连接建立之后执行send方法发送数据
+                console.log("建立连接");
                 this.notify("登录成功");
+                this.websocketsend(JSON.stringify(this.chatData));
             },
             websocketonerror(){//连接建立失败重连
-                this.initWebSocket();
+                console.log("连接失败");
+                // this.initWebSocket();
             },
             websocketonmessage(e){ //数据接收
                 console.log(e);

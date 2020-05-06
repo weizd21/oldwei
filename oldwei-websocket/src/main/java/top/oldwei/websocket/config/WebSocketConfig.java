@@ -3,6 +3,7 @@ package top.oldwei.websocket.config;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -24,6 +25,9 @@ import top.oldwei.websocket.properties.Properties;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
+    @Value("${oldwei.defaultValue:default:value}")
+    private String defaultVaule;
+
     @Autowired
     private Properties properties;
 
@@ -35,6 +39,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
+
+        log.info("defauValue: 【{}】",defaultVaule);
 
         log.info("注入webSocket处理器和拦截器...");
 

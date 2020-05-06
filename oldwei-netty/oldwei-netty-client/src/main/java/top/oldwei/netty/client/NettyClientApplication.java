@@ -1,4 +1,4 @@
-package top.oldwei.netty.chat;
+package top.oldwei.netty.client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -11,14 +11,14 @@ import java.net.UnknownHostException;
 
 /**
  * @Author:weizd
- * @Date:20-4-9
+ * @Date:20-4-18
  */
-@SpringBootApplication
 @Slf4j
-public class NettyChatApplication {
+@SpringBootApplication
+public class NettyClientApplication {
 
     public static void main(String[] args) throws UnknownHostException {
-        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(NettyChatApplication.class,args);
+        ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(NettyClientApplication.class,args);
 
         Environment environment = configurableApplicationContext.getEnvironment();
 
@@ -33,13 +33,5 @@ public class NettyChatApplication {
                 environment.getProperty("spring.mvc.servlet.path", "")
         );
     }
-
-
-
-
-    private static void testIndex(){
-
-    }
-
 
 }

@@ -1,0 +1,17 @@
+oldwei:
+  netty:
+    port: 8011
+  executor:
+    name: "masterServiceExecutor"
+    core-pool-size: 5
+    max-pool-size: 10
+    queue-capacity: 20
+    thread-name-prefix: "master-service-"
+    keep-alive-time: 1
+
+server:
+  port: @pom.netty.client.port@
+
+spring:
+  application:
+    name: @pom.netty.client.name@
