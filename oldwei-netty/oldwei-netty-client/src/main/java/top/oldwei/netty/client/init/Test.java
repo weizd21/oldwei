@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 import top.oldwei.netty.client.task.ReadFileTaskV2;
 
 import javax.annotation.Resource;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -38,17 +41,57 @@ public class Test implements CommandLineRunner {
         System.out.println("aa\rbb");
         System.out.println("aa\n\rbb");
 
+
         String filePath = "/home/weizd/dataset/dataset/RossmanSales.csv";
+
+
+        int n = 400;
+        int i = 1;
+        while (true){
+
+
+            if(i%n == 0){
+                log.info("i = {}",i);
+                break;
+            }
+
+            i++;
+        }
+
+
+
+
 
 //        filePath = "/home/weizd/dataset/dataset/bike_nohead.csv";
 //
 //        filePath = "/home/weizd/dataset/dataset/balance_scale_nohead.csv";
 
-        filePath = "/home/weizd/dataset/dataset/ulike_nohead.csv";
+//        filePath = "/home/weizd/dataset/dataset/ulike_nohead.csv";
 
         File  file = new File(filePath);
 
         RandomAccessFile randomAccessFile = new RandomAccessFile(file,"r");
+
+
+        MappedByteBuffer mappedByteBuffer = randomAccessFile.getChannel().map(FileChannel.MapMode.READ_ONLY,0,file.length());
+        byte[] bytes = new byte[10];
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        for(int offset=0;offset<file.length();offset+=10){
+
+            log.info("position: {}",mappedByteBuffer.position());
+
+            mappedByteBuffer.get(bytes,0,10);
+            if(offset> 20){
+                break;
+            }
+            bos.write(bytes);
+            log.info(bos.toString());
+            bos.reset();
+
+            mappedByteBuffer.position(0);
+        }
+
+
 
         int threadNum = 4;
 
@@ -95,7 +138,7 @@ public class Test implements CommandLineRunner {
 
 //            threadPoolTaskExecutor.execute(runnable);
 
-            threadPoolExecutor.execute(runnable);
+//            threadPoolExecutor.execute(runnable);
 
             log.info("endIndex ----> 【{}】",start+finalSize);
 
@@ -103,9 +146,9 @@ public class Test implements CommandLineRunner {
             finalSize = everySize;
         }
 
-        threadPoolExecutor.shutdown();
+//        threadPoolExecutor.shutdown();
 
-        while(!threadPoolExecutor.isTerminated());
+//        while(!threadPoolExecutor.isTerminated());
 
         log.info("take 【{}】 ms",System.currentTimeMillis() - startTime);
 
