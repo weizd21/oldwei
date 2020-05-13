@@ -102,9 +102,16 @@
         <pom.gateway.port>8006</pom.gateway.port>
         <pom.gpu.monitor.port>8007</pom.gpu.monitor.port>
         <pom.websocket.port>8008</pom.websocket.port>
+        <!-- chat 模块 -->
         <pom.netty.chat.port>8009</pom.netty.chat.port>
+        <pom.netty.chat.netty.port>8010</pom.netty.chat.netty.port>
 
-        <pom.netty.client.port>8012</pom.netty.client.port>
+        <!-- netty模块 客户端 相关-->
+        <pom.netty.client.port>8011</pom.netty.client.port>
+
+        <!-- netty模块服务端 相关 -->
+        <pom.netty.server.port>8012</pom.netty.server.port>
+        <pom.netty.server.netty.port>8013</pom.netty.server.netty.port>
 
 
 
@@ -118,6 +125,7 @@
         <pom.websocket.name>oldwei-websocket</pom.websocket.name>
         <pom.netty.chat.name>oldwei-netty-chat</pom.netty.chat.name>
         <pom.netty.client.name>oldwei-netty-client</pom.netty.client.name>
+        <pom.netty.server.name>oldwei-netty-server</pom.netty.server.name>
 
 
         <java.version>1.8</java.version>
@@ -164,6 +172,8 @@
         <commons.collections4.version>4.4</commons.collections4.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-codec.version>1.14</commons-codec.version>
+
 
 
         <elasticsearch.version>3.2.3.RELEASE</elasticsearch.version>
@@ -203,6 +213,13 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+
 
             <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
             <dependency>
@@ -420,6 +437,15 @@
                 <version>${commons-lang.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+
+
+
             <!--Java 图形验证码-->
             <dependency>
                 <groupId>com.github.whvcse</groupId>
@@ -560,7 +586,15 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
         </plugins>
+
     </build>
 
 

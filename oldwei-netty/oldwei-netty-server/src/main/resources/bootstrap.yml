@@ -10,8 +10,8 @@ oldwei:
     keep-alive-time: 1
 
 server:
-  port: @pom.netty.client.port@
+  port: @pom.netty.server.port@
 
 spring:
   application:
-    name: @pom.netty.client.name@
+    name: @pom.netty.server.name@

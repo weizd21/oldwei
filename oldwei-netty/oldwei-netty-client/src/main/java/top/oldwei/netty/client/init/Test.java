@@ -1,11 +1,14 @@
 package top.oldwei.netty.client.init;
 
+import cn.hutool.core.date.SystemClock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import top.oldwei.netty.client.task.ReadFileTaskV2;
+import top.oldwei.netty.client.util.FileUtil;
+import top.oldwei.netty.client.util.SplitFileUtil;
 
 import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +16,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -32,6 +36,15 @@ public class Test implements CommandLineRunner {
 
     @Resource
     private ThreadPoolExecutor threadPoolExecutor;
+
+
+    @Resource
+    private SplitFileUtil splitFileUtil;
+
+
+    @Resource
+    private FileUtil fileUtil;
+
 
 
     @Override
@@ -66,31 +79,55 @@ public class Test implements CommandLineRunner {
 //
 //        filePath = "/home/weizd/dataset/dataset/balance_scale_nohead.csv";
 
-//        filePath = "/home/weizd/dataset/dataset/ulike_nohead.csv";
+        filePath = "/home/weizd/dataset/dataset/ulike_nohead.csv";
+
+//        filePath = "/home/weizd/dataset/dataset/balance_scale_nohead.csv";
 
         File  file = new File(filePath);
 
         RandomAccessFile randomAccessFile = new RandomAccessFile(file,"r");
 
 
-        MappedByteBuffer mappedByteBuffer = randomAccessFile.getChannel().map(FileChannel.MapMode.READ_ONLY,0,file.length());
-        byte[] bytes = new byte[10];
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        for(int offset=0;offset<file.length();offset+=10){
+        long s = SystemClock.now();
 
-            log.info("position: {}",mappedByteBuffer.position());
+        log.info(fileUtil.getFileMd5("/home/weizd/baseEnvironment/test.zip"));
 
-            mappedByteBuffer.get(bytes,0,10);
-            if(offset> 20){
-                break;
-            }
-            bos.write(bytes);
-            log.info(bos.toString());
-            bos.reset();
+        log.info("md5 take :{}",SystemClock.now() - s);
 
-            mappedByteBuffer.position(0);
-        }
+        s = SystemClock.now();
 
+//        List<String> list = splitFileUtil.splitFileBySeparatorAndSize(filePath,'。',100);
+//        log.info("split take :{}",SystemClock.now() - s);
+//
+//        log.info("list size : {}",list.size());
+//
+//
+//        for(int j = 0;j< 10;j++){
+//            log.info(list.get(j));
+//        }
+
+
+//        MappedByteBuffer mappedByteBuffer = randomAccessFile.getChannel().map(FileChannel.MapMode.READ_ONLY,0,file.length());
+//        byte[] bytes = new byte[20];
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        for(int offset=0;offset<file.length();offset+=10){
+//
+//            log.info("position: {}",mappedByteBuffer.position());
+//
+//            mappedByteBuffer.get(bytes,0,10);
+//
+////            bos.write(bytes);
+//            mappedByteBuffer.get(bytes,10,10);
+//            if(offset> 20){
+//                break;
+//            }
+//            bos.write(bytes);
+//            log.info(bos.toString());
+//            bos.reset();
+//
+////            mappedByteBuffer.position(0);
+//        }
+//
 
 
         int threadNum = 4;
@@ -113,7 +150,6 @@ public class Test implements CommandLineRunner {
         for(;end;){
 
             log.info("------> "+start);
-
 
             if(start + everySize >= fileLength-1){
                 finalSize = fileLength-1 - start;

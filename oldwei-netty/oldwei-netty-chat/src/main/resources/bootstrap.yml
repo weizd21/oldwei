@@ -1,6 +1,6 @@
 oldwei:
   netty:
-    port: 8010
+    port: @pom.netty.chat.netty.port@
 
 
 server:
