@@ -7,6 +7,8 @@ import top.oldwei.netty.common.constant.Base;
 import top.oldwei.netty.common.constant.Command;
 import top.oldwei.netty.common.constant.SerializerType;
 import top.oldwei.netty.common.packet.FileTransferPacketV1;
+import top.oldwei.netty.common.packet.FileTransferRequestPacket;
+import top.oldwei.netty.common.packet.FileTransferResponsePacket;
 import top.oldwei.netty.common.packet.LoginRequestPacket;
 import top.oldwei.netty.common.serializer.Serializer;
 
@@ -73,6 +75,10 @@ public class PacketCodeC {
             return LoginRequestPacket.class;
         }else if(command == Command.FILE_TRANSFER){
             return FileTransferPacketV1.class;
+        }else if(command == Command.FILE_TRANSFER_REQUEST){
+            return FileTransferRequestPacket.class;
+        }else if(command == Command.FILE_TRANSFER_RESPONSE){
+            return FileTransferResponsePacket.class;
         }
         return null;
     }

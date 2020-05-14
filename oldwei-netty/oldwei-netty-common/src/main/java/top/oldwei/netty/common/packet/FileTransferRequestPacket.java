@@ -9,7 +9,7 @@ import top.oldwei.netty.common.constant.Command;
  * @Date:20-5-13
  */
 @Data
-public class FileTransferPacketV1 extends Packet {
+public class FileTransferRequestPacket extends Packet {
 
     /**
      * 文件的md5值
@@ -29,7 +29,7 @@ public class FileTransferPacketV1 extends Packet {
 
     @Override
     public Byte getCommand() {
-        return Command.FILE_TRANSFER;
+        return Command.FILE_TRANSFER_REQUEST;
     }
 
 }

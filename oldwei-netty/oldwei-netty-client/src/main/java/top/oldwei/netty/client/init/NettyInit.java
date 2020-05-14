@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import top.oldwei.netty.client.handler.FileTransferResponseHandler;
 import top.oldwei.netty.client.util.FileUtil;
 import top.oldwei.netty.common.codec.PacketDecoder;
 import top.oldwei.netty.common.codec.PacketEncoder;
 import top.oldwei.netty.common.packet.FileTransferPacketV1;
+import top.oldwei.netty.common.packet.FileTransferRequestPacket;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -61,7 +63,7 @@ public class NettyInit implements CommandLineRunner {
                         // 自定义
                         ch.pipeline().addLast(new PacketDecoder());
 
-
+                        ch.pipeline().addLast(new FileTransferResponseHandler());
 
 
 
@@ -76,24 +78,51 @@ public class NettyInit implements CommandLineRunner {
 
                 Channel channel = ((ChannelFuture)future).channel();
 
-
                 String filePath = "/home/weizd/dataset/dataset/air_nohead.csv";
 
-                filePath = "/home/weizd/baseEnvironment/test.zip";
+//                filePath = "/home/weizd/baseEnvironment/test.zip";
 
                 File file = new File(filePath);
-
-
 
                 long s = SystemClock.now();
 
                 String md5 = fileUtil.getFileMd5(filePath);
 
                 RandomAccessFile randomAccessFile = new RandomAccessFile(file,"r");
+                byte[] bytes = new byte[1024*1024];
 
+                long startIndex = 0;
+                FileTransferRequestPacket fileTransferRequestPacket = null;
+
+                int readLength = randomAccessFile.read(bytes);
+                if(readLength != -1){
+                    fileTransferRequestPacket = new FileTransferRequestPacket();
+                    if(readLength < 1024*1024){
+                        byte[] copy = new byte[readLength];
+                        System.arraycopy(bytes, 0, copy, 0, readLength);
+                        fileTransferRequestPacket.setBytes(copy);
+                    }else {
+                        fileTransferRequestPacket.setBytes(bytes);
+                    }
+                    fileTransferRequestPacket.setFileName(file.getName());
+                    fileTransferRequestPacket.setFilePath(filePath);
+
+                    fileTransferRequestPacket.setStartPos(startIndex);
+                    fileTransferRequestPacket.setEndPos(startIndex+readLength);
+                    fileTransferRequestPacket.setMd5(md5);
+                    channel.writeAndFlush(fileTransferRequestPacket);
+                    randomAccessFile.close();
+                }
+                log.info("fileSize: {},startIndex:{},endIndex: {} send success take: {}",file.length(),startIndex,startIndex+readLength,SystemClock.now() -s);
+
+/*
+
+                // 2020-05-14 16:28:26.579  INFO 20393 --- [ntLoopGroup-2-1] t.o.netty.common.codec.PacketEncoder     : packetEncoder---> 195506176 - >195507200
+
+                RandomAccessFile randomAccessFile = new RandomAccessFile(file,"r");
                 byte[] bytes = new byte[1024];
                 int readLength;
-                int startIndex = 0;
+                long startIndex = 0;
                 FileTransferPacketV1 fileTransferPacketV1 = null;
                 while ((readLength = randomAccessFile.read(bytes)) != -1){
                     fileTransferPacketV1 = new FileTransferPacketV1();
@@ -115,11 +144,19 @@ public class NettyInit implements CommandLineRunner {
 
                     startIndex = startIndex + readLength;
 
+                    try{
+                        Thread.sleep(100);
+                    }catch (Exception e){
+
+                    }
                 }
                 randomAccessFile.close();
+                log.info("fileSize: {},startIndex:{},endIndex: {} send success take: {}",file.length(),startIndex,startIndex+readLength,SystemClock.now() -s);
+*/
 
 
-                log.info("fileSize: {}, send success take: {}",file.length(),SystemClock.now() -s);
+
+
 
             } else {
                 log.info("连接失败!");

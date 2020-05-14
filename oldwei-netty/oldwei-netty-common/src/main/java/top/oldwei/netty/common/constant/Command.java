@@ -31,10 +31,14 @@ public interface Command {
      * 文件传输
      */
     Byte FILE_TRANSFER = 11;
-
-
-
-
+    /**
+     *  
+     */
+    Byte FILE_TRANSFER_REQUEST = 12;
+    /**
+     *
+     */
+    Byte FILE_TRANSFER_RESPONSE = 13;
 
 
 

@@ -17,7 +17,7 @@
         <module>oldwei-netty-chat</module>
         <module>oldwei-netty-client</module>
         <module>oldwei-netty-server</module>
-        <!--<module>oldwei-netty-common</module>-->
+        <module>oldwei-netty-common</module>
     </modules>
 
     <dependencies>
