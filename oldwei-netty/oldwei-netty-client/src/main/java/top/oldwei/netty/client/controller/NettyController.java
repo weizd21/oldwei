@@ -65,14 +65,12 @@ public class NettyController {
         FileInfo fileInfo = null;
         for(File file:files){
             fileInfo = new FileInfo();
-            file.lastModified()
             fileInfo.setFileName(file.getName());
             fileInfo.setFilePath(file.getPath());
             fileInfo.setMd5(fileUtil.getFileMd5(file.getPath()));
             fileInfo.setFileSize(file.length());
             fileInfo.setRelativePath(file.getPath().substring(filePath.length()));
             startFolderTransferRequestPacket.getFileList().add(fileInfo);
-//            log.info("fileInfo: {}",fileInfo);
             CacheUtil.takeTime.put(fileInfo.getMd5(),SystemClock.now());
         }
 

@@ -31,6 +31,8 @@ public class FileTransferRequestPacket extends Packet {
      */
     private String destFilePath;
 
+    private long fileSize;
+
     @Override
     public Byte getCommand() {
         return Command.FILE_TRANSFER_REQUEST;

@@ -31,5 +31,9 @@ public class TransferFileInfo implements Serializable {
      */
     private String currentFilePath;
 
+    /**
+     * 最后修改的时间
+     */
+    private long lastModified;
 
 }

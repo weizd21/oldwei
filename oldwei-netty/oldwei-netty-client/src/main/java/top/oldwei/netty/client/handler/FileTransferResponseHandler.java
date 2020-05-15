@@ -24,6 +24,7 @@ public class FileTransferResponseHandler extends SimpleChannelInboundHandler<Fil
         long startIndex = fileTransferResponsePacket.getStartPos();
         byte[] bytes = FileUtil.getFileRangeByte(fileTransferResponsePacket.getFilePath(),startIndex,1024*1024);
         if(null != bytes){
+            log.info("[{}]",fileTransferResponsePacket.getFilePath());
             FileTransferRequestPacket fileTransferRequestPacket = new FileTransferRequestPacket();
             fileTransferRequestPacket.setBytes(bytes);
             fileTransferRequestPacket.setFileName(fileTransferResponsePacket.getFileName());
