@@ -15,7 +15,7 @@ import java.nio.file.Paths;
  * @Date:20-5-13
  */
 @Slf4j
-public class FileTransferV1Hander extends SimpleChannelInboundHandler<FileTransferPacketV1> {
+public class FileTransferV1Handler extends SimpleChannelInboundHandler<FileTransferPacketV1> {
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, FileTransferPacketV1 fileTransferPacketV1) throws Exception {
         log.info("--------> {}", JSONObject.toJSONString(fileTransferPacketV1));

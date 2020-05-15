@@ -26,6 +26,10 @@ public class FileTransferRequestPacket extends Packet {
 
     private byte[] bytes;
 
+    /**
+     * 目标存放路径
+     */
+    private String destFilePath;
 
     @Override
     public Byte getCommand() {

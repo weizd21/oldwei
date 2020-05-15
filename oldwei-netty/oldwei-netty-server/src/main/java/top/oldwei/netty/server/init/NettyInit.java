@@ -16,8 +16,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import top.oldwei.netty.common.codec.PacketDecoder;
 import top.oldwei.netty.common.codec.PacketEncoder;
-import top.oldwei.netty.server.handler.FileTransferRequestHander;
-import top.oldwei.netty.server.handler.FileTransferV1Hander;
+import top.oldwei.netty.server.handler.FileTransferRequestHandler;
+import top.oldwei.netty.server.handler.FileTransferV1Handler;
+import top.oldwei.netty.server.handler.StartFileTransferRequestHandler;
+import top.oldwei.netty.server.handler.StartFolderTransferRequestHandler;
 
 /**
  * @Author:weizd
@@ -50,8 +52,10 @@ public class NettyInit implements CommandLineRunner {
                         ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                         // 自定义
                         ch.pipeline().addLast(new PacketDecoder());
-                        ch.pipeline().addLast(new FileTransferV1Hander());
-                        ch.pipeline().addLast(new FileTransferRequestHander());
+                        ch.pipeline().addLast(new FileTransferV1Handler());
+                        ch.pipeline().addLast(new FileTransferRequestHandler());
+                        ch.pipeline().addLast(new StartFileTransferRequestHandler());
+                        ch.pipeline().addLast(new StartFolderTransferRequestHandler());
                         ch.pipeline().addLast(new PacketEncoder());
 
 

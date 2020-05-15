@@ -4,13 +4,9 @@ import io.netty.buffer.ByteBuf;
 import lombok.extern.slf4j.Slf4j;
 import top.oldwei.netty.common.base.Packet;
 import top.oldwei.netty.common.constant.Base;
-import top.oldwei.netty.common.constant.Command;
 import top.oldwei.netty.common.constant.SerializerType;
-import top.oldwei.netty.common.packet.FileTransferPacketV1;
-import top.oldwei.netty.common.packet.FileTransferRequestPacket;
-import top.oldwei.netty.common.packet.FileTransferResponsePacket;
-import top.oldwei.netty.common.packet.LoginRequestPacket;
 import top.oldwei.netty.common.serializer.Serializer;
+import static top.oldwei.netty.common.base.CommandCache.commandInfo;
 
 /**
  * @Author:weizd
@@ -71,14 +67,8 @@ public class PacketCodeC {
 
 
     private Class<? extends Packet> getRequestType(byte command){
-        if(command == Command.LOGIN_REQUEST){
-            return LoginRequestPacket.class;
-        }else if(command == Command.FILE_TRANSFER){
-            return FileTransferPacketV1.class;
-        }else if(command == Command.FILE_TRANSFER_REQUEST){
-            return FileTransferRequestPacket.class;
-        }else if(command == Command.FILE_TRANSFER_RESPONSE){
-            return FileTransferResponsePacket.class;
+        if(commandInfo.containsKey(command)){
+            return commandInfo.get(command);
         }
         return null;
     }

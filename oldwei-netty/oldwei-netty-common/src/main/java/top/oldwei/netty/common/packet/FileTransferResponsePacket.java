@@ -24,6 +24,11 @@ public class FileTransferResponsePacket extends Packet {
 
     private long endPos;
 
+    /**
+     * 目标存放路径
+     */
+    private String destFilePath;
+
     @Override
     public Byte getCommand() {
         return Command.FILE_TRANSFER_RESPONSE;

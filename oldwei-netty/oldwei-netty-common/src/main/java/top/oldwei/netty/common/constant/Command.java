@@ -32,13 +32,23 @@ public interface Command {
      */
     Byte FILE_TRANSFER = 11;
     /**
-     *  
+     * 文件传输中 请求
      */
     Byte FILE_TRANSFER_REQUEST = 12;
     /**
-     *
+     *  文件传输中 响应
      */
     Byte FILE_TRANSFER_RESPONSE = 13;
+
+    /**
+     * 开始文件传输 请求
+     */
+    Byte START_FILE_TRANSFER_REQUEST = 14;
+
+    /**
+     * 开始文件夹传输 请求
+     */
+    Byte START_FOLDER_TRANSFER_REQUEST = 15;
 
 
 

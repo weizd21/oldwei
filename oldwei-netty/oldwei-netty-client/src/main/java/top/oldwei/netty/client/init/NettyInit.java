@@ -1,6 +1,5 @@
 package top.oldwei.netty.client.init;
 
-import cn.hutool.cache.CacheUtil;
 import cn.hutool.core.date.SystemClock;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -15,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import top.oldwei.netty.client.handler.FileTransferResponseHandler;
+import top.oldwei.netty.client.util.CacheUtil;
 import top.oldwei.netty.client.util.FileUtil;
 import top.oldwei.netty.common.codec.PacketDecoder;
 import top.oldwei.netty.common.codec.PacketEncoder;
@@ -65,8 +65,6 @@ public class NettyInit implements CommandLineRunner {
 
                         ch.pipeline().addLast(new FileTransferResponseHandler());
 
-
-
                         ch.pipeline().addLast(new PacketEncoder());
 
                     }
@@ -78,6 +76,11 @@ public class NettyInit implements CommandLineRunner {
 
                 Channel channel = ((ChannelFuture)future).channel();
 
+
+                CacheUtil.sessionMap.put("weizd_channel",channel);
+
+
+/*
                 String filePath = "/home/weizd/dataset/dataset/air_nohead.csv";
 
 //                filePath = "/home/weizd/baseEnvironment/test.zip";
@@ -114,6 +117,7 @@ public class NettyInit implements CommandLineRunner {
                     randomAccessFile.close();
                 }
                 log.info("fileSize: {},startIndex:{},endIndex: {} send success take: {}",file.length(),startIndex,startIndex+readLength,SystemClock.now() -s);
+*/
 
 /*
 

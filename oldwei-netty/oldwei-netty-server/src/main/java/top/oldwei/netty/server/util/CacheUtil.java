@@ -1,6 +1,8 @@
 package top.oldwei.netty.server.util;
 
+
 import com.google.common.collect.Maps;
+import top.oldwei.netty.server.domain.TransferFileInfo;
 
 import java.util.Map;
 
@@ -10,5 +12,6 @@ import java.util.Map;
  */
 public class CacheUtil {
 
-    public static Map<String,String> fileCache  =Maps.newConcurrentMap();
+    public static Map<String,TransferFileInfo> fileInfoCache = Maps.newConcurrentMap();
+
 }

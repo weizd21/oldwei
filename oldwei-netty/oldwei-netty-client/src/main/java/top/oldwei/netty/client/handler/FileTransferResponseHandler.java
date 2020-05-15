@@ -5,13 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import top.oldwei.netty.client.util.CacheUtil;
 import top.oldwei.netty.client.util.FileUtil;
 import top.oldwei.netty.common.packet.FileTransferRequestPacket;
 import top.oldwei.netty.common.packet.FileTransferResponsePacket;
-
-import javax.annotation.Resource;
-import java.io.RandomAccessFile;
 
 /**
  * @Author:weizd
@@ -20,16 +17,9 @@ import java.io.RandomAccessFile;
 @Slf4j
 public class FileTransferResponseHandler extends SimpleChannelInboundHandler<FileTransferResponsePacket> {
 
-
-    private static long s = 0;
-
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, FileTransferResponsePacket fileTransferResponsePacket) throws Exception {
-//        log.info("---> {}", JSONObject.toJSONString(fileTransferResponsePacket));
-
-        if(s == 0){
-            s = SystemClock.now();
-        }
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, FileTransferResponsePacket fileTransferResponsePacket) {
+        log.debug("---> {}", JSONObject.toJSONString(fileTransferResponsePacket));
 
         long startIndex = fileTransferResponsePacket.getStartPos();
         byte[] bytes = FileUtil.getFileRangeByte(fileTransferResponsePacket.getFilePath(),startIndex,1024*1024);
@@ -41,9 +31,10 @@ public class FileTransferResponseHandler extends SimpleChannelInboundHandler<Fil
             fileTransferRequestPacket.setStartPos(startIndex);
             fileTransferRequestPacket.setEndPos(startIndex+bytes.length);
             fileTransferRequestPacket.setMd5(fileTransferResponsePacket.getMd5());
+            fileTransferRequestPacket.setDestFilePath(fileTransferResponsePacket.getDestFilePath());
             channelHandlerContext.channel().writeAndFlush(fileTransferRequestPacket);
         }else {
-            log.info("transfer [{}] success,fileSize: {}, take: {} ",fileTransferResponsePacket.getFilePath(),startIndex,SystemClock.now() - s);
+            log.info("transfer [{}] to [{}] success,fileSize: {}, take: {} ms",fileTransferResponsePacket.getFilePath(),fileTransferResponsePacket.getDestFilePath(),startIndex,SystemClock.now() - CacheUtil.takeTime.get(fileTransferResponsePacket.getMd5()));
         }
 
 
