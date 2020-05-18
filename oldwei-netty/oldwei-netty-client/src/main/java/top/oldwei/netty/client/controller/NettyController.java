@@ -31,6 +31,21 @@ public class NettyController {
     private FileUtil fileUtil;
 
 
+
+    @RequestMapping("/send-path")
+    public String testSendPath(String channelId,String filePath){
+
+        Channel channel = CacheUtil.sessionMap.get("weizd_channel");
+        if(StringUtils.isEmpty(channel)){
+            return "fail";
+        }
+
+        return "success";
+    }
+
+
+
+
     @RequestMapping("/send-file")
     public String testSendFile(String channelId,String filePath){
 

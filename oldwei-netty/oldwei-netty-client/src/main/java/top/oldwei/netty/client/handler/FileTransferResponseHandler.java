@@ -1,7 +1,6 @@
 package top.oldwei.netty.client.handler;
 
 import cn.hutool.core.date.SystemClock;
-import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +18,12 @@ public class FileTransferResponseHandler extends SimpleChannelInboundHandler<Fil
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, FileTransferResponsePacket fileTransferResponsePacket) {
-        log.debug("---> {}", JSONObject.toJSONString(fileTransferResponsePacket));
+        log.debug("---> [{}],[{}]-->[{}]",fileTransferResponsePacket.getFilePath(),fileTransferResponsePacket.getStartPos());
 
         long startIndex = fileTransferResponsePacket.getStartPos();
         byte[] bytes = FileUtil.getFileRangeByte(fileTransferResponsePacket.getFilePath(),startIndex,1024*1024);
         if(null != bytes){
-            log.info("[{}]",fileTransferResponsePacket.getFilePath());
+            log.debug("[{}]",fileTransferResponsePacket.getFilePath());
             FileTransferRequestPacket fileTransferRequestPacket = new FileTransferRequestPacket();
             fileTransferRequestPacket.setBytes(bytes);
             fileTransferRequestPacket.setFileName(fileTransferResponsePacket.getFileName());

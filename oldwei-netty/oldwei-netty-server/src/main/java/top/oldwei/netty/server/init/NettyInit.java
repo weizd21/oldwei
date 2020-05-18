@@ -18,8 +18,10 @@ import top.oldwei.netty.common.codec.PacketDecoder;
 import top.oldwei.netty.common.codec.PacketEncoder;
 import top.oldwei.netty.server.handler.FileTransferRequestHandler;
 import top.oldwei.netty.server.handler.FileTransferV1Handler;
+import top.oldwei.netty.server.handler.FullHttpRequestHandler;
 import top.oldwei.netty.server.handler.StartFileTransferRequestHandler;
 import top.oldwei.netty.server.handler.StartFolderTransferRequestHandler;
+import top.oldwei.netty.server.handler.TextWebSocketFrameHandler;
 
 /**
  * @Author:weizd
@@ -48,6 +50,25 @@ public class NettyInit implements CommandLineRunner {
                     protected void initChannel(NioSocketChannel ch) {
                         log.info("收到新的连接----->");
 
+
+                        // http请求解码器 将请求和应答消息编码或者解码为HTTP消息
+                        ch.pipeline().addLast(new HttpServerCodec());
+                        //以块的方式来写的处理器 主要作用是支持异步发送大的码流(例如大文件传输),但不占用过多的内存,防止JAVA内存溢出
+                        ch.pipeline().addLast(new ChunkedWriteHandler());
+                        // 将HTTP消息的多个部分组合成一条完整的HTTP消息;
+                        ch.pipeline().addLast(new HttpObjectAggregator(8192));
+
+                        ch.pipeline().addLast(new FullHttpRequestHandler());
+
+
+                        // 自定义的处理器
+                        ch.pipeline().addLast(new TextWebSocketFrameHandler());
+
+                        ch.pipeline().addLast(new WebSocketServerProtocolHandler("/chat", null, true, 65536 * 10));
+
+
+
+
                         // 拆包粘包处理
                         ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                         // 自定义
@@ -59,13 +80,6 @@ public class NettyInit implements CommandLineRunner {
                         ch.pipeline().addLast(new PacketEncoder());
 
 
-                        // http请求解码器 将请求和应答消息编码或者解码为HTTP消息
-                        ch.pipeline().addLast(new HttpServerCodec());
-                        //以块的方式来写的处理器 主要作用是支持异步发送大的码流(例如大文件传输),但不占用过多的内存,防止JAVA内存溢出
-                        ch.pipeline().addLast(new ChunkedWriteHandler());
-                        // 将HTTP消息的多个部分组合成一条完整的HTTP消息;
-                        ch.pipeline().addLast(new HttpObjectAggregator(8192));
-                        ch.pipeline().addLast(new WebSocketServerProtocolHandler("/chat", null, true, 65536 * 10));
 
 
                     }

@@ -15,3 +15,8 @@ server:
 spring:
   application:
     name: @pom.netty.server.name@
+  mvc:
+    view:
+      prefix: classpath:/static
+      suffix: .html
+    static-path-pattern: /**

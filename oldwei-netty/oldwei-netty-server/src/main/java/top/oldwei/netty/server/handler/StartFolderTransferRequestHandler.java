@@ -37,9 +37,10 @@ public class StartFolderTransferRequestHandler extends SimpleChannelInboundHandl
 
         List<FileInfo> fileInfos = startFolderTransferPacket.getFileList();
         FileTransferResponsePacket fileTransferResponsePacket = null;
-        long startIndex = 0;
+        long startIndex ;
         TransferFileInfo transferFileInfo = null;
         for (FileInfo fileInfo:fileInfos){
+            startIndex = 0;
             fileTransferResponsePacket = new FileTransferResponsePacket();
             if(fileInfoCache.containsKey(fileInfo.getMd5())){
                 // 存在
@@ -54,12 +55,16 @@ public class StartFolderTransferRequestHandler extends SimpleChannelInboundHandl
                         // 已经传输完成
                         transferFileInfo.setLastModified(new File(path+fileInfo.getRelativePath()).lastModified());
                     }
-                    transferFileInfo.setCurrentFilePath(path+fileInfo.getRelativePath());
+                }else {
+                    // 将信息更新成最新的文件
+                    transferFileInfo.setTransferPos(0);
                 }
+                transferFileInfo.setCurrentFilePath(path+fileInfo.getRelativePath());
             }else{
                 transferFileInfo = new TransferFileInfo();
                 transferFileInfo.setCurrentFilePath(path+fileInfo.getRelativePath());
                 transferFileInfo.setTransferPos(0);
+                transferFileInfo.setFileSize(fileInfo.getFileSize());
                 transferFileInfo.setSourceFilePath(fileInfo.getFilePath());
             }
 
