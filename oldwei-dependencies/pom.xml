@@ -112,6 +112,7 @@
         <!-- netty模块服务端 相关 -->
         <pom.netty.server.port>8012</pom.netty.server.port>
         <pom.netty.server.netty.port>8013</pom.netty.server.netty.port>
+        <pom.netty.server.netty.ws.port>8014</pom.netty.server.netty.ws.port>
 
 
 

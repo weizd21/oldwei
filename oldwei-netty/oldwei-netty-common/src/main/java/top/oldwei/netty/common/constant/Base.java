@@ -9,5 +9,8 @@ public interface Base {
     /**
      *
      */
-    int MAGIC_NUMBER = 0x12345678;
+    int MAGIC_NUMBER = Integer.valueOf('W');
+
+
+//    int MAGIC_NUMBER = 0x12345678;
 }

@@ -18,6 +18,14 @@ import java.net.UnknownHostException;
 public class NettyServerApplication {
 
     public static void main(String[] args) throws UnknownHostException {
+
+        log.info("a:{}",Integer.valueOf('a'));
+        log.info("z:{}",Integer.valueOf('z'));
+        log.info("A:{}",Integer.valueOf('A'));
+        log.info("W:{}",Integer.valueOf('W'));
+        log.info("Z:{}",Integer.valueOf('Z'));
+
+
         ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(NettyServerApplication.class,args);
 
         Environment environment = configurableApplicationContext.getEnvironment();

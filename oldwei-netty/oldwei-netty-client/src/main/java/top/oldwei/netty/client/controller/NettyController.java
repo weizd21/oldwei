@@ -66,7 +66,7 @@ public class NettyController {
         if(StringUtils.isEmpty(channel)){
             return "fail";
         }
-
+        log.info("channel is activate: {},is open: {},is registered:{}, is writable: {}",channel.isActive(),channel.isOpen(),channel.isRegistered(),channel.isWritable());
         sendFolder(filePath,channel);
 
         return "success";

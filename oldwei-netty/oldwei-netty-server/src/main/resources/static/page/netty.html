@@ -63,7 +63,8 @@
                 this.websocketSend(JSON.stringify(this.msg));
             },
             initWebSocket(){//初始化weosocket
-                const wsuri = "ws://127.0.0.1:8013/chat?token=xxxxxxxlw" ;
+                const wsuri = "ws://127.0.0.1:8013?token=xxxxxxxlw" ;
+                // const wsuri = "ws://127.0.0.1:8013/chat?token=xxxxxxxlw" ;
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketOnMessage;
                 this.websock.onopen = this.websocketOnOpen;
@@ -74,7 +75,7 @@
             websocketOnOpen(){ //连接建立之后执行send方法发送数据
                 console.log("建立连接");
                 this.isLink = true;
-                this.websocketsend(JSON.stringify(this.msg));
+                this.websocketSend(JSON.stringify(this.msg));
             },
             websocketOnError(){//连接建立失败重连
                 console.log("连接失败");
