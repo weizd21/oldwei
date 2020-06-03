@@ -28,7 +28,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         log.info(JSONObject.toJSON(textWebSocketFrame).toString());
 
 
-        channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame(JSONObject.toJSONString("{\"finalFragment\":true}")));
+        channelHandlerContext.channel().writeAndFlush(new TextWebSocketFrame(textWebSocketFrame.text()));
 
 
     }

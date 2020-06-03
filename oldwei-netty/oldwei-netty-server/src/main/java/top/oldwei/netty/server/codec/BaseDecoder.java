@@ -25,7 +25,7 @@ import java.util.List;
  * @Author:weizd
  * @Date:20-5-22
  *
- * 动态的控制 channelHandler 加载
+ * 动态的控制 channelHandler 加载来满足不同协议的需求
  * 官方示例
  * https://netty.io/4.1/xref/io/netty/example/portunification/PortUnificationServerHandler.html
  *
@@ -45,6 +45,8 @@ public class BaseDecoder extends ByteToMessageDecoder {
         }else if(isWProtocol(magicW)){
             // 自定义协议
             switchToWProtocol(channelHandlerContext);
+        }else {
+
         }
 
     }
@@ -70,11 +72,11 @@ public class BaseDecoder extends ByteToMessageDecoder {
 
     /**
      * 自定义协议
-     * @param magic1
+     * @param magicW
      * @return
      */
-    private static boolean isWProtocol(int magic1){
-        return magic1 == Base.MAGIC_NUMBER;
+    private static boolean isWProtocol(int magicW){
+        return magicW == Base.MAGIC_NUMBER;
     }
 
 
