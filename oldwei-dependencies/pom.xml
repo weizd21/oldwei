@@ -197,6 +197,7 @@
         <fastjson.version>1.2.62</fastjson.version>
         <antisamy.version>1.5.7</antisamy.version>
 
+        <neo4j-driver.version>4.0.1</neo4j-driver.version>
 
         <asm.version>5.0.4</asm.version>
         <jjwt.version>0.7.0</jjwt.version>
@@ -445,6 +446,13 @@
                 <version>${commons-codec.version}</version>
             </dependency>
 
+
+            <!-- https://mvnrepository.com/artifact/org.neo4j.driver/neo4j-java-driver -->
+            <dependency>
+                <groupId>org.neo4j.driver</groupId>
+                <artifactId>neo4j-java-driver</artifactId>
+                <version>${neo4j-driver.version}</version>
+            </dependency>
 
 
             <!--Java 图形验证码-->
