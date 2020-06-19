@@ -35,51 +35,9 @@ public class Neo4jApplication {
 
     public static void main(String[] args) {
 
-        try {
-            word2007ToHtml();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-
-        Driver driver = GraphDatabase.driver("bolt://localhost", AuthTokens.basic("neo4j","wzd112358"));
-
-        String query = "MATCH (:Movie {title:{title}})<-[:ACTED_IN]-(a:Person) RETURN a.name as actor";
-
-        query = "MATCH(n:DATAEXA) return n limit {num}";
-
-        query = "call sati.proc.create.graph($graph) yield success";
-
-
-        try (Session session = driver.session()) {
-            Map<String,Object> params = new HashMap<>();
-//            params.put("num", 10000);
-            params.put("graph", "刘备");
-            Result result = session.run(query,params);
-            while (result.hasNext()) {
-                System.out.println(result.next().get("n").type().name());
-            }
-
-            List<Map<String,Object>> list = session.run(query,params).list(r -> r.asMap(Neo4jApplication::convert));
-
-
-            for(Map<String,Object> map:list){
-                System.out.println(map);
-            }
-
-        }
     }
 
-    static Object convert(Value value) {
-        switch (value.type().name()) {
-            case "PATH":
-                return value.asList(Neo4jApplication::convert);
-            case "NODE":
-            case "RELATIONSHIP":
-                return value.asMap();
-        }
-        return value.asObject();
-    }
 
 
 

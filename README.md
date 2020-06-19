@@ -104,3 +104,39 @@
 ### todo
 
 - 线程编排 https://gitee.com/jd-platform-opensource/asyncTool/blob/master/README.md
+
+- web监控摄像头 https://gitee.com/rancedxk/monitor-rtsp-hls
+
+- sparkjava 微型的web服务开源 https://github.com/perwendel/spark
+
+- hadoop集群搭建 https://foochane.cn/article/2019051901
+
+
+### 优秀的技术文章
+
+```
+http://www.tianshouzhi.com/
+
+https://qinxuewu.github.io/docs/#/
+
+https://redspider.gitbook.io/concurrent/
+
+https://bugstack.cn/
+
+https://z.itpub.net/stackdetail/10131/stackjoin/0
+
+https://cyc2018.github.io/CS-Notes/#/
+
+https://mrbird.cc/
+
+http://cmsblogs.com/
+
+https://javaguide.cn/page/2/
+
+http://www.itmuch.com/
+
+
+
+
+
+```
