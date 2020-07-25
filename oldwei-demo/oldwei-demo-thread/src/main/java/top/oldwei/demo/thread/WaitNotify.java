@@ -22,9 +22,6 @@ public class WaitNotify {
     }
 
 
-
-
-
     static class ThreadA implements Runnable{
 
         @Override
