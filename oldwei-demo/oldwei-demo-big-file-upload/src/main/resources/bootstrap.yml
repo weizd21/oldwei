@@ -1,0 +1,19 @@
+server:
+  port: @pom.demo.big-file-upload.port@
+
+spring:
+  application:
+    name: @pom.demo.big-file-upload.name@
+  mvc:
+    view:
+      prefix: classpath:/static
+      suffix: .html
+    static-path-pattern: /**
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB
+      max-request-size: 215MB
+
+
+

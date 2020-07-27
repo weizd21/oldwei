@@ -10,6 +10,7 @@
         <module>oldwei-demo-neo4j</module>
         <module>oldwei-demo-sourcecode</module>
         <module>oldwei-demo-spark</module>
+        <!--<module>oldwei-demo-big-file-upload</module>-->
     </modules>
 
     <parent>

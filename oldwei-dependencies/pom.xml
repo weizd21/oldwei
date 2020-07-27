@@ -115,6 +115,10 @@
         <pom.netty.server.netty.ws.port>8014</pom.netty.server.netty.ws.port>
 
 
+        <!-- demo 相关模块 -->
+        <pom.demo.big-file-upload.port>8015</pom.demo.big-file-upload.port>
+
+
 
         <pom.register.eureka.server.name>oldwei-register-eureka-server</pom.register.eureka.server.name>
         <pom.config.server.name>oldwei-config-server</pom.config.server.name>
@@ -127,6 +131,11 @@
         <pom.netty.chat.name>oldwei-netty-chat</pom.netty.chat.name>
         <pom.netty.client.name>oldwei-netty-client</pom.netty.client.name>
         <pom.netty.server.name>oldwei-netty-server</pom.netty.server.name>
+        <pom.demo.big-file-upload.name>oldwei-demo-big-file-upload</pom.demo.big-file-upload.name>
+
+
+
+
 
 
         <java.version>1.8</java.version>
