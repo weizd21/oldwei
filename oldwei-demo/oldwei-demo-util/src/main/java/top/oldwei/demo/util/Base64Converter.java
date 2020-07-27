@@ -1,4 +1,4 @@
-package top.oldwei.demo.spark;
+package top.oldwei.demo.util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ public class Base64Converter {
                 "a = 1\n" +
                 "if a == 1:\n" +
                 "\tprint(\"aaaaaaa\")\n" +
-                "    pr";
+                "    pr你好";
 
         System.out.println(encode(content));
 
