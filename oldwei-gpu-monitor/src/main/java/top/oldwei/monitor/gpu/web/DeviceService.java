@@ -41,7 +41,7 @@ public class DeviceService {
         memoryInfoDTO.setMemInfo(getMemInfo(stringTokenizer.nextToken()));
         memoryInfoDTO.setSwapInfo(getSwapInfo(stringTokenizer.nextToken()));
 
-        log.info(JSONObject.toJSON(memoryInfoDTO).toString());
+        log.debug(JSONObject.toJSON(memoryInfoDTO).toString());
         return memoryInfoDTO;
     }
 
@@ -121,7 +121,7 @@ public class DeviceService {
 
             cpuInfoDTOS.add(cpuInfoDTO);
         }
-        log.info(JSONObject.toJSON(cpuInfoDTOS).toString());
+        log.debug(JSONObject.toJSON(cpuInfoDTOS).toString());
         return cpuInfoDTOS;
     }
 
@@ -170,7 +170,7 @@ public class DeviceService {
             gpuInfoDTO.setTemperatureMemory(stringTokenizer1.nextToken().trim());
             gpuInfoDTOList.add(gpuInfoDTO);
         }
-        log.info(JSONObject.toJSON(gpuInfoDTOList).toString());
+        log.debug(JSONObject.toJSON(gpuInfoDTOList).toString());
         return gpuInfoDTOList;
     }
 
@@ -198,7 +198,7 @@ public class DeviceService {
                 netInfoDTOList.add(netInfoDTO);
             }
         }
-        log.info(JSONObject.toJSON(netInfoDTOList).toString());
+        log.debug(JSONObject.toJSON(netInfoDTOList).toString());
         return netInfoDTOList;
     }
 

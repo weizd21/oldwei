@@ -21,7 +21,7 @@ public class ExecUtil {
      * @throws Exception
      */
     public static String execCmd(String command){
-        log.info("execCmd:{}",command);
+        log.debug("execCmd:{}",command);
         StringBuffer sb = new StringBuffer();
         BufferedReader bufferedReader = null;
         try {
@@ -33,7 +33,7 @@ public class ExecUtil {
             while ((buf = bufferedReader.readLine()) != null) {
                 sb.append(buf).append("\n");
             }
-            log.info("execUtil result:【{}】",sb.toString());
+            log.debug("execUtil result:【{}】",sb.toString());
             return sb.toString();
         }catch (Exception e){
             e.printStackTrace();
