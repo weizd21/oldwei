@@ -11,6 +11,8 @@
         <module>oldwei-demo-sourcecode</module>
         <module>oldwei-demo-spark</module>
         <module>oldwei-demo-util</module>
+        <module>oldwei-demo-jar</module>
+        <module>oldwei-demo-war</module>
         <!--<module>oldwei-demo-big-file-upload</module>-->
     </modules>
 

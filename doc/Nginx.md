@@ -344,7 +344,25 @@ location [=|~|~*|^~] /uri/ { … }
 
 
 > 反向代理
+- 示例
 ```
+        # 反向代理
+        # 实际请求地址为 http://b-server/api/b/
+        location /api/a/ {
+            proxy_set_header Host $host:$server_port;
+            proxy_set_header X_Real_IP $remote_addr;
+            proxy_set_header Connection keep-alive;
+            proxy_set_header Keep-Alive 600;
+            proxy_pass http://a-server; 
+        }
+        # 实际请求地址为 http://b-server/api/b/
+        location /api/b/ {
+            proxy_set_header Host $host:$server_port;
+            proxy_set_header X_Real_IP $remote_addr;
+            proxy_set_header Connection keep-alive;
+            proxy_set_header Keep-Alive 600;
+            proxy_pass http://b-server; 
+        }
 
 
 ```
@@ -381,7 +399,7 @@ location [=|~|~*|^~] /uri/ { … }
         server localhost:8018;
     }
 
-```  
+```
 
 > rewrite重定向
 

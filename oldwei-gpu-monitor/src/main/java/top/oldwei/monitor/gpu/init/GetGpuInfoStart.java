@@ -78,11 +78,11 @@ public class GetGpuInfoStart implements CommandLineRunner {
 
         String r1 = ExecUtil.execCmd(cmd1);
 
-        String r2 = JschUtil.execCmdWithPassword(cmd1,sshUser,sshPassword,sshHost,sshPort);
+        //String r2 = JschUtil.execCmdWithPassword(cmd1,sshUser,sshPassword,sshHost,sshPort);
 
         log.info(r1);
 
-        log.info(r2);
+        //log.info(r2);
 
 
     }
