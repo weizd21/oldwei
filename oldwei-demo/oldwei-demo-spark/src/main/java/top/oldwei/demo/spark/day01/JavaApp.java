@@ -20,26 +20,19 @@ import java.util.List;
  * @Author:weizd
  * @Date:20-9-1
  */
-//@Slf4j
+@Slf4j
 public class JavaApp {
 
-    private static Logger logger = Logger.getRootLogger();
-
     public static void main(String[] args) {
-
         String csvPath = "/home/weizd/dataset/dataset/sparkApp.csv";
-
         JavaSparkContext sc = new JavaSparkContext("local[2]","first sc");
-
         JavaRDD<String[]> data = sc.textFile(csvPath).map(new Function<String, String[]>() {
             @Override
             public String[] call(String s) throws Exception {
                 return s.split(",");
             }
         });
-
         long numPurchases = data.count();
-
         System.out.println(numPurchases);
 
     }
