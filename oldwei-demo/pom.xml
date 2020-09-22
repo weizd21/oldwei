@@ -6,7 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>oldwei-demo-nio</module>
-        <module>oldwei-demo-thread</module>
+<!--        <module>oldwei-demo-thread</module>-->
         <module>oldwei-demo-neo4j</module>
         <module>oldwei-demo-sourcecode</module>
         <module>oldwei-demo-spark</module>

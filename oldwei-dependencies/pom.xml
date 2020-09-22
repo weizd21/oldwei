@@ -3,9 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <modules>
-        <module>../oldwei-demo/oldwei-demo-dag</module>
-    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -561,6 +558,12 @@
             <!--<artifactId>slf4j-api</artifactId>-->
             <!--<scope>compile</scope>-->
         <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <!--            <version>1.7.25</version>-->
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
