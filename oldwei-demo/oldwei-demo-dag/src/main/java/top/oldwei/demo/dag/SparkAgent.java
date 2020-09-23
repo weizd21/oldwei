@@ -21,7 +21,7 @@ public class SparkAgent {
         log.info("spark agent");
 
         List<Entity> list = Db.use().findAll("d_dag_flow");
-
+        log.info("size: {}",list.size());
         List<Dag> dags = new ArrayList<>();
         Dag dag = null;
         for(Entity entity:list){
