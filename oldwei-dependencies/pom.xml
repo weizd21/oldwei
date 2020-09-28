@@ -7,7 +7,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.2.5.RELEASE</version>
+<!--        <version>2.2.2.RELEASE</version>-->
         <!--<relativePath/>-->
     </parent>
 
@@ -102,9 +103,21 @@
         <pom.gateway.port>8006</pom.gateway.port>
         <pom.gpu.monitor.port>8007</pom.gpu.monitor.port>
         <pom.websocket.port>8008</pom.websocket.port>
+        <!-- chat 模块 -->
         <pom.netty.chat.port>8009</pom.netty.chat.port>
+        <pom.netty.chat.netty.port>8010</pom.netty.chat.netty.port>
 
-        <pom.netty.client.port>8012</pom.netty.client.port>
+        <!-- netty模块 客户端 相关-->
+        <pom.netty.client.port>8011</pom.netty.client.port>
+
+        <!-- netty模块服务端 相关 -->
+        <pom.netty.server.port>8012</pom.netty.server.port>
+        <pom.netty.server.netty.port>8013</pom.netty.server.netty.port>
+        <pom.netty.server.netty.ws.port>8014</pom.netty.server.netty.ws.port>
+
+
+        <!-- demo 相关模块 -->
+        <pom.demo.big-file-upload.port>8015</pom.demo.big-file-upload.port>
 
 
 
@@ -118,6 +131,12 @@
         <pom.websocket.name>oldwei-websocket</pom.websocket.name>
         <pom.netty.chat.name>oldwei-netty-chat</pom.netty.chat.name>
         <pom.netty.client.name>oldwei-netty-client</pom.netty.client.name>
+        <pom.netty.server.name>oldwei-netty-server</pom.netty.server.name>
+        <pom.demo.big-file-upload.name>oldwei-demo-big-file-upload</pom.demo.big-file-upload.name>
+
+
+
+
 
 
         <java.version>1.8</java.version>
@@ -164,12 +183,14 @@
         <commons.collections4.version>4.4</commons.collections4.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-io.version>2.6</commons-io.version>
+        <commons-codec.version>1.14</commons-codec.version>
+
 
 
         <elasticsearch.version>3.2.3.RELEASE</elasticsearch.version>
         <netty.version>4.1.42.Final</netty.version>
         <spark.version>2.4.4</spark.version>
-
+        <scala.version>2.12</scala.version>
 
         <dubbo.version>2.7.5</dubbo.version>
         <zk.client.version>0.1</zk.client.version>
@@ -186,6 +207,7 @@
         <fastjson.version>1.2.62</fastjson.version>
         <antisamy.version>1.5.7</antisamy.version>
 
+        <neo4j-driver.version>4.0.1</neo4j-driver.version>
 
         <asm.version>5.0.4</asm.version>
         <jjwt.version>0.7.0</jjwt.version>
@@ -203,6 +225,13 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+
 
             <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
             <dependency>
@@ -420,6 +449,22 @@
                 <version>${commons-lang.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/org.neo4j.driver/neo4j-java-driver -->
+            <dependency>
+                <groupId>org.neo4j.driver</groupId>
+                <artifactId>neo4j-java-driver</artifactId>
+                <version>${neo4j-driver.version}</version>
+            </dependency>
+
+
             <!--Java 图形验证码-->
             <dependency>
                 <groupId>com.github.whvcse</groupId>
@@ -473,6 +518,45 @@
 
 
 
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-launcher_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-mllib_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacv</artifactId>
+                <version>1.4.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bytedeco.javacpp-presets</groupId>
+                <artifactId>ffmpeg-platform</artifactId>
+                <version>4.0.2-1.4.3</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
@@ -489,13 +573,20 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
+
         <!--<dependency>-->
             <!--<groupId>org.slf4j</groupId>-->
             <!--<artifactId>slf4j-api</artifactId>-->
             <!--<scope>compile</scope>-->
         <!--</dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-simple</artifactId>-->
+<!--            &lt;!&ndash;            <version>1.7.25</version>&ndash;&gt;-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -503,11 +594,11 @@
             <version>${fastjson.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.google.guava</groupId>-->
+            <!--<artifactId>guava</artifactId>-->
+            <!--<version>${guava.version}</version>-->
+        <!--</dependency>-->
 
 
     </dependencies>
@@ -536,6 +627,14 @@
                         <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
                 </plugin>
+
+
+                <!--<plugin>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                    <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--</plugin>-->
+
+
             </plugins>
         </pluginManagement>
         <plugins>
@@ -560,7 +659,11 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
+
+
+
         </plugins>
+
     </build>
 
 

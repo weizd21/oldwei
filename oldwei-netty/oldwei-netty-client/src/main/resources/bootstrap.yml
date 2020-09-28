@@ -1,6 +1,6 @@
 oldwei:
   netty:
-    port: 8011
+    port: @pom.netty.server.netty.port@
   executor:
     name: "masterServiceExecutor"
     core-pool-size: 5

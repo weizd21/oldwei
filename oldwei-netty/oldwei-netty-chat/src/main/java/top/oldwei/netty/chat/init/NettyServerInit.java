@@ -81,6 +81,8 @@ public class NettyServerInit implements CommandLineRunner {
                         ch.pipeline().addLast(new TextWebSocketFrameHandler());
 
                         ch.pipeline().addLast(new WebSocketServerProtocolHandler("/chat", null, true, 65536 * 10));
+
+
                     }
                 });
         serverBootstrap.bind(port);

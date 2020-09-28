@@ -3,6 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>oldwei-demo-nio</module>
+<!--        <module>oldwei-demo-thread</module>-->
+        <module>oldwei-demo-neo4j</module>
+        <module>oldwei-demo-sourcecode</module>
+        <module>oldwei-demo-spark</module>
+        <module>oldwei-demo-util</module>
+        <module>oldwei-demo-jar</module>
+        <module>oldwei-demo-war</module>
+        <!--<module>oldwei-demo-big-file-upload</module>-->
+    </modules>
 
     <parent>
         <groupId>top.oldwei</groupId>
@@ -12,5 +24,21 @@
 
     <artifactId>oldwei-demo</artifactId>
 
+    <dependencies>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-test</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+
+
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-simple</artifactId>-->
+            <!--<version>1.7.25</version>-->
+        <!--</dependency>-->
+
+    </dependencies>
 
 </project>

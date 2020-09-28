@@ -1,0 +1,110 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>netty test</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+<body>
+<div id="app">
+    <el-row>
+        <el-col>
+            <el-form :inline="true" label-position="right" label-width="80px">
+                <el-form-item v-if="isLink==true" label="MSG">
+                    <el-input v-model="msg.text"></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button v-if="isLink==true" type="primary" @click="sendMsg">发送</el-button>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button v-if="isLink==false" type="primary" @click="link">连接</el-button>
+                </el-form-item>
+
+
+            </el-form>
+        </el-col>
+    </el-row>
+</div>
+
+
+
+</body>
+
+
+<script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
+
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+
+
+<script type="text/javascript">
+
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                isLink: false,
+                msg:{
+                    text:'',
+                    content: '你好'
+                },
+                websocket: null
+            }
+        },
+        methods: {
+            link(){
+                this.initWebSocket();
+            },
+            sendMsg(){
+                this.websocketSend(JSON.stringify(this.msg));
+            },
+            initWebSocket(){//初始化weosocket
+                const wsuri = "ws://127.0.0.1:8013?token=xxxxxxxlw" ;
+                // const wsuri = "ws://127.0.0.1:8013/chat?token=xxxxxxxlw" ;
+                this.websock = new WebSocket(wsuri);
+                this.websock.onmessage = this.websocketOnMessage;
+                this.websock.onopen = this.websocketOnOpen;
+                this.websock.onerror = this.websocketOnError;
+                this.websock.onclose = this.websocketClose;
+                console.log(this.websock);
+            },
+            websocketOnOpen(){ //连接建立之后执行send方法发送数据
+                console.log("建立连接");
+                this.isLink = true;
+                this.websocketSend(JSON.stringify(this.msg));
+            },
+            websocketOnError(){//连接建立失败重连
+                console.log("连接失败");
+            },
+            websocketOnMessage(e){ //数据接收
+                console.log(e);
+            },
+            websocketSend(data){//数据发送
+                this.websock.send(data);
+            },
+            websocketClose(e){  //关闭
+                console.log('断开连接',e);
+            },
+            notify(message){
+                this.$notify({
+                    title: '新消息',
+                    message: message,
+                    type: 'success'
+                });
+            }
+        },
+        mounted() {
+
+        },
+        beforeDestroy() {
+            this.websock.close();
+        }
+    });
+
+</script>
+
+</html>
