@@ -26,16 +26,24 @@ public class VideoTest {
     private static String path = "/home/weizd/label/vott/source/Video_0927_1.mp4";
 
     private static String picFile = "/home/weizd/label/vott/source/firstFrame1.jpg";
+    private static String picFileTimestamp = "/home/weizd/label/vott/source/firstFrame_timestamp.jpg";
 
     public static void main(String[] args) throws Exception{
         File file = new File(path);
         // splitVideo(file,10);
         // splitVideoByTime(file,10);
-        selectFrame2Pic(path,1,new File(picFile));
+        selectIndexFrame2Pic(path,1,new File(picFile));
+        selectTimestampFrame2Pic(path,50000000L,new File(picFileTimestamp));
+
         log.info("{} 时长： {}",path,getVideoDuration(path));
     }
 
-
+    /**
+     * 获取视频时长 秒
+     * @param videoPath
+     * @return
+     * @throws Exception
+     */
     public static long getVideoDuration(String videoPath) throws Exception {
         long duration = 0L;
         FFmpegFrameGrabber grabber = FFmpegFrameGrabber.createDefault(videoPath);
@@ -45,9 +53,23 @@ public class VideoTest {
         return duration;
     }
 
-    public static void selectFrame2Pic(String videoPath,int frameIndex,File picFile) throws Exception{
+    public static void selectIndexFrame2Pic(String videoPath,int frameIndex,File picFile) throws Exception{
         ImageIO.write(frameToBufferedImage(getFrameByIndex(videoPath,frameIndex)),"jpg",picFile);
     }
+
+    public static void selectTimestampFrame2Pic(String videoPath,long timestamp,File picFile) throws Exception{
+        ImageIO.write(frameToBufferedImage(getFrameByTimestamp(videoPath,timestamp)),"jpg",picFile);
+    }
+
+    public static Frame getFrameByTimestamp(String videoPath,long timestamp)throws Exception{
+        FFmpegFrameGrabber grabber = FFmpegFrameGrabber.createDefault(videoPath);
+        grabber.start();
+        grabber.setAudioTimestamp(timestamp);
+        Frame frame = grabber.grabImage();
+        grabber.close();
+        return frame;
+    }
+
 
     public static Frame getFrameByIndex(String videoPath,int index) throws Exception{
         FFmpegFrameGrabber grabber = FFmpegFrameGrabber.createDefault(videoPath);
