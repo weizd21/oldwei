@@ -10,20 +10,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>oldwei-demo-util</artifactId>
+    <artifactId>oldwei-demo-javacv</artifactId>
 
     <dependencies>
-
         <dependency>
-            <groupId>top.oldwei</groupId>
-            <artifactId>oldwei-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
         </dependency>
-
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.bytedeco.javacpp-presets</groupId>
+            <artifactId>ffmpeg-platform</artifactId>
         </dependency>
 
         <dependency>
@@ -32,25 +28,20 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
 
+
+
+
     </dependencies>
-
-
-    <!--多模块打包：只需在启动类所在模块的POM文件：指定打包插件 -->
-
-    <build>
-        <plugins>
-            <plugin>
-                <!--该插件主要用途：构建可执行的JAR -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-        </plugins>
-    </build>
-
-
 </project>

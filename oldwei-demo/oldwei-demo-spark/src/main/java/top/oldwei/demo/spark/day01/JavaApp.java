@@ -1,5 +1,4 @@
 package top.oldwei.demo.spark.day01;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
@@ -24,16 +23,16 @@ import java.util.List;
 public class JavaApp {
 
     public static void main(String[] args) {
-        String csvPath = "/home/weizd/dataset/dataset/sparkApp.csv";
-        JavaSparkContext sc = new JavaSparkContext("local[2]","first sc");
+        String csvPath = "/soft/dataset/ml-100k/u.user";
+        JavaSparkContext sc = new JavaSparkContext("local[*]","first sc");
         JavaRDD<String[]> data = sc.textFile(csvPath).map(new Function<String, String[]>() {
             @Override
             public String[] call(String s) throws Exception {
-                return s.split(",");
+                return s.split("|");
             }
         });
         long numPurchases = data.count();
-        System.out.println(numPurchases);
 
+        log.info("line num: {}",numPurchases);
     }
 }

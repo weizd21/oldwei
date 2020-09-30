@@ -8,8 +8,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.5.RELEASE</version>
-<!--        <version>2.2.2.RELEASE</version>-->
-        <!--<relativePath/>-->
     </parent>
 
     <groupId>top.oldwei</groupId>
@@ -19,12 +17,8 @@
     <packaging>pom</packaging>
 
 
-
-
-
     <!-- env -->
     <profiles>
-
         <profile>
             <id>local</id>
             <properties>
@@ -145,7 +139,6 @@
 
         <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
 
-
         <spring.version>5.2.2.RELEASE</spring.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
         <spring-cloud-alibaba-dependencies.version>2.1.1.RELEASE</spring-cloud-alibaba-dependencies.version>
@@ -169,14 +162,38 @@
         <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
         <swagger.version>1.5.21</swagger.version>
 
-        <dozer.version>6.5.0</dozer.version>
+
         <lombok.version>1.18.10</lombok.version>
-        <easy-captcha.version>1.6.2</easy-captcha.version>
+
         <guava.version>20.0</guava.version>
         <tobato-fastdfs-client.version>1.26.6</tobato-fastdfs-client.version>
         <qiniu-java-sdk>7.2.18</qiniu-java-sdk>
         <j2cache.version>2.8.0-release</j2cache.version>
         <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
+
+
+        <elasticsearch.version>3.2.3.RELEASE</elasticsearch.version>
+        <dubbo.version>2.7.5</dubbo.version>
+        <zk.client.version>0.1</zk.client.version>
+        <zk.version>3.4.9</zk.version>
+        <curator.version>4.2.0</curator.version>
+
+        <!--实用工具-->
+
+        <lombok.version>1.18.10</lombok.version>
+        <mysql.version>8.0.16</mysql.version>
+        <hutool.version>4.6.2</hutool.version>
+        <guava.version>28.0-jre</guava.version>
+
+        <fastjson.version>1.2.62</fastjson.version>
+
+
+        <asm.version>5.0.4</asm.version>
+
+        <qcloudsms.version>1.0.6</qcloudsms.version>
+        <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
+
+        <antisamy.version>1.5.7</antisamy.version>
 
         <commons-exec.version>1.3</commons-exec.version>
         <commons-email.version>1.5</commons-email.version>
@@ -186,38 +203,29 @@
         <commons-codec.version>1.14</commons-codec.version>
 
 
-
-        <elasticsearch.version>3.2.3.RELEASE</elasticsearch.version>
-        <netty.version>4.1.42.Final</netty.version>
-        <spark.version>2.4.4</spark.version>
-        <scala.version>2.12</scala.version>
-
-        <dubbo.version>2.7.5</dubbo.version>
-        <zk.client.version>0.1</zk.client.version>
-        <zk.version>3.4.9</zk.version>
-        <curator.version>4.2.0</curator.version>
-
-        <!--实用工具-->
-        <ip2region.version>1.7.2</ip2region.version>
-        <lombok.version>1.18.10</lombok.version>
-        <mysql.version>8.0.16</mysql.version>
-        <hutool.version>4.6.2</hutool.version>
-        <guava.version>28.0-jre</guava.version>
-        <bitwalker.version>1.21</bitwalker.version>
-        <fastjson.version>1.2.62</fastjson.version>
-        <antisamy.version>1.5.7</antisamy.version>
-
         <neo4j-driver.version>4.0.1</neo4j-driver.version>
 
-        <asm.version>5.0.4</asm.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+
+        <dozer.version>6.5.0</dozer.version>
+
         <jjwt.version>0.7.0</jjwt.version>
-        <qcloudsms.version>1.0.6</qcloudsms.version>
-        <bce-java-sdk.version>0.10.21</bce-java-sdk.version>
+
+        <ip2region.version>1.7.2</ip2region.version>
+
+        <bitwalker.version>1.21</bitwalker.version>
+
+        <netty.version>4.1.42.Final</netty.version>
+
+        <spark.version>2.4.4</spark.version>
+        <scala.version>2.12</scala.version>
+        <hadoop.version>3.2.0</hadoop.version>
 
         <jsch.version>0.1.55</jsch.version>
 
-
-
+        <!-- 处理视频 -->
+        <javacv.version>1.4.3</javacv.version>
+        <ffmpeg-platform.version>4.0.2-1.4.3</ffmpeg-platform.version>
 
 
     </properties>
@@ -289,11 +297,6 @@
                 <artifactId>mybatis-typehandlers-jsr310</artifactId>
                 <version>${mybatis.typehandlers.version}</version>
             </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>com.alibaba</groupId>-->
-            <!--                <artifactId>druid</artifactId>-->
-            <!--                <version>${druid.version}</version>-->
-            <!--            </dependency>-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
@@ -323,14 +326,12 @@
             </dependency>
 
 
-
             <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
-
 
             <dependency>
                 <groupId>com.github.sgroschupf</groupId>
@@ -344,7 +345,6 @@
                 <version>${zk.version}</version>
             </dependency>
 
-
             <dependency>
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-framework</artifactId>
@@ -356,8 +356,6 @@
                 <artifactId>curator-recipes</artifactId>
                 <version>${curator.version}</version>
             </dependency>
-
-
 
             <!-- FastDFS文件 -->
             <dependency>
@@ -464,14 +462,12 @@
                 <version>${neo4j-driver.version}</version>
             </dependency>
 
-
             <!--Java 图形验证码-->
             <dependency>
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
                 <version>${easy-captcha.version}</version>
             </dependency>
-
 
             <!-- 对象转换 -->
             <dependency>
@@ -501,21 +497,12 @@
             </dependency>
 
 
-            <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
-            <dependency>
-                <groupId>com.jcraft</groupId>
-                <artifactId>jsch</artifactId>
-                <version>${jsch.version}</version>
-            </dependency>
-
-
             <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
             </dependency>
-
 
 
             <dependency>
@@ -545,63 +532,79 @@
             </dependency>
 
             <dependency>
-                <groupId>org.bytedeco</groupId>
-                <artifactId>javacv</artifactId>
-                <version>1.4.3</version>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>${hadoop.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.bytedeco.javacpp-presets</groupId>
-                <artifactId>ffmpeg-platform</artifactId>
-                <version>4.0.2-1.4.3</version>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-mapreduce-client-core</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-client</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${jsch.version}</version>
             </dependency>
 
 
+            <dependency>
+                <groupId>org.bytedeco</groupId>
+                <artifactId>javacv</artifactId>
+                <version>${javacv.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bytedeco.javacpp-presets</groupId>
+                <artifactId>ffmpeg-platform</artifactId>
+                <version>${ffmpeg-platform.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!--Lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
-
-    <dependencies>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
-
-        <!--Lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <!--<scope>provided</scope>-->
-        </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-api</artifactId>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-simple</artifactId>-->
-<!--            &lt;!&ndash;            <version>1.7.25</version>&ndash;&gt;-->
-<!--        </dependency>-->
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>com.google.guava</groupId>-->
-            <!--<artifactId>guava</artifactId>-->
-            <!--<version>${guava.version}</version>-->
-        <!--</dependency>-->
-
-
-    </dependencies>
 
 
     <build>

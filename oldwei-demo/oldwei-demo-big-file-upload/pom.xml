@@ -6,6 +6,7 @@
         <groupId>top.oldwei</groupId>
         <artifactId>oldwei-dependencies</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../oldwei-dependencies/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>

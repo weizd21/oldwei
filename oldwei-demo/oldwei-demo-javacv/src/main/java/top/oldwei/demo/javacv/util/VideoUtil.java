@@ -1,27 +1,25 @@
-package top.oldwei.demo.spark;
+package top.oldwei.demo.javacv.util;
 
 import cn.hutool.core.io.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author weizd
  * @version 1.0
- * @date 2020/9/28 上午11:04
+ * @date 2020/9/30 上午10:47
  */
+
 @Slf4j
-public class VideoTest {
+public class VideoUtil {
+
 
     private static String path = "/home/weizd/label/vott/source/Video_0927_1.mp4";
 
@@ -61,7 +59,7 @@ public class VideoTest {
         frame2Pic(getFrameByTimestamp(videoPath,timestamp),"jpg",picFile);
     }
 
-    public static void frame2Pic(Frame frame,String formatName,File picFile) throws Exception{
+    public static void frame2Pic(Frame frame, String formatName, File picFile) throws Exception{
         ImageIO.write(frameToBufferedImage(frame),formatName,picFile);
     }
 
@@ -98,7 +96,7 @@ public class VideoTest {
         FFmpegFrameRecorder recorder = null;
         Frame frame = null;
         int frame_number = grabber.getLengthInFrames();
-        recorder = getFFmpegFrameRecorder(path +"_splitByTime_" +"."+FileUtil.extName(path),grabber);
+        recorder = getFFmpegFrameRecorder(path +"_splitByTime_" +"."+ FileUtil.extName(path),grabber);
         recorder.start();
         for(int i=0;i<frame_number;i++){
             frame = grabber.grabFrame();
@@ -163,5 +161,11 @@ public class VideoTest {
         recorder.setAudioCodec(grabber.getAudioCodec());
         return recorder;
     }
+
+
+
+
+
+
 
 }
