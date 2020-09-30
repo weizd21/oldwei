@@ -21,20 +21,43 @@ import java.io.File;
 public class VideoUtil {
 
 
-    private static String path = "/home/weizd/label/vott/source/Video_0927_1.mp4";
+    private static String path = "/home/weizd/video/Video_0927_1.mp4";
 
-    private static String picFile = "/home/weizd/label/vott/source/firstFrame1.jpg";
-    private static String picFileTimestamp = "/home/weizd/label/vott/source/firstFrame_timestamp.jpg";
+    private static String picFile = "/home/weizd/video/firstFrame1.jpg";
+    private static String picFileTimestamp = "/home/weizd/video/firstFrame_timestamp.jpg";
 
     public static void main(String[] args) throws Exception{
         File file = new File(path);
-        // splitVideo(file,10);
+        testVideoProp(path);
+        splitVideoByTime(file,10);
+//         splitVideo(file,20);
         // splitVideoByTime(file,10);
-        selectIndexFrame2Pic(path,1,new File(picFile));
-        selectTimestampFrame2Pic(path,50000000L,new File(picFileTimestamp));
-
+//        selectIndexFrame2Pic(path,1,new File(picFile));
+//        selectTimestampFrame2Pic(path,50000000L,new File(picFileTimestamp));
         log.info("{} 时长： {}",path,getVideoDuration(path));
     }
+
+
+
+
+    public static void testVideoProp(String videoFile) throws Exception{
+        FFmpegFrameGrabber grabber = FFmpegFrameGrabber.createDefault(videoFile);
+        grabber.start();
+        log.info("getImageHeight() {}:",grabber.getImageHeight());
+        log.info("getImageWidth() {}:",grabber.getImageWidth());
+
+        log.info("getLengthInVideoFrames() {}:",grabber.getLengthInVideoFrames());
+        log.info("getLengthInFrames() {}:",grabber.getLengthInFrames());
+
+        log.info("getVideoFrameRate() {}:",grabber.getVideoFrameRate());
+        log.info("getFrameRate() {}:",grabber.getFrameRate());
+
+        log.info("getAudioChannels() {}:",grabber.getAudioChannels());
+
+
+        grabber.close();
+    }
+
 
     /**
      * 获取视频时长 秒
@@ -95,13 +118,26 @@ public class VideoUtil {
         grabber.start();
         FFmpegFrameRecorder recorder = null;
         Frame frame = null;
-        int frame_number = grabber.getLengthInFrames();
-        recorder = getFFmpegFrameRecorder(path +"_splitByTime_" +"."+ FileUtil.extName(path),grabber);
+//        int frame_number = grabber.getLengthInFrames();
+        int videoNum = 1;
+        recorder = getFFmpegFrameRecorder(path +"_"+ videoNum +"_" +"."+ FileUtil.extName(path),grabber);
         recorder.start();
-        for(int i=0;i<frame_number;i++){
-            frame = grabber.grabFrame();
-            recorder.record(frame);
+        while (true){
+            frame = grabber.grab();
+            if(frame == null){
+                break;
+            }
+            if(frame.timestamp/1000000 < peerTime*videoNum){
+                recorder.record(frame);
+            }else {
+                videoNum++;
+                recorder.close();
+                recorder = getFFmpegFrameRecorder(path +"_"+ videoNum +"_" +"."+ FileUtil.extName(path),grabber);
+                recorder.start();
+            }
         }
+        log.info("-----> {} <------",recorder.getTimestamp());
+        log.info("-----> {} <------",frame.timestamp);
         recorder.close();
         grabber.close();
     }
@@ -118,7 +154,7 @@ public class VideoUtil {
         log.info("fFmpegFrameGrabber.getLengthInVideoFrames() {}:",fFmpegFrameGrabber.getLengthInVideoFrames());
         log.info("fFmpegFrameGrabber.getLengthInFrames() {}:",fFmpegFrameGrabber.getLengthInFrames());
         log.info("fFmpegFrameGrabber.getVideoFrameRate() {}:",fFmpegFrameGrabber.getVideoFrameRate());
-        log.info("fFmpegFrameGrabber.getVideoFrameRate() {}:",fFmpegFrameGrabber.getVideoFrameRate());
+        log.info("fFmpegFrameGrabber.getFrameRate() {}:",fFmpegFrameGrabber.getFrameRate());
         log.info("fFmpegFrameGrabber.getAudioChannels() {}:",fFmpegFrameGrabber.getAudioChannels());
 
 
@@ -137,13 +173,14 @@ public class VideoUtil {
                 frameNum++;
             }else{
                 index++;
+                log.info("frameNum: {}",frameNum);
                 frameNum = 1;
                 recorder.close();
                 recorder = getFFmpegFrameRecorder(path +"_"+ String.valueOf(index) +"."+FileUtil.extName(path),fFmpegFrameGrabber );
                 recorder.start();
             }
             num++;
-            frame = fFmpegFrameGrabber.grabFrame();
+            frame = fFmpegFrameGrabber.grab();
         }
         log.info("num: {}",num);
         recorder.stop();
