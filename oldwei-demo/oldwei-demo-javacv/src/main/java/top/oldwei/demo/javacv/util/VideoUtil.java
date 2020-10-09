@@ -118,7 +118,6 @@ public class VideoUtil {
         grabber.start();
         FFmpegFrameRecorder recorder = null;
         Frame frame = null;
-//        int frame_number = grabber.getLengthInFrames();
         int videoNum = 1;
         recorder = getFFmpegFrameRecorder(path +"_"+ videoNum +"_" +"."+ FileUtil.extName(path),grabber);
         recorder.start();
@@ -137,7 +136,7 @@ public class VideoUtil {
             }
         }
         log.info("-----> {} <------",recorder.getTimestamp());
-        log.info("-----> {} <------",frame.timestamp);
+//        log.info("-----> {} <------",frame.timestamp);
         recorder.close();
         grabber.close();
     }
