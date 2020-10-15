@@ -21,7 +21,9 @@ import java.io.File;
 public class VideoUtil {
 
 
-    private static String path = "/home/weizd/video/Video_0927_1.mp4";
+//    private static String path = "/home/weizd/video/Video_0927_1.mp4";
+//    private static String path = "/home/weizd/video/sm.mp4";
+    private static String path = "/home/weizd/video/sm.mp4_0";
 
     private static String picFile = "/home/weizd/video/firstFrame1.jpg";
     private static String picFileTimestamp = "/home/weizd/video/firstFrame_timestamp.jpg";
@@ -29,7 +31,9 @@ public class VideoUtil {
     public static void main(String[] args) throws Exception{
         File file = new File(path);
         testVideoProp(path);
-        splitVideoByTime(file,10);
+//        long start = System.currentTimeMillis();
+//        splitVideoByTime(file,30*60);
+//        log.info("take time is : 【{}】",System.currentTimeMillis() - start);
 //         splitVideo(file,20);
         // splitVideoByTime(file,10);
 //        selectIndexFrame2Pic(path,1,new File(picFile));
@@ -123,6 +127,7 @@ public class VideoUtil {
         recorder.start();
         while (true){
             frame = grabber.grab();
+
             if(frame == null){
                 break;
             }
@@ -197,6 +202,7 @@ public class VideoUtil {
         recorder.setAudioCodec(grabber.getAudioCodec());
         return recorder;
     }
+
 
 
 
