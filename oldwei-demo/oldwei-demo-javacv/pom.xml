@@ -40,8 +40,18 @@
             <artifactId>slf4j-simple</artifactId>
         </dependency>
 
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.openpnp/opencv &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.openpnp</groupId>-->
+<!--            <artifactId>opencv</artifactId>-->
+<!--            <version>4.3.0-2</version>-->
+<!--        </dependency>-->
 
-
+        <dependency>
+            <groupId>org.opencv</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.1.1</version>
+        </dependency>
 
     </dependencies>
 </project>

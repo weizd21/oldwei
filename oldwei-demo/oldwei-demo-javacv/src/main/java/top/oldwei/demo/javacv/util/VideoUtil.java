@@ -6,6 +6,8 @@ import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.opencv.core.Core;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,18 +24,50 @@ public class VideoUtil {
 
 
 //    private static String path = "/home/weizd/video/Video_0927_1.mp4";
-//    private static String path = "/home/weizd/video/sm.mp4";
-    private static String path = "/home/weizd/video/sm.mp4_0";
+    private static String path = "/home/weizd/video/sm.mp4";
+//    private static String path = "/home/weizd/video/sm.mp4_0";
 
     private static String picFile = "/home/weizd/video/firstFrame1.jpg";
     private static String picFileTimestamp = "/home/weizd/video/firstFrame_timestamp.jpg";
 
     public static void main(String[] args) throws Exception{
+        String dllPath = "/home/weizd/Downloads/OpenCV_4_1_1/build/java/x86/opencv_java411.dll";
+
+        dllPath = "/soft/opencv/opencv-3.4.3/build/lib/libopencv_core.so.3.4.3";
+
+//        System.load(dllPath);
+
+
+        // System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+
+        System.out.println(Core.VERSION);
+
+        long start = System.currentTimeMillis();
+
+        OpenCVFrameGrabber openCVFrameGrabber = OpenCVFrameGrabber.createDefault(path);
+
+        openCVFrameGrabber.start();
+        Frame frame = null;
+        while (true){
+            frame = openCVFrameGrabber.grab();
+            if(null == frame){
+                break;
+            }
+        }
+        openCVFrameGrabber.stop();
+
+        log.info("take time is : 【{}】",System.currentTimeMillis() - start);
+
+
+
+
+
         File file = new File(path);
+        start = System.currentTimeMillis();
         testVideoProp(path);
-//        long start = System.currentTimeMillis();
 //        splitVideoByTime(file,30*60);
-//        log.info("take time is : 【{}】",System.currentTimeMillis() - start);
+        log.info("take time is : 【{}】",System.currentTimeMillis() - start);
 //         splitVideo(file,20);
         // splitVideoByTime(file,10);
 //        selectIndexFrame2Pic(path,1,new File(picFile));
@@ -52,13 +86,20 @@ public class VideoUtil {
 
         log.info("getLengthInVideoFrames() {}:",grabber.getLengthInVideoFrames());
         log.info("getLengthInFrames() {}:",grabber.getLengthInFrames());
+        log.info("getLengthInAudioFrames() {}:",grabber.getLengthInAudioFrames());
+        log.info("getLengthInTime() {}:",grabber.getLengthInTime());
 
         log.info("getVideoFrameRate() {}:",grabber.getVideoFrameRate());
         log.info("getFrameRate() {}:",grabber.getFrameRate());
 
         log.info("getAudioChannels() {}:",grabber.getAudioChannels());
-
-
+//        Frame frame = null;
+//        while (true){
+//            frame = grabber.grabImage();
+//            if(null == frame){
+//                break;
+//            }
+//        }
         grabber.close();
     }
 
