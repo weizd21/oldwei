@@ -35,21 +35,39 @@ public class OpencvApplication {
         System.out.println(Core.VERSION);
         long start = System.currentTimeMillis();
         VideoCapture videoCapture = new VideoCapture(file1);
+
+        int peerTime = 30*60;
+
         int height = (int)videoCapture.get(Videoio.CAP_PROP_FRAME_HEIGHT);
         int width = (int)videoCapture.get(Videoio.CAP_PROP_FRAME_WIDTH);
+        long frameNum = (long)videoCapture.get(Videoio.CAP_PROP_FRAME_COUNT);
+        log.info("frame num : [{}]",frameNum);
+
         double fps = videoCapture.get(Videoio.CAP_PROP_FPS);
-        VideoWriter videoWriter = new VideoWriter("/home/weizd/video/sm_opencv.mp4",VideoWriter.fourcc('D', 'I', 'V', 'X'),fps,new Size(width,height));
+        // 根据时间切分等分视频段
+        long videoNum = ((long)(frameNum/fps))%peerTime == 0 ? ((long)(frameNum/fps))/peerTime :((long)(frameNum/fps))/peerTime +1;
+
+        log.info("videoNum: [{}]",videoNum);
+        VideoWriter videoWriter;
         System.out.println(videoCapture.isOpened());
         Mat frame = new Mat();
+        long totalNum = 0;
+
+        videoCapture.set()
+
+//        int videoNum = 0;
 //        if(videoCapture.isOpened()) {
 //            while (true) {
 //                boolean res = videoCapture.read(frame);
-//                if (!res || null == frame) {
+//                if (!res) {
 //                    break;
 //                }
 //                videoWriter.write(frame);
 //            }
 //        }
+
+        videoCapture.release();
+        log.info("total num :[{}]",totalNum);
         log.info("opencv take time :【{} ms】",System.currentTimeMillis() - start);
     }
 
