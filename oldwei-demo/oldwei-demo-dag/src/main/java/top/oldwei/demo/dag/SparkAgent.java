@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import top.oldwei.demo.dag.domain.Dag;
 import top.oldwei.demo.dag.domain.Edge;
+import top.oldwei.demo.dag.domain.Parameter;
 import top.oldwei.demo.dag.domain.Vertice;
 
 import javax.sql.DataSource;
@@ -49,6 +50,17 @@ public class SparkAgent {
 
         for(Edge edge:dag.getEdges()){
             log.info("start :[{}] ,end :[{}]",edge.getStart(),edge.getEnd());
+        }
+
+
+        for(Vertice vertice:dag.getVertices()){
+            List<Parameter> parameters = vertice.getParameters();
+            if(parameters != null && parameters.size() > 0){
+                for (Parameter parameter:parameters){
+                    log.info("[{}] ---> [{}]",parameter.getValue(),Action.getParameterValue(parameter));
+                }
+            }
+
         }
 
 
