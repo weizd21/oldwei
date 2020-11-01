@@ -18,7 +18,7 @@ public class ExecutorPlan {
     private static Map<Long, Set<Long>> id2PreIds = Maps.newHashMap();
 
 
-    public static void init(@NotNull Dag dag){
+    private static void init(@NotNull Dag dag){
 
         for(Node node:dag.getNodes()){
             id2Node.put(node.getId(),node);
@@ -42,14 +42,16 @@ public class ExecutorPlan {
     }
 
 
-    public static void execute(){
+    public static void execute(Dag dag){
+        // 解析dag形成信息
+        init(dag);
+        //
         Node node = null;
         while (!zeroInputQueue.isEmpty()){
             node = zeroInputQueue.poll();
-            log.info("----> node :[{}]",node.getName());
+            log.info("----> node :[{}]--[{}]",node.getId(),node.getName());
             for(Node node1:id2Node.values()){
                 if(id2PreIds.get(node1.getId()).contains(node.getId())){
-                    //
                     id2PreIds.get(node1.getId()).remove(node.getId());
                     if(id2PreIds.get(node1.getId()).size() <= 0){
                         zeroInputQueue.add(node1);
@@ -58,6 +60,9 @@ public class ExecutorPlan {
             }
         }
     }
+
+
+
 
 
 

@@ -10,11 +10,9 @@ public class Test {
     public static void main(String[] args) {
 
 
-        Dag dag = JSONObject.parseObject(str,Dag.class);
+        Dag dag = JSONObject.parseObject(dagStr,Dag.class);
 
-        ExecutorPlan.init(dag);
-
-        ExecutorPlan.execute();
+        ExecutorPlan.execute(dag);
 
     }
 
