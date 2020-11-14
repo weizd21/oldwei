@@ -1,6 +1,8 @@
 package top.oldwei.demo.bigfile.controller;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.SystemClock;
+import cn.hutool.core.util.IdUtil;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +15,7 @@ import top.oldwei.demo.bigfile.dto.FileUploadDTO;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,7 +119,7 @@ public class UploadController {
         try {
             InputStream inputStream = file.getInputStream();
 
-            File target = new File("/Users/weizd/test/upload/"+file.getOriginalFilename());
+            File target = new File("/Users/weizd/test/upload/"+ SystemClock.nowDate().replace(" ","")+"-" +file.getOriginalFilename());
             if(!target.exists()){
                 target.createNewFile();
             }

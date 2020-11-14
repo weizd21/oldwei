@@ -33,7 +33,7 @@ public class FileUtil {
         File file = new File(filePath);
         String baseString = "usd-business-xxxxxxxxxxxxxxxxxxx-";
         StringBuffer sb = new StringBuffer();
-        for(int i=0;i<1500000;i++){
+        for(int i=1;i<=1500000;i++){
             sb.append(baseString);
             sb.append(i);
             if(i!=1500000){
