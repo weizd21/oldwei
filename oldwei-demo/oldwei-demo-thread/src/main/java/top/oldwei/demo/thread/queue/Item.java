@@ -14,10 +14,6 @@ public class Item implements Serializable {
 
     private byte[] bytes;
 
-
-
-
-
-
+    private int num;
 
 }
