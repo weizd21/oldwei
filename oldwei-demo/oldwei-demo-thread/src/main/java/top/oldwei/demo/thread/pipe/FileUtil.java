@@ -18,13 +18,16 @@ public class FileUtil {
         String filePath = "/home/weizd/usd.txt";
         String filePath2 = "/home/weizd/usd2.txt";
 
-        filePath = "/Users/weizd/test/data/usd.txt";
+//        filePath = "/Users/weizd/test/data/usd.txt";
 
         long startTime = System.currentTimeMillis();
         writeFile(filePath);
 //        writeFile2(filePath2);
-//        readFile(filePath2);
-        System.out.println((System.currentTimeMillis() - startTime)/1000 + " s");
+//        List<String> res = readFile(filePath);
+//        System.out.println((System.currentTimeMillis() - startTime)/1000.0 + " s");
+//        startTime = System.currentTimeMillis();
+//        System.out.println(res.indexOf("usd-business-xxxxxxxxxxxxxxxxxxx-1111111"));
+//        System.out.println((System.currentTimeMillis() - startTime)/1000.0 + " s");
 
     }
 
@@ -59,9 +62,9 @@ public class FileUtil {
     }
 
 
-    public static void readFile(String filePath) throws Exception{
+    public static List<String> readFile(String filePath) throws Exception{
 
-        Set<String> strings = new HashSet<>();
+        List<String> strings = new ArrayList<>();
 
         File file = new File(filePath);
 
@@ -115,6 +118,7 @@ public class FileUtil {
 //            cyclicBarrier.await();//测试性能用
         System.out.println(strings.size());
 
+        return strings;
     }
 
 
