@@ -1,0 +1,43 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: ${deploymentName}
+  namespace: ${namespace}
+spec:
+  annotations:
+    seldon.io/executor: "true"
+  name: spec-${deploymentName}
+  predictors:
+  - componentSpecs:
+    - hpaSpec:
+        maxReplicas: ${maxReplicas}
+        metrics:
+        - resource:
+            name: cpu
+            targetAverageUtilization: ${cpuAverageUtilization}
+          type: Resource
+        - resource:
+            name: memory
+            targetAverageUtilization: ${memoryAverageUtilization}
+          type: Resource
+        minReplicas: ${minReplicas}
+      spec:
+        containers:
+        - name: classifier
+          resources:
+            requests:
+              memory: ${requestMemory}Mi
+              cpu: ${requestCpu}m
+            limits:
+              memory: ${limitMemory}Mi
+              cpu: ${limitCpu}m
+    graph:
+      children: []
+      implementation: ${runtime}
+      endpoint:
+        type: ${apiType}
+      modelUri: ${modelUri}
+      envSecretRefName: seldon-init-container-secret
+      name: classifier
+    name: default
+    replicas: ${minReplicas}

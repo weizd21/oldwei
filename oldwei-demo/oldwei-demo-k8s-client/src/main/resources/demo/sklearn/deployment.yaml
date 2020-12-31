@@ -1,0 +1,32 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: iris-model
+spec:
+  annotations:
+    seldon.io/executor: "true"
+  name: iris
+  predictors:
+  - componentSpecs:
+    - hpaSpec:
+        maxReplicas: 5
+        metrics:
+        - resource:
+            name: cpu
+            targetAverageUtilization: 5
+          type: Resource
+        minReplicas: 1  
+      spec:
+        containers:
+        - name: classifier
+          resources:
+            requests:
+              memory: 50Mi
+    graph:
+      children: []
+      implementation: SKLEARN_SERVER
+      modelUri: s3://models
+      envSecretRefName: seldon-init-container-secret
+      name: classifier
+    name: default
+    replicas: 1

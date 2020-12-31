@@ -1,0 +1,18 @@
+train:
+	python train_iris.py
+
+upload:
+	python upload.py
+
+apply:
+	kubectl apply -f deployment.yaml
+
+delete:
+	kubectl delete -f deployment.yaml
+
+test:
+	curl -i -H "Content-Type: application/json" -X POST -d '{"data":{"ndarray":[[5.964, 4.006, 2.081, 1.031]]}}' "http://152.136.218.90:31380/seldon/default/iris-model/api/v1.0/predictions"
+
+istio:
+	curl -i -H "Content-Type: application/json" -X POST -d '{"data":{"ndarray":[[5.964, 4.006, 2.081, 1.031]]}}' "http://152.136.218.90:31379/seldon/default/iris-model/api/v1.0/predictions"
+	
