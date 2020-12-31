@@ -5,6 +5,8 @@ import cn.hutool.core.date.SystemClock;
 import cn.hutool.core.util.IdUtil;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,26 +122,43 @@ public class UploadController {
             InputStream inputStream = file.getInputStream();
 
             File target = new File("/Users/weizd/test/upload/"+ SystemClock.nowDate().replace(" ","")+"-" +file.getOriginalFilename());
+            if(!target.getParentFile().exists()){
+                target.getParentFile().mkdirs();
+            }
             if(!target.exists()){
                 target.createNewFile();
             }
             FileOutputStream fileOutputStream = new FileOutputStream(target);
+            // FileCopyUtils.copy(inputStream,fileOutputStream);
             byte[] bytes = new byte[1024];
             int length;
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             Integer total = 0;
             while ((length = inputStream.read(bytes)) != -1){
-                fileOutputStream.write(bytes);
+                fileOutputStream.write(bytes,0,length);
                 for(int i=0;i<length;i++){
+                    byte tmp = bytes[i];
+                    if(tmp == '\t' || tmp == '\n' || tmp == '\r'){
+                        continue;
+                    }
                     bos.write(bytes[i]);
                     if(bos.toString().contains("|@|")){
-                        total++;
+                        String bs[] = bos.toString().split("\\|\\@\\|");
+                        if(bs.length > 0){
+                            if(!StringUtils.isEmpty(bs[0].trim())){
+                                total++;
+                            }
+                        }
                         bos.reset();
                     }
                 }
             }
+            if(bos.size() > 0){
+                total++;
+                bos.reset();
+            }
+            fileOutputStream.flush();
             log.info("take time is : {}",SystemClock.now() - start);
-
             fileOutputStream.close();
             inputStream.close();
             result.put("total",total.toString());
