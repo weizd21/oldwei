@@ -33,34 +33,35 @@ public class AllInfo {
         KubernetesClient client = GetClient.getClientWithToken(null,null);
 
 
-        List<String> apiPath = Lists.newArrayList();
-
-//        apiPath.addAll(client.apps().rootPaths().getPaths());
-        apiPath.addAll(client.rootPaths().getPaths());
 
 
 
-        log.info("rootPath : [{}]",client.apps().rootPaths().getPaths());
+//        List<String> apiPath = Lists.newArrayList();
+//
+////        apiPath.addAll(client.apps().rootPaths().getPaths());
+//        apiPath.addAll(client.rootPaths().getPaths());
+//
+//        log.info("rootPath : [{}]",client.apps().rootPaths().getPaths());
+//
+//        client.resourceQuotas().list().getItems().forEach(resourceQuota -> {
+//            log.info("{}",resourceQuota);
+//        });
 
-        client.resourceQuotas().list().getItems().forEach(resourceQuota -> {
-            log.info("{}",resourceQuota);
-        });
+//        clusterInfo(client);
 
-        clusterInfo(client);
-
-        nodeInfo(client);
-        podInfo(client);
-        namespaceInfo(client);
-        ingressInfo(client);
-        persistentVolumeInfo(client);
+//        nodeInfo(client);
+//        podInfo(client);
+//        namespaceInfo(client);
+//        ingressInfo(client);
+//        persistentVolumeInfo(client);
         deploymentInfo(client);
-        statefulSetInfo(client);
-        jobInfo(client);
-        daemonSetInfo(client);
-        serviceInfo(client);
-
-        replicaSetInfo(client);
-        replicaControllerInfo(client);
+//        statefulSetInfo(client);
+//        jobInfo(client);
+//        daemonSetInfo(client);
+//        serviceInfo(client);
+//
+//        replicaSetInfo(client);
+//        replicaControllerInfo(client);
         log.info("get all info take :[{} ms]",System.currentTimeMillis() - start);
     }
 
@@ -117,11 +118,12 @@ public class AllInfo {
 
         log.info("totalNodeUseMemory :[{}]",totalNodeUseMemory);
         log.info("totalNodeUseCpu :[{}]",totalNodeUseCpu);
+
     }
 
     public static void podInfo(KubernetesClient client){
         Integer totalUsePod = 0;
-        PodList podList = client.pods().list();
+        PodList podList = client.pods().inAnyNamespace().list();
         for(Pod pod:podList.getItems()){
 //            log.info("pod :{}",pod);
             totalUsePod++;
@@ -153,6 +155,8 @@ public class AllInfo {
 
     public static void ingressInfo(KubernetesClient client){
         log.info("ingress size: [{}]", client.network().ingresses().list().getItems().size());
+        log.info("ingress size: [{}]", client.network().ingress().inAnyNamespace().list().getItems().size());
+
     }
     public static void persistentVolumeInfo(KubernetesClient client){
         log.info("persistentVolume size: [{}]", client.persistentVolumes().list().getItems().size());
@@ -163,11 +167,19 @@ public class AllInfo {
 
         Integer replicas = 0;
 
+
+
         for(Deployment deployment:client.apps().deployments().list().getItems()){
 //            log.info("{}",deployment);
 
-            replicas = replicas + deployment.getSpec().getReplicas();
 
+            if(deployment.getMetadata().getName().startsWith("model-deploy")){
+                log.info("{}",deployment.getStatus());
+            }
+
+
+
+            replicas = replicas + deployment.getSpec().getReplicas();
             List<Container> containers = deployment.getSpec().getTemplate().getSpec().getContainers();
             for(Container container:containers){
                 Map<String,Quantity> limits = container.getResources().getLimits();
