@@ -19,4 +19,6 @@ eureka:
   server:
     enable-self-preservation: false #关闭保护模式
 
-
+management:
+  endpoints:
+    enabled-by-default: false

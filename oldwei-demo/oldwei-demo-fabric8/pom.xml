@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--    <parent>-->
+<!--        <artifactId>oldwei-dependencies</artifactId>-->
+<!--        <groupId>top.oldwei</groupId>-->
+<!--        <version>1.0-SNAPSHOT</version>-->
+<!--        <relativePath>../../oldwei-dependencies/pom.xml</relativePath>-->
+<!--    </parent>-->
+
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.5.4</version>
+        <relativePath></relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <groupId>top.oldwei</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <artifactId>oldwei-demo-fabric8</artifactId>
+
+
+
+    <properties>
+        <fabric8.version>5.12.1</fabric8.version>
+        <hutool.version>4.6.2</hutool.version>
+        <guava.version>28.0-jre</guava.version>
+        <lombok.version>1.18.10</lombok.version>
+    </properties>
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.fabric8/istio-client -->
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>istio-client</artifactId>
+            <version>${fabric8.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>

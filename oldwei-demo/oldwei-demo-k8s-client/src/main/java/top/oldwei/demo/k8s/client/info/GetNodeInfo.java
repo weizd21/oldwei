@@ -1,6 +1,8 @@
 package top.oldwei.demo.k8s.client.info;
 
 import io.fabric8.kubernetes.api.model.NodeList;
+import io.fabric8.kubernetes.api.model.Secret;
+import io.fabric8.kubernetes.api.model.SecretBuilder;
 import io.fabric8.kubernetes.api.model.metrics.v1beta1.NodeMetricsList;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class GetNodeInfo {
             log.info("{}",node);
         });
         log.info("node size: [{}]",nodeList.getItems().size());
+
 
 
     }

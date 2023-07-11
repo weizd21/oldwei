@@ -4,8 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>../oldwei-demo/oldwei-demo-k8s-client</module>
-        <module>oldwei-demo-docker</module>
+        <module>../oldwei-demo/oldwei-demo-fabric8</module>
     </modules>
 
     <parent>
@@ -174,7 +173,7 @@
         <qiniu-java-sdk>7.2.18</qiniu-java-sdk>
         <j2cache.version>2.8.0-release</j2cache.version>
         <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
-
+        <poi.version>4.1.2</poi.version>
 
         <elasticsearch.version>3.2.3.RELEASE</elasticsearch.version>
         <dubbo.version>2.7.5</dubbo.version>
@@ -606,6 +605,13 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

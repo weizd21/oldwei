@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: vs-test-1
+  namespace: test
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - istio-system/seldon-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /api/v1
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            port:
+              number: 8080
+            host: default
+

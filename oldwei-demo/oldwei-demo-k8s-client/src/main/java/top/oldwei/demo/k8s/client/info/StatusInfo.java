@@ -35,9 +35,10 @@ public class StatusInfo {
 
 
 
-        client.settings().podPresets().list().getItems().forEach(podPreset -> {
-            log.info("{}",podPreset);
-        });
+
+//        client.settings().podPresets().list().getItems().forEach(podPreset -> {
+//            log.info("{}",podPreset);
+//        });
 
         client.services();
 

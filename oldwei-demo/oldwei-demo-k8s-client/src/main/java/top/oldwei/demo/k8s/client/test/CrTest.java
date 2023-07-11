@@ -33,6 +33,15 @@ public class CrTest {
      *
      */
 
+    public static CustomResourceDefinitionContext vsContext = new CustomResourceDefinitionContext.Builder()
+            .withGroup("networking.istio.io")
+            .withPlural("virtualservices")
+            .withScope("Namespaced")
+//            .withVersion("v1alpha3")
+            .withVersion("v1beta1")
+            .withName("virtualservices.networking.istio.io")
+            .build();
+
 
 
     public static void main(String[] args) throws Exception{
@@ -53,11 +62,21 @@ public class CrTest {
         namespace = "weizd";
 
 
-        createByYaml(client,crdContext,namespace);
+
+        list(client,vsContext,"default");
+
+        Map<String,Object> vs = client.customResource(vsContext).load(CrTest.class.getResourceAsStream("/VirtualService.yaml"));
+
+        log.info("yaml: {}",vs);
+
+        client.customResource(vsContext).create("test",vs);
+
+
+//        createByYaml(client,crdContext,namespace);
 
 //        createByObject(client,crdContext,namespace);
 
-        list(client,crdContext,namespace);
+//        list(client,crdContext,namespace);
     }
 
 

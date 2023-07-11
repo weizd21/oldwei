@@ -4,8 +4,6 @@ import io.fabric8.kubernetes.client.KubernetesClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import top.oldwei.demo.k8s.client.test.ConnectTest;
-import top.oldwei.demo.k8s.client.test.GetClient;
 
 /**
  * @description:
@@ -23,8 +21,8 @@ public class K8sClientApplication {
 
         log.info("1------------------------------------");
         try {
-            KubernetesClient client = GetClient.getClientWithConfig(null);
-            log.info("namespace size: [{}]",client.namespaces().list().getItems().size());
+//            KubernetesClient client = ;
+//            log.info("namespace size: [{}]",client.namespaces().list().getItems().size());
 
         } catch (Exception e) {
             e.printStackTrace();

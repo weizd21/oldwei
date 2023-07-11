@@ -48,14 +48,14 @@ public class CrdTest {
 
     public static void load(KubernetesClient client){
         log.info("Listing all current Custom Resource Definitions :");
-        CustomResourceDefinitionList crdList = client.customResourceDefinitions().list();
-        List<CustomResourceDefinition> crdsItems = crdList.getItems();
-        log.info("Found CRD(s) num: [{}]",crdsItems.size());
-        crdsItems.forEach(crd -> {
-            if(crd.getMetadata().getName().contains("seldon")){
-                log.info("name: [{}], selfLink: [{}]",crd.getMetadata().getName(),crd.getMetadata().getSelfLink());
-            }
-        });
+//        CustomResourceDefinitionList crdList = client.customResourceDefinitions().list();
+//        List<CustomResourceDefinition> crdsItems = crdList.getItems();
+//        log.info("Found CRD(s) num: [{}]",crdsItems.size());
+//        crdsItems.forEach(crd -> {
+//            if(crd.getMetadata().getName().contains("seldon")){
+//                log.info("name: [{}], selfLink: [{}]",crd.getMetadata().getName(),crd.getMetadata().getSelfLink());
+//            }
+//        });
 
 //        // Creating a custom resource from yaml
 //        CustomResourceDefinition aCustomResourceDefinition = client.customResourceDefinitions().load(CrdTest.class.getResourceAsStream("/demo/crd.yml")).get();

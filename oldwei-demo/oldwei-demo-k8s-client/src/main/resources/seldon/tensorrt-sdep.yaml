@@ -1,0 +1,83 @@
+---
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: iris-demo
+  namespace: weizd
+spec:
+  name: iris-demo
+  predictors:
+  - annotations:
+      seldon.io/no-engine: "true"
+    componentSpecs:
+    - spec:
+        metadata:
+          name: iris-demo
+        containers:
+        - name: iris-demo
+          image: ghcr.io/kleveross/tritonserver:v0.2.0
+          ports:
+          - name: http
+            protocol: TCP
+            containerPort: 8000
+          - name: grpc
+            protocol: TCP
+            containerPort: 8001
+          imagePullPolicy: Always
+          env:
+          - name: MODEL_STORE
+            value: /mnt
+          - name: SERVING_NAME
+            value: models
+          volumeMounts:
+          - name: models-mnt
+            mountPath: /mnt/models
+          readinessProbe:
+            failureThreshold: 30
+            timeoutSeconds: 5
+            httpGet:
+              path: /api/status/models
+              scheme: HTTP
+              port: 8000
+          livenessProbe:
+            failureThreshold: 30
+            timeoutSeconds: 5
+            httpGet:
+              path: /api/status/models
+              scheme: HTTP
+              port: 8000
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
+        initContainers:
+        - name: model-initializer
+          args: ["", "/mnt/models"]
+          image: 10.10.10.15:8888/gcr.io/kfserving/storage-initializer:v6.6.6
+          imagePullPolicy: Always
+          env:
+          - name: AWS_ACCESS_KEY_ID
+            value: admin
+          - name: AWS_SECRET_ACCESS_KEY
+            value:
+          - name: ROOTPATH
+            value: /mnt
+          volumeMounts:
+          - name: models-mnt
+            mountPath: /mnt/models
+        securityContext:
+          privileged: true
+          runAsUser: 0
+        volumes:
+        - name: models-mnt
+          emptyDir: {}
+    graph:
+      name: iris-demo
+      children: []
+      modelUri: harbor-harbor-core.kleveross-system/release/ol-classify:v1
+      serviceAccountName: default
+    name: iris-demo
+    replicas: 1

@@ -19,39 +19,39 @@ public class WatchTest {
     public static void main(String[] args) {
 
         KubernetesClient client;
-
-        try {
-            client = GetClient.getClientWithConfig(null);
-
-            client.pods().watch(new Watcher<Pod>() {
-                @Override
-                public void eventReceived(Action action, Pod pod) {
-//                    log.info("event received action :[{}],resource: [{}]",action.name(),pod.getMetadata());
-                    log.info("1-------------->");
-                }
-
-                @Override
-                public void onClose(KubernetesClientException e) {
-//                    log.info("resource close: [{}]",e);
-
-                }
-            });
-
-            log.info("===========================分割线==========================");
-
-            client.namespaces().watch(new Watcher<Namespace>() {
-                @Override
-                public void eventReceived(Action action, Namespace namespace) {
-//                    log.info("namespace: [{}]",namespace.getMetadata());
-                    log.info("2-------------->");
-                }
-
-                @Override
-                public void onClose(KubernetesClientException e) {
-//                    log.info("close namespace watch: [{}]",e);
-                }
-            });
-
+//
+//        try {
+//            client = GetClient.getClientWithConfig(null);
+//
+//            client.pods().watch(new Watcher<Pod>() {
+//                @Override
+//                public void eventReceived(Action action, Pod pod) {
+////                    log.info("event received action :[{}],resource: [{}]",action.name(),pod.getMetadata());
+//                    log.info("1-------------->");
+//                }
+//
+//                @Override
+//                public void onClose(KubernetesClientException e) {
+////                    log.info("resource close: [{}]",e);
+//
+//                }
+//            });
+//
+//            log.info("===========================分割线==========================");
+//
+//            client.namespaces().watch(new Watcher<Namespace>() {
+//                @Override
+//                public void eventReceived(Action action, Namespace namespace) {
+////                    log.info("namespace: [{}]",namespace.getMetadata());
+//                    log.info("2-------------->");
+//                }
+//
+//                @Override
+//                public void onClose(KubernetesClientException e) {
+////                    log.info("close namespace watch: [{}]",e);
+//                }
+//            });
+//
 
 
 //            client.events().inAnyNamespace().watch(new Watcher<Event>() {
@@ -67,10 +67,10 @@ public class WatchTest {
 //                }
 //
 //            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         log.info("end --------------------------------- ");
 
